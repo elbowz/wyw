@@ -1,0 +1,70 @@
+version: '3.7'
+
+services:
+  tomcat:
+    container_name: sose-tomcat
+    image: tomcat:jdk8
+    depends_on:
+      - db
+    restart: unless-stopped
+    ports:
+      - "4000:8080"
+      - "8000:8000"
+    entrypoint: /usr/local/tomcat/bin/catalina.sh jpda run
+    volumes:
+      # Difference?! exploded seems more speedy
+      #- ./target/pollweb.war:/usr/local/tomcat/webapps/sose-1920.war
+      - ./target/sose-1920:/usr/local/tomcat/webapps/sose
+    environment:
+      JPDA_ADDRESS: 8000
+      JPDA_TRANSPORT: dt_socket
+      # env parameters for java app (not used for now)
+      #JDBC_URL: jdbc:mysql://mariadb:3306/sosedb?connectTimeout=0&amp;socketTimeout=0&amp;autoReconnect=true
+      #JDBC_USER: sose
+      #JDBC_PASS: sose
+    networks:
+      - sose
+
+  db:
+    container_name: sose-mariadb
+    image: mariadb:10.5.1
+    restart: unless-stopped
+#    ports:
+#      - "3307:3306"
+    volumes:
+      # only naming/label volume ("docker-compose down -v" to erase)
+      - db-data:/var/lib/mysql
+      # executing only on create container (first "docker-compose up")
+      - ./docker/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: sose
+      # or set more detailed access policy in docker/db-init.sql
+      MYSQL_DATABASE: sosedb
+      MYSQL_USER: sose
+      MYSQL_PASSWORD: sose
+    networks:
+      sose:
+        aliases:
+          - mariadb
+
+  adminer:
+    #build: './docker/disabled'
+    container_name: sose-adminer
+    image: adminer:4.7.6
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      # https://www.adminer.org/en/plugins/
+      ADMINER_PLUGINS: 'file-upload tinymce'
+      ADMINER_DEFAULT_SERVER: 'mariadb'
+    ports:
+      - "5000:8080"
+    networks:
+      - sose
+
+networks:
+  sose:
+
+volumes:
+  db-data:

@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+cxf:
+  path: /
+
+spring:
+  datasource:
+    url: jdbc:mariadb://mariadb:3306/sosedb
+    password: sose
+    username: sose
+    driver-class-name: "org.mariadb.jdbc.Driver"
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
