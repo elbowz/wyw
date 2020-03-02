@@ -13,7 +13,8 @@ Temporary skeleton for a microservice architecture, composed by:
 ## Typically development flow
 
 * Start containers: `docker-compose up (-d)`
-* Build and deploy: `mvn package`
+    * or use `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up` for the development mode (eg. JPDA)
+* Build and deploy: `mvn package` (tomacat auto-reload the new war)
 
 > **note:** add needed dependencies to `pom.xml` or other change
 
