@@ -3,8 +3,13 @@ version: '3.7'
 services:
   tomcat:
     ports:
+      # TODO: I think we have to use "expose" when multi microservices running
       - "8000:8000"
     environment:
       JPDA_ADDRESS: 8000
       JPDA_TRANSPORT: dt_socket
     entrypoint: /usr/local/tomcat/bin/catalina.sh jpda run
+
+  db:
+    expose:
+      - "3306"

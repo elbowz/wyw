@@ -7,12 +7,13 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    # TODO: I think we have to use "expose" when multi microservices running
     ports:
       - "4000:8080"
     volumes:
       # Difference?! exploded seems more speedy
       #- ./target/pollweb.war:/usr/local/tomcat/webapps/sose-1920.war
-      - ./target/sose-1920:/usr/local/tomcat/webapps/sose
+      - ./microservices/person/target/sose:/usr/local/tomcat/webapps/sose
     #environment:
       # env parameters for java app (not used for now)
       #JDBC_URL: jdbc:mysql://mariadb:3306/sosedb?connectTimeout=0&amp;socketTimeout=0&amp;autoReconnect=true
@@ -25,13 +26,11 @@ services:
     container_name: sose-mariadb
     image: mariadb:10.5.1
     restart: unless-stopped
-#    ports:
-#      - "3307:3306"
     volumes:
       # only naming/label volume ("docker-compose down -v" to erase)
       - db-data:/var/lib/mysql
       # executing only on create container (first "docker-compose up")
-      - ./docker/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
+      - ./microservices/person/docker/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
     environment:
       MYSQL_ROOT_PASSWORD: sose
       # or set more detailed access policy in docker/db-init.sql
@@ -44,7 +43,7 @@ services:
           - mariadb
 
   adminer:
-    #build: './docker/disabled'
+    #build: './utils/docker-disable'
     container_name: sose-adminer
     image: adminer:4.7.6
     restart: unless-stopped
