@@ -35,7 +35,7 @@ CREATE TABLE `film` (
 
 LOCK TABLES `film` WRITE;
 /*!40000 ALTER TABLE `film` DISABLE KEYS */;
-INSERT INTO `article` (`id`, `title`, `plot`) VALUES (1, 'Alien','Sangue, xenomorfi e azione'),(2,'Terminator 2','Robot, azione e Swarzy');
+INSERT INTO `film` (`id`, `title`, `plot`) VALUES (1, 'Alien','Sangue, xenomorfi e azione'),(2,'Terminator 2','Robot, azione e Swarzy');
 /*!40000 ALTER TABLE `film` ENABLE KEYS */;
 UNLOCK TABLES;
 
