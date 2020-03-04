@@ -6,7 +6,7 @@ cxf:
 
 spring:
   datasource:
-    url: jdbc:mariadb://mariadb:3306/sosedb
+    url: jdbc:mariadb://person-db:3306/sosedb
     password: sose
     username: sose
     driver-class-name: "org.mariadb.jdbc.Driver"

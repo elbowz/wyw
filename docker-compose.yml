@@ -1,54 +1,63 @@
 version: '3.7'
 
-services:
-  tomcat:
-    container_name: sose-tomcat
-    image: tomcat:jdk8
-    depends_on:
-      - db
-    restart: unless-stopped
-    # TODO: I think we have to use "expose" when multi microservices running
-    ports:
-      - "4000:8080"
-    volumes:
-      # Difference?! exploded seems more speedy
-      #- ./target/pollweb.war:/usr/local/tomcat/webapps/sose-1920.war
-      - ./microservices/person/target/sose:/usr/local/tomcat/webapps/sose
-    #environment:
-      # env parameters for java app (not used for now)
-      #JDBC_URL: jdbc:mysql://mariadb:3306/sosedb?connectTimeout=0&amp;socketTimeout=0&amp;autoReconnect=true
-      #JDBC_USER: sose
-      #JDBC_PASS: sose
-    networks:
-      - sose
+## BASE MICROSERVICE
+x-tomcat: &tomcat
+  image: tomcat:jdk8
+  depends_on:
+    - db
+  restart: unless-stopped
+  ports:
+    - "4000-4100:8080"
+#  volumes:
+#    # difference?! exploded seems more speedy
+#    - ./target/pollweb.war:/usr/local/tomcat/webapps/sose-1920.war
+#    - ./microservices/person/target/sose:/usr/local/tomcat/webapps/sose
+#  environment:
+#    # env parameters for java app (not used for now)
+#    JDBC_URL: jdbc:mysql://mariadb:3306/sosedb?connectTimeout=0&amp;socketTimeout=0&amp;autoReconnect=true
+#    JDBC_USER: sose
+#    JDBC_PASS: sose
 
-  db:
-    container_name: sose-mariadb
-    image: mariadb:10.5.1
-    restart: unless-stopped
+x-mariadb: &mariadb
+  image: mariadb:10.5.1
+  restart: unless-stopped
+  environment:
+    MYSQL_ROOT_PASSWORD: sose
+    # or set more detailed access policy in docker/db-init.sql
+    MYSQL_DATABASE: sosedb
+    MYSQL_USER: sose
+    MYSQL_PASSWORD: sose
+
+## SERVICES DEFINITION
+services:
+
+  # PERSON MS (inherit from base microservice)
+  person-ws:
+    <<: *tomcat
+    depends_on:
+      - person-db
+    volumes:
+      - ./microservices/person/target/sose:/usr/local/tomcat/webapps/sose
+    networks:
+      - person
+
+  person-db:
+    <<: *mariadb
     volumes:
       # only naming/label volume ("docker-compose down -v" to erase)
-      - db-data:/var/lib/mysql
+      - person-db-data:/var/lib/mysql
       # executing only on create container (first "docker-compose up")
       - ./microservices/person/docker/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
-    environment:
-      MYSQL_ROOT_PASSWORD: sose
-      # or set more detailed access policy in docker/db-init.sql
-      MYSQL_DATABASE: sosedb
-      MYSQL_USER: sose
-      MYSQL_PASSWORD: sose
     networks:
-      sose:
-        aliases:
-          - mariadb
+      - person
+
 
   adminer:
+    # use for disable any service
     #build: './utils/docker-disable'
     container_name: sose-adminer
     image: adminer:4.7.6
     restart: unless-stopped
-    depends_on:
-      - db
     environment:
       # https://www.adminer.org/en/plugins/
       ADMINER_PLUGINS: 'file-upload tinymce'
@@ -56,10 +65,11 @@ services:
     ports:
       - "5000:8080"
     networks:
-      - sose
+      - person
+
 
 networks:
-  sose:
+  person:
 
 volumes:
-  db-data:
+  person-db-data:
