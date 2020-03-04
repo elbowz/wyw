@@ -100,6 +100,7 @@
 
     <build>
         <finalName>sose</finalName>
+        <sourceDirectory>${src.dir}/java</sourceDirectory>
         <plugins>
             <!-- cxf-codegen-plugin -->
 <!--            <plugin>-->
@@ -130,6 +131,17 @@
                 <version>2.6</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat-maven-plugin -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <version>2.2</version>
+
+                <configuration>
+                    <contextFile>${src.dir}/META-INF/context.xml</contextFile>
                 </configuration>
             </plugin>
         </plugins>
