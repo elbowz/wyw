@@ -9,6 +9,8 @@ Temporary skeleton for a microservice architecture, composed by:
 * **Adminer:** http://localhost:5000/
 
 > **note:** see `docker-compose.yml` for more information
+>
+> **note:** Tomcat port change between `4000-4100`, use `docker ps` to spot it 
 
 ## Typically development flow
 
@@ -19,13 +21,15 @@ Temporary skeleton for a microservice architecture, composed by:
 * Development (eg. JPDA):  
     `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up`
 
-### Build and Deploy:
+### Build and Deploy
 
 * Whole project:   
     `mvn package` from the project root
 * Single microservices:  
     * `mvn -pl microservices/person package` or 
     * `cd microservices/<name> && mvn package`
+
+> **note**: tomacat auto-reload the new war...if doesn't happen restart it  
     
 ### Container scaling
  * Scale on start:  
@@ -34,8 +38,10 @@ Temporary skeleton for a microservice architecture, composed by:
     `docker-compose up`   
     `docker-compose scale person-ws=3`
 
-> **note**: tomacat auto-reload the new war...if not restart it  
-> **note:** add needed dependencies to the root `pom.xml` or the children ones
+## Notes
+
+Add needed dependencies to the root `pom.xml` or the children ones.
+Create needed services/networks to the `docker-compose.yml`.
 
 ## Development Guidelines
 

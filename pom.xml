@@ -8,7 +8,7 @@
     <artifactId>sose-1920</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>sose-1920</name>
+    <name>SOSE 1920</name>
     <url>http://localhost:4000/sose/</url>
 
     <developers>
@@ -26,64 +26,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!-- change default path source (default is src/main) TODO: strip out :) -->
         <src.dir>src/main</src.dir>
         <cxf.version>3.3.5</cxf.version>
+        <mariadb.version>2.5.4</mariadb.version>
         <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
+        <spring.cloud.eureka.version>2.2.1.RELEASE</spring.cloud.eureka.version>
     </properties>
 
     <modules>
-        <module>microservices/person</module>
+        <module>microservices</module>
     </modules>
-
-    <dependencies>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-spring-boot-starter-jaxws -->
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
-            <version>${cxf.version}</version>
-            <exclusions><!-- CXF uses java.util.logging by default -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web-services -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web-services</artifactId>
-            <version>${spring.boot.version}</version>
-            <!-- TODO: why and/or do we need? -->
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.boot.version}</version>
-            <!-- TODO: why and/or do we need? -->
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>2.5.4</version>
-        </dependency>
-
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -98,43 +50,37 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-features-logging</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>sose</finalName>
         <sourceDirectory>${src.dir}/java</sourceDirectory>
         <plugins>
-            <!-- cxf-codegen-plugin -->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.cxf</groupId>-->
-<!--                <artifactId>cxf-codegen-plugin</artifactId>-->
-<!--                <version>${cxf.version}</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>generate-sources</id>-->
-<!--                        <phase>generate-sources</phase>-->
-<!--                        <configuration>-->
-<!--                            <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>-->
-<!--                            <wsdlOptions>-->
-<!--                                <wsdlOption>-->
-<!--                                    <wsdl>${project.basedir}/src/main/resources/wsdl/person.wsdl</wsdl>-->
-<!--                                    <wsdlLocation>classpath:wsdl/person.wsdl</wsdlLocation>-->
-<!--                                </wsdlOption>-->
-<!--                            </wsdlOptions>-->
-<!--                        </configuration>-->
-<!--                        <goals>-->
-<!--                            <goal>wsdl2java</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
 
-            <!-- https://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat-maven-plugin -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat-maven-plugin</artifactId>
