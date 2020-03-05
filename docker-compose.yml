@@ -3,8 +3,6 @@ version: '3.7'
 ## BASE MICROSERVICE
 x-tomcat: &tomcat
   image: tomcat:jdk8
-  depends_on:
-    - db
   restart: unless-stopped
   ports:
     - "4000-4100:8080"
@@ -39,6 +37,7 @@ services:
     volumes:
       - ./microservices/person/target/sose:/usr/local/tomcat/webapps/sose
     networks:
+      - microservices
       - person
 
   person-db:
@@ -52,6 +51,19 @@ services:
       - person
 
 
+  eureka-registry:
+    <<: *tomcat
+    ports:
+      - "8761:8080"
+    volumes:
+      - ./microservices/eureka-registry/target/sose:/usr/local/tomcat/webapps/sose
+    environment:
+      HOSTNAME: 'eureka-registry'
+      PORT: '8080'
+    networks:
+      - microservices
+      - person
+
   adminer:
     # use for disable any service
     #build: './utils/docker-disable'
@@ -61,7 +73,7 @@ services:
     environment:
       # https://www.adminer.org/en/plugins/
       ADMINER_PLUGINS: 'file-upload tinymce'
-      ADMINER_DEFAULT_SERVER: 'mariadb'
+      ADMINER_DEFAULT_SERVER: 'person-db'
     ports:
       - "5000:8080"
     networks:
@@ -70,6 +82,7 @@ services:
 
 networks:
   person:
+  microservices:
 
 volumes:
   person-db-data:
