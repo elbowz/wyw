@@ -20,6 +20,7 @@
 
     <modules>
         <module>person</module>
+        <module>hello-rest</module>
         <module>eureka-registry</module>
     </modules>
 
@@ -36,19 +37,12 @@
             <version>${cxf.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web-services</artifactId>
-            <version>${spring.boot.version}</version>
-            <!-- TODO: why and/or do we need? -->
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
+        <!-- Eureka Service Discovery Client -->
+      <!--  <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>${spring.cloud.eureka.version}</version>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -56,13 +50,6 @@
             <version>${spring.boot.version}</version>
             <!-- TODO: why and/or do we need? -->
             <scope>test</scope>
-        </dependency>
-
-        <!-- moving inside child pom if using different db for microservices -->
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>${mariadb.version}</version>
         </dependency>
 
     </dependencies>
