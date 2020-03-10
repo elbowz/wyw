@@ -52,17 +52,6 @@
     </dependencyManagement>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-features-logging</artifactId>
