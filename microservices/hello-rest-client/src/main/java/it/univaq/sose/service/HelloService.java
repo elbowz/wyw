@@ -1,4 +1,4 @@
-package it.univaq.sose;
+package it.univaq.sose.service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

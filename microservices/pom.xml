@@ -21,6 +21,7 @@
     <modules>
         <module>person</module>
         <module>hello-rest</module>
+        <module>hello-rest-client</module>
         <module>eureka-registry</module>
     </modules>
 
@@ -31,6 +32,7 @@
 
     <dependencies>
 
+        <!-- CXF boot starter-->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
@@ -50,6 +52,12 @@
             <version>${spring.boot.version}</version>
             <!-- TODO: why and/or do we need? -->
             <scope>test</scope>
+        </dependency>
+
+        <!-- Enabling communication using json -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
         </dependency>
 
     </dependencies>
