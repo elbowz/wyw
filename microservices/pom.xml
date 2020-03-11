@@ -23,6 +23,7 @@
         <module>hello-rest</module>
         <module>hello-rest-client</module>
         <module>eureka-registry</module>
+        <module>zuul</module>
     </modules>
 
     <dependencyManagement>

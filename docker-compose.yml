@@ -83,6 +83,17 @@ services:
     networks:
       - microservices
 
+  zuul-proxy:
+    <<: *tomcat
+    volumes:
+      - ./microservices/zuul/target/sose:/usr/local/tomcat/webapps/sose
+    environment:
+      EUREKA_SERVER_URI: 'eureka-registry'
+      EUREKA_SERVER_PORT: '8080'
+      EUREKA_BASE_PATH: '/sose'
+    networks:
+      - microservices
+
   adminer:
     # use for disable any service
     #build: './utils/docker-disable'
