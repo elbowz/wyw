@@ -8,5 +8,8 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${PORT:8080}/sose/eureka/
   server:
-    #waitTimeInMsWhenSyncEmpty: 0
+
+#   ## UNCOMMENT THIS TO MAKE FASTER TO REGISTER AND EXPIRE INSTANCES IN EUREKA
+#   ## Get the time interval with which the task that expires instances should wake up and run
+#    evictionIntervalTimerInMs: 10000
 
