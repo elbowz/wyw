@@ -1,10 +1,12 @@
-package it.univaq.sose.hello2;
+package it.univaq.sose.service;
 
 import javax.ws.rs.Path;
+
+import org.apache.cxf.ext.logging.Logging;
 import org.springframework.stereotype.Service;
 import io.swagger.annotations.Api;
-import it.univaq.sose.HelloService;
 
+@Logging
 @Path("/sayHello2")
 @Api("/sayHello2")
 @Service

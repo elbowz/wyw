@@ -1,11 +1,12 @@
-package it.univaq.sose.hello1;
+package it.univaq.sose.service;
 
-import it.univaq.sose.HelloService;
+import org.apache.cxf.ext.logging.Logging;
 import org.springframework.stereotype.Service;
 import io.swagger.annotations.Api;
 
-@Api("/sayHello")
+@Logging
 @Service
+@Api("/sayHello")
 public class HelloServiceImpl1 implements HelloService {
 
     public String sayHello(String a) {

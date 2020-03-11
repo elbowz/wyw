@@ -1,7 +1,7 @@
 # Spring Boot - Samples - CXF Rest Web Services 
 
 This sample project demonstrates how to use CXF JAX-RS services with Spring Boot. 
-This demo has two JAX-RS class resources being auto-discovered and deployed in a single JAX-RS endpoint. 
+This demo has three JAX-RS class resources being auto-discovered and deployed in a single JAX-RS endpoint. 
 
 The application registers itself with Eureka Registry.  
 
@@ -14,6 +14,8 @@ will display "Hello Luigi, Welcome to CXF RS Spring Boot World!!!"
 `http://localhost:<port>/sose/helloservice/sayHello2/Luigi`
 
 will display "Hello2 Luigi, Welcome to CXF RS Spring Boot World!!!"
+
+`http://localhost:<port>/sose/helloservice/say/hello/` for json payload and answer.
 
 ## Swagger JSON and UI
 
@@ -28,6 +30,7 @@ or access it from the CXF Services page:
   `http://localhost:<port>/sose/helloservice/info` 
   
 and follow a Swagger link.
+
 > **note**: CXF Services page is available by default at the path ending with `/services`
 
 ## System metrics and health checks
