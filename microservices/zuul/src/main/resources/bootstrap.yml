@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: zuul-proxy
+
+# Uncomment for debug
+#debug: true
+#trace: true
+#logging.level.org.springframework.cloud.netflix: trace

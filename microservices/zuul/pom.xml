@@ -6,12 +6,13 @@
     <artifactId>zuul</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Zuul proxy server</name>
+    <name>Zuul Proxy</name>
 
     <parent>
         <groupId>it.univaq.sose</groupId>
-        <artifactId>microservices</artifactId>
+        <artifactId>sose-1920</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <properties>
