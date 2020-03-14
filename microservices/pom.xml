@@ -24,6 +24,7 @@
         <module>hello-rest-client</module>
         <module>eureka-registry</module>
         <module>zuul</module>
+        <module>film</module>
     </modules>
 
     <dependencyManagement>
