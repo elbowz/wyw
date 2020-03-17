@@ -17,27 +17,34 @@ zuul:
         serviceId: jaxrs-hello-world-service
         stripPrefix: true
       film-service:
-        path: /film-service/**
+        path: /filmservice/**
         serviceId: film-service
+        stripPrefix: true
+      user-service:
+        path: /userservice/**
+        serviceId: user-service
+        stripPrefix: true
   host:
-    connect-timeout-millis: 60000
-    socket-timeout-millis: 60000
-    max-total-connections: 200
-    max-per-route-connections: 20
-    time-unit: MILLISECONDS
-    time-to-live: 10000
-
-ribbon:
-  eureka:
-    enable: true
-  isSecure: false
-  ReadTimeout: 60000
-  ConnectTimeout: 60000
+    socket-timeout-millis: 10000
+    connect-timeout-millis: 10000
+  ribbon:
+    eager-load:
+      enabled: true
 
 hystrix:
   command:
-    default:
+    film-service:
       execution:
         isolation:
+          strategy: THREAD
           thread:
-            timeoutInMilliseconds: 60000
+            timeoutInMilliseconds: 100000
+
+
+film-service:
+  ribbon:
+    ReadTimeout: 800
+    ConnectTimeout: 250
+    OkToRetryOnAllOperations: true
+    MaxAutoRetriesNextServer: 2
+    MaxAutoRetries: 0
