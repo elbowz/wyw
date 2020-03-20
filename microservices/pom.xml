@@ -20,6 +20,7 @@
 
     <modules>
         <module>person</module>
+        <module>film</module>
         <module>hello-rest</module>
         <module>hello-rest-client</module>
         <module>eureka-registry</module>
@@ -44,7 +45,6 @@
       <!--  <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>${spring.cloud.eureka.version}</version>
         </dependency>-->
 
         <dependency>

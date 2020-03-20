@@ -29,10 +29,9 @@
         <src.dir>src/main</src.dir>
         <cxf.version>3.3.5</cxf.version>
         <cxf.swagger.ui.version>3.25.0</cxf.swagger.ui.version>
-        <mariadb.version>2.5.4</mariadb.version>
+        <mariadb.version>2.4.4</mariadb.version>
         <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
-        <spring.cloud.eureka.version>2.2.1.RELEASE</spring.cloud.eureka.version>
-        <spring.cloud.netflix.zuul.version>2.2.1.RELEASE</spring.cloud.netflix.zuul.version>
+        <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
     </properties>
 
     <modules>
@@ -78,7 +77,7 @@
                 <version>2.2</version>
 
                 <configuration>
-                    <contextFile>${src.dir}/META-INF/context.xml</contextFile>
+                   <!-- <contextFile>${src.dir}/resources/resources/META-INF/context.xml</contextFile> not works?! -->
                 </configuration>
             </plugin>
         </plugins>

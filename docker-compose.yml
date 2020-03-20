@@ -61,6 +61,29 @@ services:
     networks:
       - microservices
 
+  film-ws:
+    <<: *tomcat
+    depends_on:
+      - film-db
+    volumes:
+      - ./microservices/film/target/sose:/usr/local/tomcat/webapps/sose
+    environment:
+      EUREKA_SERVER_URI: 'eureka-registry'
+      EUREKA_SERVER_PORT: '8080'
+      EUREKA_BASE_PATH: '/sose'
+    networks:
+      - microservices
+
+  film-db:
+    <<: *mariadb
+    volumes:
+      # only naming/label volume ("docker-compose down -v" to erase)
+      - film-db-data:/var/lib/mysql
+      # executing only on create container (first "docker-compose up")
+      - ./microservices/film/docker/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
+    networks:
+      - microservices
+
   hello-ws-client:
     <<: *tomcat
     volumes:
@@ -110,12 +133,16 @@ services:
     ports:
       - "5000:8080"
     networks:
+      - microservices
       - person
+      - film
 
 
 networks:
   person:
+  film:
   microservices:
 
 volumes:
   person-db-data:
+  film-db-data:

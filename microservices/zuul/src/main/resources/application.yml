@@ -16,3 +16,26 @@ zuul:
         path: /hello/**
         serviceId: jaxrs-hello-world-service
         stripPrefix: true
+      film-service:
+        path: /film/**
+        serviceId: film-ws
+        stripPrefix: true
+  host:
+    max-total-connections: 1000
+    max-per-route-connections: 100
+    connect-timeout-millis: 90000
+    socket-timeout-millis: 90000
+  semaphore.max-semaphores: 500
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000000
+            strategy: THREAD
+
+ribbon:
+  ReadTimeout: 60000

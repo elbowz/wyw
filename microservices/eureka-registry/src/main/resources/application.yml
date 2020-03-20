@@ -13,3 +13,6 @@ eureka:
 #   ## Get the time interval with which the task that expires instances should wake up and run
 #    evictionIntervalTimerInMs: 10000
 
+ribbon:
+  ReadTimeout: 90000
+  ConnectTimeout: 90000
