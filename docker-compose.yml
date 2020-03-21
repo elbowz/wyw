@@ -73,7 +73,6 @@ services:
       EUREKA_BASE_PATH: '/sose'
     networks:
       - microservices
-      - film
 
   film-db:
     <<: *mariadb
@@ -83,7 +82,7 @@ services:
       # executing only on create container (first "docker-compose up")
       - ./microservices/film/db/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
     networks:
-      - film
+      - microservices
 
   user-ws:
     <<: *tomcat
@@ -146,13 +145,12 @@ services:
       - "5000:8080"
     networks:
       - person
-      - film
+      - microservices
 
 
 networks:
   person:
   microservices:
-  film:
 
 volumes:
   person-db-data:

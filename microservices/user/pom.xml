@@ -5,7 +5,7 @@
     <artifactId>user</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>User Service</name>
+    <name>User REST</name>
 
     <parent>
         <groupId>it.univaq.sose</groupId>
@@ -18,6 +18,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -27,15 +34,25 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>${spring.cloud.eureka.version}</version>
             <exclusions>
-				<!-- conflicts with jaxrs 2.0 from cxf causing runtime problems: method not found and some nasty logs on error level when requesting not mapped path -->
-				<exclusion>
-					<groupId>javax.ws.rs</groupId>
-					<artifactId>jsr311-api</artifactId>
-				</exclusion>
-			</exclusions>
+                <!-- conflicts with jaxrs 2.0 from cxf causing runtime problems: method not found and some nasty logs on error level when requesting not mapped path -->
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.mariadb.jdbc</groupId>-->
+            <!--<artifactId>mariadb-java-client</artifactId>-->
+            <!--<version>${mariadb.version}</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.webjars</groupId>
@@ -67,6 +84,13 @@
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.0.1-android</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

@@ -2,7 +2,7 @@ management.security.enabled: false
 
 cxf:
   path: /
-  servlet.init: 
+  servlet.init:
     service-list-path: /info
   jaxrs:
     component-scan: true
@@ -28,15 +28,20 @@ eureka:
 #    leaseExpirationDurationInSeconds: 2
 
 spring:
-  datasource:
-    url: jdbc:mariadb://film-db:3306/sosedb
-    password: sose
-    username: sose
-    driver-class-name: "org.mariadb.jdbc.Driver"
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
+  datasource:
+    url: 'jdbc:mariadb://film-db:3306/sosedb'
+    username: sose
+    password: sose
+    driver-class-name: 'org.mariadb.jdbc.Driver'
+    hikari:
+      minIdle: 10
+      idle-timeout: 10000
+      maximumPoolSize: 30
+
 management:
   endpoints:
     jmx:

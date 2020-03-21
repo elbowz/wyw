@@ -12,39 +12,34 @@ eureka:
 # Mapping with different services by using name.
 zuul:
   routes:
-      hello-service:
-        path: /hello/**
-        serviceId: jaxrs-hello-world-service
-        stripPrefix: true
-      film-service:
-        path: /filmservice/**
-        serviceId: film-service
-        stripPrefix: true
-      user-service:
-        path: /userservice/**
-        serviceId: user-service
-        stripPrefix: true
+    hello-service:
+      path: /hello/**
+      serviceId: jaxrs-hello-world-service
+      stripPrefix: true
+    film-service:
+      path: /filmservice/**
+      serviceId: film-ws
+      stripPrefix: true
+    user-service:
+      path: /userservice/**
+      serviceId: user-ws
+      stripPrefix: true
   host:
-    socket-timeout-millis: 10000
-    connect-timeout-millis: 10000
-  ribbon:
-    eager-load:
-      enabled: true
+    max-total-connections: 1000
+    max-per-route-connections: 100
+    connect-timeout-millis: 90000
+    socket-timeout-millis: 90000
+  semaphore.max-semaphores: 500
+
 
 hystrix:
   command:
-    film-service:
+    default:
       execution:
         isolation:
-          strategy: THREAD
           thread:
-            timeoutInMilliseconds: 100000
+            timeoutInMilliseconds: 1000000
+            strategy: THREAD
 
-
-film-service:
-  ribbon:
-    ReadTimeout: 800
-    ConnectTimeout: 250
-    OkToRetryOnAllOperations: true
-    MaxAutoRetriesNextServer: 2
-    MaxAutoRetries: 0
+ribbon:
+  ReadTimeout: 60000
