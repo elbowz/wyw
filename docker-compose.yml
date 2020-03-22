@@ -95,6 +95,16 @@ services:
     networks:
       - microservices
 
+  user-db:
+    <<: *mariadb
+    volumes:
+      # only naming/label volume ("docker-compose down -v" to erase)
+      - user-db-data:/var/lib/mysql
+      # executing only on create container (first "docker-compose up")
+      - ./microservices/user/db/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
+    networks:
+      - microservices
+
   hello-ws-client:
     <<: *tomcat
     volumes:
@@ -155,3 +165,4 @@ networks:
 volumes:
   person-db-data:
   film-db-data:
+  user-db-data:

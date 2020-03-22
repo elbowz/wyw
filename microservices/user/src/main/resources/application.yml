@@ -27,6 +27,21 @@ eureka:
 #    ## how long to wait after heartbreak is not sent to expire the instance. Default is 90s
 #    leaseExpirationDurationInSeconds: 2
 
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: 'jdbc:mariadb://user-db:3306/sosedb'
+    username: sose
+    password: sose
+    driver-class-name: 'org.mariadb.jdbc.Driver'
+    hikari:
+      minIdle: 10
+      idle-timeout: 10000
+      maximumPoolSize: 30
+
 management:
   endpoints:
     jmx:
