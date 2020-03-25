@@ -18,13 +18,12 @@ USE `sosedb`;
 -- Table structure for table `article`
 --
 
-DROP TABLE IF EXISTS `film`;
+DROP TABLE IF EXISTS `person`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `film` (
+CREATE TABLE `person` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL,
-  `plot` text,
+  `name` varchar(255) NOT NULL
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -33,10 +32,10 @@ CREATE TABLE `film` (
 -- Dumping data for table `article`
 --
 
-LOCK TABLES `film` WRITE;
-/*!40000 ALTER TABLE `film` DISABLE KEYS */;
-INSERT INTO `film` (`id`, `title`, `plot`) VALUES (1, 'Alien','Sangue, xenomorfi e azione'),(2,'Terminator 2','Robot, azione e Swarzy');
-/*!40000 ALTER TABLE `film` ENABLE KEYS */;
+LOCK TABLES `person` WRITE;
+/*!40000 ALTER TABLE `person` DISABLE KEYS */;
+INSERT INTO `person` (`id`, `name`) VALUES (1, 'Luigi'),(2, 'Emanuele');
+/*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

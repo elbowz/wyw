@@ -24,6 +24,10 @@ zuul:
       path: /userservice/**
       serviceId: user-ws
       stripPrefix: true
+    person-service:
+      path: /personservice/**
+      serviceId: person-ws
+      stripPrefix: true
   host:
     max-total-connections: 1000
     max-per-route-connections: 100

@@ -35,10 +35,13 @@ services:
     depends_on:
       - person-db
     volumes:
-      - ./microservices/person/target/sose:/usr/local/tomcat/webapps/sose
+      - ./microservices/person/target/sose:/usr/local/tomcat/webapps/ROOT
+    environment:
+      EUREKA_SERVER_URI: 'eureka-registry'
+      EUREKA_SERVER_PORT: '8080'
+      EUREKA_BASE_PATH: '/sose'
     networks:
       - microservices
-      - person
 
   person-db:
     <<: *mariadb
@@ -46,9 +49,9 @@ services:
       # only naming/label volume ("docker-compose down -v" to erase)
       - person-db-data:/var/lib/mysql
       # executing only on create container (first "docker-compose up")
-      - ./microservices/person/docker/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
+      - ./microservices/person/db/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
     networks:
-      - person
+      - microservices
 
   hello-ws:
     <<: *tomcat
@@ -86,6 +89,8 @@ services:
 
   user-ws:
     <<: *tomcat
+    depends_on:
+      - user-db
     volumes:
       - ./microservices/user/target/sose:/usr/local/tomcat/webapps/ROOT
     environment:

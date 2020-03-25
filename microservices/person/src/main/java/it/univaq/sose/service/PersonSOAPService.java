@@ -4,6 +4,7 @@ import it.univaq.sose.model.Person;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+
 @WebService
 public interface PersonSOAPService {
     @WebMethod
