@@ -26,6 +26,7 @@
         <module>eureka-registry</module>
         <module>zuul</module>
         <module>user</module>
+        <module>watched-film</module>
     </modules>
 
     <dependencyManagement>

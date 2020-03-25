@@ -28,6 +28,10 @@ zuul:
       path: /personservice/**
       serviceId: person-ws
       stripPrefix: true
+    watched-film-service:
+      path: /watchedservice/**
+      serviceId: watched-film-ws
+      stripPredix: true
   host:
     max-total-connections: 1000
     max-per-route-connections: 100
