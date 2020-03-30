@@ -25,6 +25,10 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` DATE NOT NULL,
+  `updated_at` DATE NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,7 +39,9 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `first_name`, `last_name`) VALUES (1, 'Franco', 'Rossi'),(2,'Giulia','Verdi');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`,`created_at`, `updated_at`)
+      VALUES (1, 'Franco', 'Rossi', 'franco.rossi@example.com', 'passwordsicura', NOW(), NOW()),
+             (2, 'Giulia', 'Verdi', 'giulia.verdi@example.com', 'passwordsicura', NOW(), NOW());
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -48,3 +48,8 @@ management:
       exposure:
         exclude:
       unique-names: true
+
+logging:
+  level:
+    it.univaq.sose.user:
+      DEBUG

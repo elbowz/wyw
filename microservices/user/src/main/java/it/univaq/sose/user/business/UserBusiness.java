@@ -1,5 +1,7 @@
 package it.univaq.sose.user.business;
 
+import it.univaq.sose.user.exceptions.DuplicatedUserException;
+import it.univaq.sose.user.exceptions.UserNotFoundException;
 import it.univaq.sose.user.model.User;
 import it.univaq.sose.user.repository.UserRepository;
 import org.slf4j.Logger;
@@ -17,20 +19,46 @@ public class UserBusiness {
     @Autowired
     UserRepository userRepository;
 
-    public UserBusiness() {}
-
-    public User getUserById(long id){
-        try {
-            Optional<User> optional = userRepository.findById(id);
-            return optional.orElse(null);
-        } catch (Exception e){
-            logger.debug(e.getMessage());
-        }
-        return null;
+    public UserBusiness() {
     }
 
-    public ArrayList<User> getAll() {
+    public User one(long id) throws UserNotFoundException {
+        Optional<User> optional = userRepository.findById(id);
+        return optional.orElseThrow(UserNotFoundException::new);
+    }
+
+    public ArrayList<User> getAllUsers() {
         return (ArrayList<User>) this.userRepository.findAll();
     }
 
+    public User getUserByEmail(String email) throws UserNotFoundException {
+        Optional<User> optional = userRepository.findUserByEmail(email);
+        return optional.orElseThrow(UserNotFoundException::new);
+    }
+
+    public User save(User user) throws DuplicatedUserException {
+        if (userRepository.findUserByEmail(user.getEmail()).isPresent()) {
+            throw new DuplicatedUserException();
+        } else {
+            return userRepository.save(user);
+        }
+    }
+
+    // Do we need this?
+    public void deleteUserById(long id) {
+        userRepository.deleteById(id);
+    }
+
+    public User updateUser(long id, User newUser) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setFirstName(newUser.getFirstName());
+                    user.setLastName(newUser.getLastName());
+                    return userRepository.save(user);
+                })
+                .orElseGet(() -> {
+                    newUser.setId(id);
+                    return userRepository.save(newUser);
+                });
+    }
 }

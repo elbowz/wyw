@@ -1,13 +1,11 @@
 package it.univaq.sose.user.service;
 
-import it.univaq.sose.user.business.UserBusiness;
+import it.univaq.sose.user.exceptions.DuplicatedUserException;
 import it.univaq.sose.user.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -27,4 +25,16 @@ public interface UserService {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     User getUserById(@PathParam("id") Long id);
+
+    @POST
+    @Path("")
+    @Consumes(MediaType.APPLICATION_JSON)
+    User insertUser(@Valid @RequestBody User user) throws DuplicatedUserException;
+
+    @PUT
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    User updateUser(@Valid @RequestBody User user, @PathParam("id") long id);
+
 }
