@@ -14,7 +14,7 @@ public interface FilmService {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    Film getFilmById(@PathParam("id") Long id);
+    Film getFilmById(@PathParam("id") String id);
 
     @GET
     @Path("/")

@@ -19,7 +19,7 @@ public class FilmBusiness {
 
     public FilmBusiness() {}
 
-    public Film one(long id) {
+    public Film one(String id) {
         Optional<Film> optional = filmRepository.findById(id);
         return optional.orElseThrow(FilmNotFoundException::new);
     }

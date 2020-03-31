@@ -18,7 +18,7 @@ public class FilmServiceImpl implements FilmService {
     FilmBusiness filmBusiness;
 
     @Override
-    public Film getFilmById(Long id) {
+    public Film getFilmById(String id) {
         return filmBusiness.one(id);
     }
 
