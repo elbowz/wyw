@@ -1,5 +1,6 @@
 package it.univaq.sose.film.business;
 
+import it.univaq.sose.film.exceptions.FilmNotFoundException;
 import it.univaq.sose.film.model.Film;
 import it.univaq.sose.film.repository.FilmRepository;
 import org.slf4j.Logger;
@@ -12,21 +13,15 @@ import java.util.Optional;
 
 @Service
 public class FilmBusiness {
-    private static final Logger logger = LoggerFactory.getLogger(FilmBusiness.class);
 
     @Autowired
     FilmRepository filmRepository;
 
     public FilmBusiness() {}
 
-    public Film getFilmById(long id) {
-        try {
-            Optional<Film> optional = filmRepository.findById(id);
-            return optional.orElse(null);
-        } catch (Exception e){
-            logger.debug(e.getMessage());
-        }
-        return null;
+    public Film one(long id) {
+        Optional<Film> optional = filmRepository.findById(id);
+        return optional.orElseThrow(FilmNotFoundException::new);
     }
 
     public ArrayList<Film> getAll() {
