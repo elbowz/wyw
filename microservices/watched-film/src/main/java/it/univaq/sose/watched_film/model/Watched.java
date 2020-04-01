@@ -1,9 +1,7 @@
 package it.univaq.sose.watched_film.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity()
@@ -18,6 +16,9 @@ public class Watched {
 
     @NotNull
     private String filmId;
+
+    @Transient
+    private Film film;
 
     public Watched() {
     }
@@ -46,12 +47,21 @@ public class Watched {
         this.filmId = filmId;
     }
 
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
     @Override
     public String toString() {
         return "Watched{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", filmId='" + filmId + '\'' +
+                ", film=" + film +
                 '}';
     }
 }

@@ -1,5 +1,6 @@
 package it.univaq.sose.watched_film.business;
 
+import it.univaq.sose.watched_film.client.FilmServiceClient;
 import it.univaq.sose.watched_film.exceptions.UserNotFoundException;
 import it.univaq.sose.watched_film.model.Watched;
 import it.univaq.sose.watched_film.repository.WatchedRepository;
@@ -14,16 +15,26 @@ public class WatchedBusiness {
     @Autowired
     WatchedRepository watchedRepository;
 
+    @Autowired
+    FilmServiceClient filmServiceClient;
+
     public WatchedBusiness() {}
 
     public ArrayList<Watched> getWatchedFilmByUser(long id) {
-        ArrayList<Watched> watcheds = (ArrayList<Watched>) watchedRepository.findWatchedByUserId(id);
+        ArrayList<Watched> watchedFilm = (ArrayList<Watched>) watchedRepository.findWatchedByUserId(id);
 
-        if (watcheds.size() == 0){
+
+        // If this user hasn't watched any film return 404.
+        if (watchedFilm.size() == 0){
             throw new UserNotFoundException();
-        } else {
-            return watcheds;
         }
+
+        // Retrieve the information associated with the filmId of each film in the array.
+        for (Watched watched: watchedFilm){
+            watched.setFilm(filmServiceClient.getFilmById(watched.getFilmId()));
+        }
+
+        return watchedFilm;
     }
 
     // TODO Maybe this should be removed.
