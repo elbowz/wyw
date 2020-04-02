@@ -20,7 +20,7 @@ public class FilmBusiness {
     public FilmBusiness() {}
 
     public Film one(String id) {
-        Optional<Film> optional = filmRepository.findById(id);
+        Optional<Film> optional = filmRepository.findByImdbID(id);
         return optional.orElseThrow(FilmNotFoundException::new);
     }
 

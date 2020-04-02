@@ -20,6 +20,9 @@ public class Watched {
     @Transient
     private Film film;
 
+    @Transient
+    private User user;
+
     public Watched() {
     }
 
@@ -55,6 +58,14 @@ public class Watched {
         this.film = film;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Watched{" +
@@ -62,6 +73,7 @@ public class Watched {
                 ", userId=" + userId +
                 ", filmId='" + filmId + '\'' +
                 ", film=" + film +
+                ", user=" + user +
                 '}';
     }
 }

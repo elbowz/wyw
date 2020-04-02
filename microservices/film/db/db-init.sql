@@ -22,13 +22,13 @@ DROP TABLE IF EXISTS `film`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `film` (
-  `id` varchar(15) NOT NULL,
+  `imdbID` varchar(15) NOT NULL,
   `title` varchar(255),
   `year` int(4),
   `plot` text,
   `language` varchar (20),
   `production` varchar(255),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`imdbID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +38,7 @@ CREATE TABLE `film` (
 
 LOCK TABLES `film` WRITE;
 /*!40000 ALTER TABLE `film` DISABLE KEYS */;
-INSERT INTO `film` (`id`, `title`, `year`, `plot`, `language`, `production`) VALUES
+INSERT INTO `film` (`imdbID`, `title`, `year`, `plot`, `language`, `production`) VALUES
               ('tt3896198', 'Guardians of the Galaxy Vol. 2', 2017, 'The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord''s encounter with his father the ambitious celestial being Ego.', 'english', 'Walt Disney Pictures'),
               ('tt1634106', 'Bloodshot', 2020, 'Ray Garrison, a slain soldier, is re-animated with superpowers.', 'english', 'N/A'),
               ('tt6751668', 'Parasite', 2020, 'A poor family, the Kims, con their way into becoming the servants of a rich family, the Parks. But their easy life gets complicated when their deception is threatened with exposure.', 'South Korea', 'NEON'),

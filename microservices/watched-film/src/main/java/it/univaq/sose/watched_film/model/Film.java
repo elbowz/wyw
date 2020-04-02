@@ -1,22 +1,28 @@
 package it.univaq.sose.watched_film.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Film {
-    private String id;
+    private String imdbID;
+
+//    @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
     private String title;
+
     private int year;
     private String plot;
     private String language;
     private String production;
+    private String imdbRating;
 
     public Film() {
     }
 
-    public String getId() {
-        return id;
+    public String getImdbID() {
+        return imdbID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
     }
 
     public String getTitle() {
@@ -59,15 +65,24 @@ public class Film {
         this.production = production;
     }
 
+    public String getImdbRating() {
+        return imdbRating;
+    }
+
+    public void setImdbRating(String imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
     @Override
     public String toString() {
         return "Film{" +
-                "id=" + id +
+                "imdbID='" + imdbID + '\'' +
                 ", title='" + title + '\'' +
                 ", year=" + year +
                 ", plot='" + plot + '\'' +
                 ", language='" + language + '\'' +
                 ", production='" + production + '\'' +
+                ", imdbRating='" + imdbRating + '\'' +
                 '}';
     }
 }

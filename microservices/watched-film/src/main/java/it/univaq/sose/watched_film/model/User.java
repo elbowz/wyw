@@ -1,42 +1,19 @@
-package it.univaq.sose.user.model;
+package it.univaq.sose.watched_film.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Entity()
-@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
-
-    @NotNull
     private String firstName;
-
-    @NotNull
     private String lastName;
-
-    @NotNull
     private String email;
-
-    @NotNull
     private String password;
-
-    @CreationTimestamp
     private Date createdAt;
-
-    @UpdateTimestamp
     private Date updatedAt;
 
     public User() {}
@@ -97,5 +74,18 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

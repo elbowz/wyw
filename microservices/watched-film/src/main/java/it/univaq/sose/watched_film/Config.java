@@ -1,5 +1,6 @@
 package it.univaq.sose.watched_film;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import feign.Contract;
@@ -57,8 +58,9 @@ public class Config
 	 * @return
 	 */
 	@Bean
-	public Decoder feignDecoder(ObjectMapper objectMapper)
-	{
+	public Decoder feignDecoder(ObjectMapper objectMapper) {
+		objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+
 		return new JacksonDecoder(objectMapper);
 	}
 }
