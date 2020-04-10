@@ -12,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class WatchedBusiness {
-    static final Logger logger = LoggerFactory.getLogger(WatchedBusiness.class);
 
     @Autowired
     WatchedRepository watchedRepository;
@@ -24,37 +25,50 @@ public class WatchedBusiness {
     FilmServiceClient filmServiceClient;
 
     @Autowired
-    OmdbServiceClient omdbServiceClient;
-
-    @Autowired
     UserServiceClient userServiceClient;
 
-    public WatchedBusiness() {}
+    @Autowired
+    OmdbServiceClient omdbServiceClient;
+
+    public WatchedBusiness() {
+    }
 
     public ArrayList<Watched> getWatchedFilmByUser(long id) {
         ArrayList<Watched> watchedFilm = (ArrayList<Watched>) watchedRepository.findWatchedByUserId(id);
 
-
         // If this user hasn't watched any film return 404.
-        if (watchedFilm.size() == 0){
+        if (watchedFilm.size() == 0) {
             throw new UserNotFoundException();
         }
 
-        // Retrieve the information associated with the filmId of each film in the array.
-//        for (Watched watched: watchedFilm){
-//            watched.setFilm(filmServiceClient.getFilmById(watched.getFilmId()));
-//        }
+        // Get score for each film.
         String apiKey = System.getenv("OMDB_API_KEY");
-        logger.debug("API_KEY: " + apiKey);
-        for (Watched watched: watchedFilm){
-            watched.setFilm(omdbServiceClient.getFilmById(watched.getFilmId(), apiKey));
+
+        // Used to contain all the completable futures and wait to respond until all of them are completed.
+        LinkedList<CompletableFuture> linkedList = new LinkedList<>();
+
+        // Get all films information.
+        for (Watched watched : watchedFilm) {
+            CompletableFuture c = filmServiceClient
+                    .getFilmById(watched.getFilmId())
+                    .thenCompose(film -> {
+                        watched.setFilm(film);
+                        return omdbServiceClient.getRatingsByFilmId(watched.getFilmId(), apiKey);
+                    })
+                    .thenAccept(ratings -> watched.getFilm().setRatings(ratings));
+            linkedList.add(c);
         }
 
-        // Retrieve the information associated with the userId of each watched in the array.
-        for (Watched watched: watchedFilm){
-            watched.setUser(userServiceClient.getUserById(watched.getUserId()));
-        }
+        // Get user information.
+        long userId = watchedFilm.get(0).getUserId();
 
+        CompletableFuture c = userServiceClient
+                .getUserById(userId)
+                .thenAccept(user -> watchedFilm.forEach(watched -> watched.setUser(user)));
+
+        linkedList.add(c);
+
+        linkedList.forEach(CompletableFuture::join);
         return watchedFilm;
     }
 

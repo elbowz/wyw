@@ -8,6 +8,7 @@ cxf:
     component-scan: true
     classes-scan-packages: org.apache.cxf.jaxrs.swagger,org.apache.cxf.metrics
 
+
 eureka:
   client:
     registerWithEureka: true
@@ -48,3 +49,15 @@ management:
       exposure:
         exclude:
       unique-names: true
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000000
+            strategy: THREAD

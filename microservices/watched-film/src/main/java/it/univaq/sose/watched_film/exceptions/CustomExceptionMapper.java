@@ -23,3 +23,19 @@ class CustomNotFoundExceptionMapper implements ExceptionMapper<UserNotFoundExcep
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 }
+
+// TODO Check if we need this.
+//@Provider
+//@Produces(MediaType.APPLICATION_JSON)
+//@Component
+//class GeneralExceptionMapper implements ExceptionMapper<Exception> {
+//    private static final Logger logger = LoggerFactory.getLogger(CustomNotFoundExceptionMapper.class);
+//
+//    @Override
+//    public Response toResponse(Exception e) {
+//        logger.debug("UserNotFoundException occurred.");
+//        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+//    }
+//}
+
+

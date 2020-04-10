@@ -1,11 +1,10 @@
 package it.univaq.sose.watched_film.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Film {
     private String imdbID;
 
-//    @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
     private String title;
 
     private int year;
@@ -13,6 +12,10 @@ public class Film {
     private String language;
     private String production;
     private String imdbRating;
+
+    // This is needed otherwise OMDB deserialization will fail.
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Ratings ratings;
 
     public Film() {
     }
@@ -73,6 +76,14 @@ public class Film {
         this.imdbRating = imdbRating;
     }
 
+    public Ratings getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Ratings ratings) {
+        this.ratings = ratings;
+    }
+
     @Override
     public String toString() {
         return "Film{" +
@@ -83,6 +94,7 @@ public class Film {
                 ", language='" + language + '\'' +
                 ", production='" + production + '\'' +
                 ", imdbRating='" + imdbRating + '\'' +
+                ", ratings=" + ratings +
                 '}';
     }
 }

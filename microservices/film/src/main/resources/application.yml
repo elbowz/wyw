@@ -48,3 +48,6 @@ management:
       exposure:
         exclude:
       unique-names: true
+    web:
+      exposure:
+        include="*":

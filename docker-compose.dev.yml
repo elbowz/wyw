@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  user-ws:
+  watched-film-ws:
     # important: not working with scaling!
     ports:
       - "8000:8000"
@@ -10,6 +10,6 @@ services:
       JPDA_TRANSPORT: dt_socket
     entrypoint: /usr/local/tomcat/bin/catalina.sh jpda run
 
-  user-db:
+  watched-film-db:
     ports:
       - "4100-4200:3306"
