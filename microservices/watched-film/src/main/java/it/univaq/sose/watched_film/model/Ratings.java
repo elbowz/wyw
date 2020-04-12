@@ -1,29 +1,32 @@
 package it.univaq.sose.watched_film.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.LinkedList;
 
 public class Ratings {
-    private LinkedList<Rate> ratings;
+    private LinkedList<Rate> omdbRatings;
 
     public Ratings() {
     }
 
+    @JsonProperty("omdbRatings")
     public LinkedList<Rate> getRatings() {
-        return ratings;
+        return omdbRatings;
     }
 
     public void setRatings(LinkedList<Rate> ratings) {
-        this.ratings = ratings;
+        this.omdbRatings = ratings;
     }
 
     public void addRatings(Rate rate){
-        this.ratings.add(rate);
+        this.omdbRatings.add(rate);
     }
 
     @Override
     public String toString() {
         return "Ratings{" +
-                "ratings=" + ratings +
+                "ratings=" + omdbRatings +
                 '}';
     }
 }

@@ -28,6 +28,7 @@ CREATE TABLE `film` (
   `plot` text,
   `language` varchar (20),
   `production` varchar(255),
+  `poster` text,
   PRIMARY KEY (`imdbID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38,12 +39,12 @@ CREATE TABLE `film` (
 
 LOCK TABLES `film` WRITE;
 /*!40000 ALTER TABLE `film` DISABLE KEYS */;
-INSERT INTO `film` (`imdbID`, `title`, `year`, `plot`, `language`, `production`) VALUES
-              ('tt3896198', 'Guardians of the Galaxy Vol. 2', 2017, 'The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord''s encounter with his father the ambitious celestial being Ego.', 'english', 'Walt Disney Pictures'),
-              ('tt1634106', 'Bloodshot', 2020, 'Ray Garrison, a slain soldier, is re-animated with superpowers.', 'english', 'N/A'),
-              ('tt6751668', 'Parasite', 2020, 'A poor family, the Kims, con their way into becoming the servants of a rich family, the Parks. But their easy life gets complicated when their deception is threatened with exposure.', 'South Korea', 'NEON'),
-              ('tt0111161', 'The Shawshank Redemption', 1994, 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 'USA', 'Columbia Pictures'),
-              ('tt0109830', 'Forrest Gump', 1994, 'The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.', 'USA', 'Paramount Pictures');
+INSERT INTO `film` (`imdbID`, `title`, `year`, `plot`, `language`, `production`, `poster`) VALUES
+              ('tt3896198', 'Guardians of the Galaxy Vol. 2', 2017, 'The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord''s encounter with his father the ambitious celestial being Ego.', 'english', 'Walt Disney Pictures', 'https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_SX300.jpg'),
+              ('tt1634106', 'Bloodshot', 2020, 'Ray Garrison, a slain soldier, is re-animated with superpowers.', 'english', 'N/A', 'https://m.media-amazon.com/images/M/MV5BYjA5YjA2YjUtMGRlNi00ZTU4LThhZmMtNDc0OTg4ZWExZjI3XkEyXkFqcGdeQXVyNjUyNjI3NzU@._V1_SX300.jpg'),
+              ('tt6751668', 'Parasite', 2020, 'A poor family, the Kims, con their way into becoming the servants of a rich family, the Parks. But their easy life gets complicated when their deception is threatened with exposure.', 'South Korea', 'NEON', 'https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg'),
+              ('tt0111161', 'The Shawshank Redemption', 1994, 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.', 'USA', 'Columbia Pictures', 'https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg'),
+              ('tt0109830', 'Forrest Gump', 1994, 'The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.', 'USA', 'Paramount Pictures', 'https://m.media-amazon.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg');
 /*!40000 ALTER TABLE `film` ENABLE KEYS */;
 UNLOCK TABLES;
 

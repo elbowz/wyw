@@ -20,9 +20,7 @@ public class Film {
     private String plot;
     private String language;
     private String production;
-
-    @Transient
-    private String imdbRating;
+    private String poster;
 
     public Film() {
     }
@@ -75,12 +73,12 @@ public class Film {
         this.production = production;
     }
 
-    public String getImdbRating() {
-        return imdbRating;
+    public String getPoster() {
+        return poster;
     }
 
-    public void setImdbRating(String imdbRating) {
-        this.imdbRating = imdbRating;
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     @Override
@@ -92,7 +90,7 @@ public class Film {
                 ", plot='" + plot + '\'' +
                 ", language='" + language + '\'' +
                 ", production='" + production + '\'' +
-                ", imdbRating='" + imdbRating + '\'' +
+                ", poster='" + poster + '\'' +
                 '}';
     }
 }

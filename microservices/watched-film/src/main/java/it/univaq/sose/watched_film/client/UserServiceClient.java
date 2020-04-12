@@ -1,5 +1,6 @@
 package it.univaq.sose.watched_film.client;
 
+import it.univaq.sose.watched_film.business.UserFallbackFactory;
 import it.univaq.sose.watched_film.model.User;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -11,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.concurrent.CompletableFuture;
 
 
-@FeignClient(name = "user-ws")
+@FeignClient(name = "user-ws", fallbackFactory = UserFallbackFactory.class)
 public interface UserServiceClient {
     @GET()
     @Path("/user/{userId}")

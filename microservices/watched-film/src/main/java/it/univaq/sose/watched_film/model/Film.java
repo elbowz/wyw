@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Film {
     private String imdbID;
-
     private String title;
-
     private int year;
     private String plot;
     private String language;
     private String production;
-    private String imdbRating;
+    private String poster;
 
     // This is needed otherwise OMDB deserialization will fail.
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -68,20 +66,20 @@ public class Film {
         this.production = production;
     }
 
-    public String getImdbRating() {
-        return imdbRating;
-    }
-
-    public void setImdbRating(String imdbRating) {
-        this.imdbRating = imdbRating;
-    }
-
     public Ratings getRatings() {
         return ratings;
     }
 
     public void setRatings(Ratings ratings) {
         this.ratings = ratings;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     @Override
@@ -93,7 +91,6 @@ public class Film {
                 ", plot='" + plot + '\'' +
                 ", language='" + language + '\'' +
                 ", production='" + production + '\'' +
-                ", imdbRating='" + imdbRating + '\'' +
                 ", ratings=" + ratings +
                 '}';
     }
