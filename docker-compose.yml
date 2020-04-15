@@ -53,17 +53,6 @@ services:
     networks:
       - microservices
 
-  hello-ws:
-    <<: *tomcat
-    volumes:
-      - ./microservices/hello-rest/target/sose:/usr/local/tomcat/webapps/sose
-    environment:
-      EUREKA_SERVER_URI: 'eureka-registry'
-      EUREKA_SERVER_PORT: '8080'
-      EUREKA_BASE_PATH: '/sose'
-    networks:
-      - microservices
-
   film-ws:
     <<: *tomcat
     depends_on:
@@ -131,17 +120,6 @@ services:
       - watched-film-db-data:/var/lib/mysql
       # executing only on create container (first "docker-compose up")
       - ./microservices/watched-film/db/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
-    networks:
-      - microservices
-
-  hello-ws-client:
-    <<: *tomcat
-    volumes:
-      - ./microservices/hello-rest-client/target/sose:/usr/local/tomcat/webapps/sose
-    environment:
-      EUREKA_SERVER_URI: 'eureka-registry'
-      EUREKA_SERVER_PORT: '8080'
-      EUREKA_BASE_PATH: '/sose'
     networks:
       - microservices
 

@@ -21,8 +21,6 @@
     <modules>
         <module>person</module>
         <module>film</module>
-        <module>hello-rest</module>
-        <module>hello-rest-client</module>
         <module>eureka-registry</module>
         <module>zuul</module>
         <module>user</module>

@@ -1,6 +1,0 @@
-## Spring Boot - Samples - CXF REST Proxy Client
-
-The client discovers the service address from the Eureka registry
-and expose a REST service `/proxyservice/proxy/hello` to proxy the
-requests arrived to the `HelloServiceJson` on `/helloservice/say/hello/`
-defined in the `hello-ws` microservice.
