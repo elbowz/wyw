@@ -8,6 +8,7 @@ import org.apache.cxf.ext.logging.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Logging
@@ -30,5 +31,11 @@ public class WatchedServiceImpl implements WatchedService {
     @Override
     public String ping() {
         return "Pong";
+    }
+
+    @Override
+    public Watched addWatched(@Valid Watched watched) {
+        // TODO Do we need duplicate watched logic?
+        return watchedBusiness.save(watched);
     }
 }

@@ -78,4 +78,8 @@ public class WatchedBusiness {
     public ArrayList<Watched> getAll() {
         return (ArrayList<Watched>) this.watchedRepository.findAll();
     }
+
+    public Watched save(Watched watched) {
+        return watchedRepository.save(watched);
+    }
 }

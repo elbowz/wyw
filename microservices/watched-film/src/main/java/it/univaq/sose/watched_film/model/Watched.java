@@ -1,6 +1,8 @@
 package it.univaq.sose.watched_film.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -9,6 +11,7 @@ import javax.validation.constraints.NotNull;
 public class Watched {
     @Id
     @GeneratedValue
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @NotNull
