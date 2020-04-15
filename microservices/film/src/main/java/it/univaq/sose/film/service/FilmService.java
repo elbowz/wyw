@@ -1,6 +1,7 @@
 package it.univaq.sose.film.service;
 
 import it.univaq.sose.film.model.Film;
+import it.univaq.sose.film.model.TakesPart;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -25,4 +26,9 @@ public interface FilmService {
     @Path("/ping")
     @Produces(MediaType.TEXT_PLAIN)
     String ping();
+
+    @GET
+    @Path("/{id}/people")
+    @Produces(MediaType.APPLICATION_JSON)
+    List<TakesPart> getPeopleForFilm(@PathParam("id") String filmId);
 }

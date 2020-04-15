@@ -55,7 +55,9 @@ public class WatchedBusiness {
                         watched.setFilm(film);
                         return omdbServiceClient.getRatingsByFilmId(watched.getFilmId(), apiKey);
                     })
-                    .thenAccept(ratings -> watched.getFilm().setRatings(ratings));
+                    .thenAccept(ratings -> {
+                        watched.getFilm().setRatings(ratings);
+                    });
             linkedList.add(c);
         }
 

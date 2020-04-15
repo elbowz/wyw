@@ -15,4 +15,9 @@ public interface PersonSOAPService {
     public List<TakesPart> getPeopleForFilm(
             @XmlElement(required=true)
             @WebParam(name = "filmId") String filmId) throws Exception;
+
+    @WebMethod
+    public TakesPart addPersonToFilm(
+            @XmlElement(required=true)
+                    TakesPart takesPart) throws Exception;
 }

@@ -25,6 +25,7 @@ public class OmdbFallbackFactory implements FallbackFactory<OmdbServiceClient> {
             public CompletableFuture<Film> getFilmById(String i, String apiKey) {
                 // System.out.println("Fallback called for: " + throwable.getLocalizedMessage());
 
+                // When OMDB is down and film information can't be found return film with null fields.
                 return CompletableFuture.completedFuture(new Film());
             }
 
@@ -32,6 +33,7 @@ public class OmdbFallbackFactory implements FallbackFactory<OmdbServiceClient> {
             public CompletableFuture<Ratings> getRatingsByFilmId(String i, String apiKey) {
                 // System.out.println("Fallback called for: " + throwable.getLocalizedMessage());
 
+                // When OMDB is down and ratings can't be found return empty array.
                 return CompletableFuture.completedFuture(new Ratings());
             }
         };

@@ -5,28 +5,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.LinkedList;
 
 public class Ratings {
-    private LinkedList<Rate> omdbRatings;
+    private LinkedList<Rate> ratings;
 
     public Ratings() {
+        this.ratings = new LinkedList<>();
     }
 
     @JsonProperty("omdbRatings")
     public LinkedList<Rate> getRatings() {
-        return omdbRatings;
+        return ratings;
     }
 
+    @JsonProperty("ratings")
     public void setRatings(LinkedList<Rate> ratings) {
-        this.omdbRatings = ratings;
+        this.ratings = ratings;
     }
 
     public void addRatings(Rate rate){
-        this.omdbRatings.add(rate);
+        this.ratings.add(rate);
     }
 
     @Override
     public String toString() {
         return "Ratings{" +
-                "ratings=" + omdbRatings +
+                "ratings=" + ratings +
                 '}';
     }
 }

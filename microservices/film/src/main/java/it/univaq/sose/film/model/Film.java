@@ -7,20 +7,23 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.List;
+
 @Entity()
 @Table(name = "film")
 public class Film {
     @Id
     private String imdbID;
 
-    //    @JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
     private String title;
-
     private int year;
     private String plot;
     private String language;
     private String production;
     private String poster;
+
+    @Transient
+    private List<TakesPart> people;
 
     public Film() {
     }
@@ -81,6 +84,14 @@ public class Film {
         this.poster = poster;
     }
 
+    public List<TakesPart> getPeople() {
+        return people;
+    }
+
+    public void setPeople(List<TakesPart> people) {
+        this.people = people;
+    }
+
     @Override
     public String toString() {
         return "Film{" +
@@ -91,6 +102,7 @@ public class Film {
                 ", language='" + language + '\'' +
                 ", production='" + production + '\'' +
                 ", poster='" + poster + '\'' +
+                ", people='" + people + '\'' +
                 '}';
     }
 }

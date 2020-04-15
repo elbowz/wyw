@@ -2,6 +2,8 @@ package it.univaq.sose.watched_film.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class Film {
     private String imdbID;
     private String title;
@@ -14,6 +16,8 @@ public class Film {
     // This is needed otherwise OMDB deserialization will fail.
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Ratings ratings;
+
+    private List<TakesPart> people;
 
     public Film() {
     }
@@ -82,6 +86,14 @@ public class Film {
         this.poster = poster;
     }
 
+    public List<TakesPart> getPeople() {
+        return people;
+    }
+
+    public void setPeople(List<TakesPart> people) {
+        this.people = people;
+    }
+
     @Override
     public String toString() {
         return "Film{" +
@@ -92,6 +104,7 @@ public class Film {
                 ", language='" + language + '\'' +
                 ", production='" + production + '\'' +
                 ", ratings=" + ratings +
+                ", people=" + people +
                 '}';
     }
 }

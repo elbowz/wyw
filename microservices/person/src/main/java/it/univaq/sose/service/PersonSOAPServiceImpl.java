@@ -17,4 +17,9 @@ public class PersonSOAPServiceImpl implements PersonSOAPService {
     public List<TakesPart> getPeopleForFilm(String filmId) throws Exception {
         return personBusiness.getPeopleForFilm(filmId);
     }
+
+    @Override
+    public TakesPart addPersonToFilm(TakesPart takesPart) throws Exception {
+        return personBusiness.addPersonToFilm(takesPart);
+    }
 }

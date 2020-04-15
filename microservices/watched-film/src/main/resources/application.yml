@@ -49,6 +49,7 @@ management:
       exposure:
         exclude:
       unique-names: true
+
 feign:
   hystrix:
     enabled: true
@@ -61,3 +62,6 @@ hystrix:
           thread:
             timeoutInMilliseconds: 1000000
             strategy: THREAD
+
+# This is needed if you want to see OMDB request in logs.
+logging.level.it.univaq.sose.film.client.OmdbServiceClient: DEBUG

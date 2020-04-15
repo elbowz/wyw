@@ -19,7 +19,8 @@ public class UserFallbackFactory implements FallbackFactory<UserServiceClient> {
         return new UserServiceClient() {
             @Override
             public CompletableFuture<User> getUserById(long userId) {
-                return CompletableFuture.completedFuture(new User());
+                // When user-ws is down return null.
+                return CompletableFuture.completedFuture(null);
             }
         };
     }

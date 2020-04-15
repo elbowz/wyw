@@ -21,4 +21,8 @@ public class PersonBusiness {
         System.out.println(list);
         return list;
     }
+
+    public TakesPart addPersonToFilm(TakesPart takesPart) {
+        return repository.save(takesPart);
+    }
 }

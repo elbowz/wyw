@@ -1,0 +1,32 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.sose.univaq.it/">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <ser:getPeopleForFilm>
+            <filmId>?</filmId>
+        </ser:getPeopleForFilm>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header/>
+<SOAP-ENV:Body>
+    <ser:getPeopleForFilm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xsi:schemaLocation="http://apihost http://apihost/schema.xsd">
+        <filmId>tt3896198</filmId>
+    </ser:getPeopleForFilm>
+</SOAP-ENV:Body></SOAP-ENV:Envelope>
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<SOAP-ENV:Header/>
+<SOAP-ENV:Body>
+    <getPeopleForFilm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xsi:schemaLocation="http://service.sose.univaq.it/">
+        <filmId>tt3896198</filmId>
+    </getPeopleForFilm>
+</SOAP-ENV:Body></SOAP-ENV:Envelope>
+
+     <!--Devo aggiungere questo nella mia envelope xmlns:ser="http://service.sose.univaq.it/" -->

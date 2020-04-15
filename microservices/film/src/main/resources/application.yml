@@ -51,3 +51,10 @@ management:
     web:
       exposure:
         include="*":
+
+# This is needed if you want to see SOAP request in logs.
+logging.level.it.univaq.sose.film.client.PersonServiceClient: DEBUG
+
+feign:
+  hystrix:
+    enabled: true

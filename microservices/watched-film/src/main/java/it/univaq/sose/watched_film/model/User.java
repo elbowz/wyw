@@ -1,6 +1,7 @@
 package it.univaq.sose.watched_film.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Id;
 import java.util.Date;
@@ -12,7 +13,11 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+
+    // Hide psw during serialization.
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
     private Date createdAt;
     private Date updatedAt;
 
