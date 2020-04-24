@@ -1,6 +1,6 @@
 version: '3.7'
 
-## BASE MICROSERVICE
+## BASE VALUES (reused in the services)
 x-tomcat: &tomcat
   image: tomcat:jdk8
   restart: unless-stopped
@@ -20,13 +20,18 @@ x-mariadb: &mariadb
   image: mariadb:10.5.1
   restart: unless-stopped
   environment:
-    MYSQL_ROOT_PASSWORD: sose
     # or set more detailed access policy in docker/db-init.sql
+    MYSQL_ROOT_PASSWORD: sose
     MYSQL_DATABASE: sosedb
     MYSQL_USER: sose
     MYSQL_PASSWORD: sose
 
-## SERVICES DEFINITION
+x-eureka: &eureka
+  EUREKA_SERVER_URI: ${EUREKA_SERVER_URI}
+  EUREKA_SERVER_PORT: '8080'
+  EUREKA_BASE_PATH: '/sose'
+
+## SERVICES
 services:
 
   # PERSON MS (inherit from base microservice)
@@ -36,10 +41,7 @@ services:
       - person-db
     volumes:
       - ./microservices/person/target/sose:/usr/local/tomcat/webapps/ROOT
-    environment:
-      EUREKA_SERVER_URI: 'eureka-registry'
-      EUREKA_SERVER_PORT: '8080'
-      EUREKA_BASE_PATH: '/sose'
+    environment: *eureka
     networks:
       - microservices
 
@@ -59,10 +61,7 @@ services:
       - film-db
     volumes:
       - ./microservices/film/target/sose:/usr/local/tomcat/webapps/ROOT
-    environment:
-      EUREKA_SERVER_URI: 'eureka-registry'
-      EUREKA_SERVER_PORT: '8080'
-      EUREKA_BASE_PATH: '/sose'
+    environment: *eureka
     networks:
       - microservices
 
@@ -82,10 +81,7 @@ services:
       - user-db
     volumes:
       - ./microservices/user/target/sose:/usr/local/tomcat/webapps/ROOT
-    environment:
-      EUREKA_SERVER_URI: 'eureka-registry'
-      EUREKA_SERVER_PORT: '8080'
-      EUREKA_BASE_PATH: '/sose'
+    environment: *eureka
     networks:
       - microservices
 
@@ -106,9 +102,7 @@ services:
     volumes:
       - ./microservices/watched-film/target/sose:/usr/local/tomcat/webapps/ROOT
     environment:
-      EUREKA_SERVER_URI: 'eureka-registry'
-      EUREKA_SERVER_PORT: '8080'
-      EUREKA_BASE_PATH: '/sose'
+      <<: *eureka
       OMDB_API_KEY: ${OMDB_API_KEY}
     networks:
       - microservices
@@ -130,7 +124,7 @@ services:
     volumes:
       - ./microservices/eureka-registry/target/sose:/usr/local/tomcat/webapps/sose
     environment:
-      HOSTNAME: 'eureka-registry'
+      HOSTNAME: ${EUREKA_SERVER_URI}
     networks:
       - microservices
 
@@ -140,10 +134,7 @@ services:
       - "8762:8080"
     volumes:
       - ./microservices/zuul/target/sose:/usr/local/tomcat/webapps/ROOT
-    environment:
-      EUREKA_SERVER_URI: 'eureka-registry'
-      EUREKA_SERVER_PORT: '8080'
-      EUREKA_BASE_PATH: '/sose'
+    environment: *eureka
     networks:
       - microservices
 
@@ -162,7 +153,6 @@ services:
       - "5000:8080"
     networks:
       - microservices
-
 
 networks:
   microservices:
