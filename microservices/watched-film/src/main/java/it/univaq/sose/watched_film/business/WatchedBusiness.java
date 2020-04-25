@@ -74,11 +74,6 @@ public class WatchedBusiness {
         return watchedFilm;
     }
 
-    // TODO Maybe this should be removed.
-    public ArrayList<Watched> getAll() {
-        return (ArrayList<Watched>) this.watchedRepository.findAll();
-    }
-
     public Watched save(Watched watched) {
         return watchedRepository.save(watched);
     }

@@ -3,6 +3,7 @@ package it.univaq.sose.user.service;
 import io.swagger.annotations.Api;
 import it.univaq.sose.user.exceptions.DuplicatedUserException;
 import it.univaq.sose.user.business.UserBusiness;
+import it.univaq.sose.user.model.Login;
 import it.univaq.sose.user.model.User;
 import org.apache.cxf.ext.logging.Logging;
 import org.slf4j.Logger;
@@ -45,5 +46,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(@Valid User newUser, long id) {
         return userBusiness.updateUser(id, newUser);
+    }
+
+    @Override
+    public User login(Login login) {
+        return userBusiness.login(login.getEmail(), login.getPassword());
     }
 }

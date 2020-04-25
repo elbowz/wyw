@@ -61,4 +61,14 @@ public class UserBusiness {
                     return userRepository.save(newUser);
                 });
     }
+
+    public User login(String email, String password) throws UserNotFoundException {
+        User user = this.getUserByEmail(email);
+
+        if (user.getPassword() != null && user.getPassword().equals(password)) {
+            return user;
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
 }

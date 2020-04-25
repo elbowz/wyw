@@ -1,5 +1,6 @@
 package it.univaq.sose.watched_film.service;
 
+import io.swagger.annotations.ApiOperation;
 import it.univaq.sose.watched_film.model.Watched;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -11,14 +12,10 @@ import java.util.List;
 @Path("/watched")
 public interface WatchedService {
     @GET
-    @Path("/{id}")
+    @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    List<Watched> getWatchedById(@PathParam("id") Long id);
-
-    @GET
-    @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
-    List<Watched> getAllWatched();
+    @ApiOperation("Returns the list of watched film with information for the given user id.")
+    List<Watched> getWatchedByUserId(@PathParam("userId") Long userId);
 
     @GET
     @Path("/ping")

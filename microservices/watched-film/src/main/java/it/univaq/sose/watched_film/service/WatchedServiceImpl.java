@@ -2,6 +2,7 @@ package it.univaq.sose.watched_film.service;
 
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import it.univaq.sose.watched_film.business.WatchedBusiness;
 import it.univaq.sose.watched_film.model.Watched;
 import org.apache.cxf.ext.logging.Logging;
@@ -19,13 +20,8 @@ public class WatchedServiceImpl implements WatchedService {
     WatchedBusiness watchedBusiness;
 
     @Override
-    public List<Watched> getWatchedById(Long id) {
-        return watchedBusiness.getWatchedFilmByUser(id);
-    }
-
-    @Override
-    public List<Watched> getAllWatched() {
-        return watchedBusiness.getAll();
+    public List<Watched> getWatchedByUserId(Long userId) {
+        return watchedBusiness.getWatchedFilmByUser(userId);
     }
 
     @Override

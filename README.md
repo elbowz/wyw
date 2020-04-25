@@ -15,6 +15,11 @@ Temporary skeleton for a microservice architecture, composed by:
 ## Typically development flow
 
 ### Start containers
+ A key for [OMDB API](http://www.omdbapi.com/apikey.aspx) is required if you want to obtain film ratings.
+ Before running, export the key with:
+ 
+ `export OMDB_API_KEY="MY_KEY"`
+ 
  
 * Normal:  
     `docker-compose up (-d)`

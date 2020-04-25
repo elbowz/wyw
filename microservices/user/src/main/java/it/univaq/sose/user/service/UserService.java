@@ -1,6 +1,7 @@
 package it.univaq.sose.user.service;
 
 import it.univaq.sose.user.exceptions.DuplicatedUserException;
+import it.univaq.sose.user.model.Login;
 import it.univaq.sose.user.model.User;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -37,4 +38,9 @@ public interface UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     User updateUser(@Valid @RequestBody User user, @PathParam("id") long id);
 
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON})
+    User login(@Valid @RequestBody Login login);
 }
