@@ -10,6 +10,8 @@
     |
     <router-link :to="{ name: 'profile' }">Profile</router-link>
     |
+    <router-link :to="{ name: 'mywatched' }">Watched</router-link>
+    |
     <router-link :to="{ name: 'films' }">Films</router-link>
     |
     <span v-if="user">{{ user }} <a href="" @click.prevent="logout">Logout</a></span>

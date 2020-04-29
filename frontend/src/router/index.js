@@ -5,6 +5,7 @@ import { Auth } from '../common/api.service';
 
 import Home from '../views/Home.vue';
 import Film from '../views/Film.vue';
+import Watched from '../views/Watched.vue';
 import Films from '../views/Films.vue';
 import Login from '../views/Login.vue';
 import User from '../views/User.vue';
@@ -31,7 +32,8 @@ const routes = [
   { path: '/user', name: 'users', component: Users },
   { path: '/user/profile', name: 'profile', component: User },
   { path: '/user/:id', name: 'user', component: User, props: true },
-  { path: '/user/:id/watched', name: 'watched', component: Home },
+  { path: '/user/profile/watched', name: 'mywatched', component: Watched },
+  { path: '/user/:id/watched', name: 'watched', component: Watched, props: true },
   { path: '/film', name: 'films', component: Films },
   { path: '/film/:id', name: 'film', component: Film, props: true },
   { path: '*', name: '404', component: Home },
@@ -43,7 +45,7 @@ const router = new VueRouter({
   routes,
 });
 
-const authRequired = ['profile'];
+const authRequired = ['profile', 'mywatched'];
 
 router.beforeEach((to, from, next) => {
   if (authRequired.includes(to.name) && !Auth.isLogged()) next({ name: 'login', query: { redirect: to.path } });
