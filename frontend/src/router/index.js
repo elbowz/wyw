@@ -2,11 +2,13 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import { Auth } from '../common/api.service';
+
 import Home from '../views/Home.vue';
 import Film from '../views/Film.vue';
 import Films from '../views/Films.vue';
-import User from '../views/User.vue';
 import Login from '../views/Login.vue';
+import User from '../views/User.vue';
+import Users from '../views/Users.vue';
 
 Vue.use(VueRouter);
 
@@ -26,7 +28,7 @@ const routes = [
   },
   { path: '/', name: 'home', component: Home },
   { path: '/login', name: 'login', component: Login },
-  { path: '/user', name: 'users', component: Home },
+  { path: '/user', name: 'users', component: Users },
   { path: '/user/profile', name: 'profile', component: User },
   { path: '/user/:id', name: 'user', component: User, props: true },
   { path: '/user/:id/watched', name: 'watched', component: Home },

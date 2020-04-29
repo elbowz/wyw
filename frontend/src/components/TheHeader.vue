@@ -30,6 +30,6 @@ export default {
   },
   computed: {
     user() { return this.$root.store.user && this.$root.store.user.firstName; },
-  }
+  },
 };
 </script>

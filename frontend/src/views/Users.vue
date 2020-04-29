@@ -1,9 +1,7 @@
 <template>
-  <div class="film">
+  <div>
     <div v-if="loading" class="loading">Loading...</div>
-    <div v-else>
-      <span>{{ user.firstName }}</span>
-    </div>
+    <UserList v-else :users="users"/>
 
     <div v-if="error" class="error">
       {{ error }}
@@ -13,37 +11,38 @@
 
 <script>
 import ApiService from '../common/api.service';
+import UserList from '../components/UserList.vue';
 
 export default {
-  name: 'User',
-  props: {
-    id: Number,
-  },
+  name: 'Users',
+  components: { UserList },
   data() {
     return {
       loading: false,
-      user: {},
+      users: [],
       error: null,
     };
   },
   created() {
     // fetch the data when the view is created
-    this.fetchUser();
+    this.fetchUsers();
+  },
+  watch: {
+    // call again the method if the route changes
+    $route: 'fetchUsers',
   },
   methods: {
-    fetchUser() {
-      this.loading = true;
+    fetchUsers() {
       this.error = null;
-      this.user = [];
+      this.users = [];
+      this.loading = true;
+      // TODO: implement query?
+      //console.log(this.$route.query)
 
-      // TODO: swap 1 with the local storage
-      const id = this.id || this.$root.store.user.id;
-
-      ApiService.get('/userservice/user/' + id)
-        .then((user) => {
+      ApiService.get('/userservice/user')
+        .then((films) => {
           this.loading = false;
-          this.user = user;
-
+          this.users = films;
         })
         .catch((error) => {
           this.error = error.toString();
