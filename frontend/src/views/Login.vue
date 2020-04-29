@@ -31,7 +31,7 @@ export default {
       const { email, password } = this;
       Auth.login(email, password)
         .then(() => {
-          this.$router.push({ path: this.$route.query.redirect || '/' });
+          this.$router.push({ path: this.$route.query.redirect || '/user/profile' });
         })
         .catch((error) => {
           this.error = 'username or password are wrong!';

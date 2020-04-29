@@ -37,12 +37,31 @@ export const ApiBaseService = {
 export default ApiBaseService;
 
 export const Auth = {
-  tokenKey: 'user-token',
+  tokenKey: 'user-id',
+  init() {
+    const userId = this.isLogged();
+
+    if (userId) {
+      ApiBaseService.get('/userservice/user/' + userId)
+        .then((user) => {
+          Store.user = user;
+
+          return user;
+        })
+        .catch((error) => {
+          this.logout();
+          throw error;
+        });
+    }
+
+    return false;
+  },
   async login(email, password) {
     return ApiBaseService.post('/userservice/user/login', { email, password })
       .then((user) => {
         localStorage.setItem(this.tokenKey, user.id);
         Store.user = user;
+
         return user;
       })
       .catch((error) => {
@@ -58,4 +77,3 @@ export const Auth = {
     return localStorage.getItem(this.tokenKey) || false;
   },
 };
-

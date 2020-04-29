@@ -6,8 +6,12 @@ import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import App from './App.vue';
 import router from './router';
 import Store from './common/store';
+import { Auth } from './common/api.service';
 
 import './styles/index.scss';
+
+// Auth Init (check localstorage and fulfill Store.user)
+Auth.init();
 
 // Install BootstrapVue
 Vue.use(BootstrapVue);
