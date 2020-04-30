@@ -22,6 +22,10 @@ public class Film {
     private String production;
     private String poster;
 
+    // TODO: I'm not able to inject by @Value
+    //@Value("${eureka.instance.metadataMap.instanceId}")
+    private static String instanceId = "ciao";
+
     @Transient
     private List<TakesPart> people;
 
@@ -82,6 +86,14 @@ public class Film {
 
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    public String getInstanceId() {
+        return Film.instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        Film.instanceId = instanceId;
     }
 
     public List<TakesPart> getPeople() {

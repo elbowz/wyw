@@ -1,6 +1,7 @@
 package it.univaq.sose.watched_film.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Film {
     private String language;
     private String production;
     private String poster;
+    private String instanceId;
 
     // This is needed otherwise OMDB deserialization will fail.
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -76,6 +78,14 @@ public class Film {
 
     public void setRatings(Ratings ratings) {
         this.ratings = ratings;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 
     public String getPoster() {
