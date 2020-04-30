@@ -34,6 +34,10 @@ public class FilmBusiness {
         return (ArrayList<Film>) this.filmRepository.findAll();
     }
 
+    public ArrayList<Film> search(String query) {
+        return (ArrayList<Film>) this.filmRepository.findByTitleIgnoreCaseContaining(query);
+    }
+
     public List<TakesPart> getAllPeopleForFilm(String filmId) {
         GetPeopleForFilm getPeopleForFilm = new GetPeopleForFilm();
         getPeopleForFilm.setFilmId(filmId);

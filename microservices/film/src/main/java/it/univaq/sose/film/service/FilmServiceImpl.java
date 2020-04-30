@@ -29,8 +29,12 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Film> getAllFilms() {
-        return filmBusiness.getAll();
+    public List<Film> getAllFilms(String query) {
+        if(query.isEmpty()) {
+            return filmBusiness.getAll();
+        } else {
+            return filmBusiness.search(query);
+        }
     }
 
     @Override

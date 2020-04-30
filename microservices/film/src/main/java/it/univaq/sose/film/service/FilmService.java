@@ -3,10 +3,7 @@ package it.univaq.sose.film.service;
 import it.univaq.sose.film.model.Film;
 import it.univaq.sose.film.model.TakesPart;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -20,7 +17,7 @@ public interface FilmService {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    List<Film> getAllFilms();
+    List<Film> getAllFilms(@DefaultValue("") @QueryParam("query") String query);
 
     @GET
     @Path("/ping")
