@@ -78,7 +78,7 @@
                 <version>2.2</version>
 
                 <configuration>
-                    <contextFile>${src.dir}/META-INF/context.xml</contextFile>
+                    <!-- <contextFile>${src.dir}/resources/resources/META-INF/context.xml</contextFile> TODO: not works, why?! -->
                 </configuration>
             </plugin>
         </plugins>
