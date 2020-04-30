@@ -1,10 +1,13 @@
 package it.univaq.sose.watched_film.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity()
 @Table(name = "watched")
@@ -19,6 +22,10 @@ public class Watched {
 
     @NotNull
     private String filmId;
+
+    @CreationTimestamp
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Date createdAt;
 
     @Transient
     private Film film;
@@ -69,6 +76,15 @@ public class Watched {
         this.user = user;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         return "Watched{" +
@@ -77,6 +93,7 @@ public class Watched {
                 ", filmId='" + filmId + '\'' +
                 ", film=" + film +
                 ", user=" + user +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }

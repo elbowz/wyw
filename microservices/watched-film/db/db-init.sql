@@ -25,6 +25,7 @@ CREATE TABLE `watched` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `film_id` varchar(15) NOT NULL,
+  `created_at` DATE NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,10 +36,10 @@ CREATE TABLE `watched` (
 
 LOCK TABLES `watched` WRITE;
 /*!40000 ALTER TABLE `watched` DISABLE KEYS */;
-INSERT INTO `watched` (`id`, `user_id`, `film_id`) VALUES
-        (1, 1, 'tt3896198'),
-        (2, 1, 'tt0109830'),
-        (3, 2, 'tt0111161');
+INSERT INTO `watched` (`id`, `user_id`, `film_id`, `created_at`) VALUES
+        (1, 1, 'tt3896198', NOW()),
+        (2, 1, 'tt0109830', NOW()),
+        (3, 2, 'tt0111161', NOW());
 
 /*!40000 ALTER TABLE `watched` ENABLE KEYS */;
 UNLOCK TABLES;
