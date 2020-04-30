@@ -43,14 +43,6 @@
             <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
             <version>${spring.cloud.netflix.zuul.version}</version>
         </dependency>
-
-        <!-- it seems not used...wait and test before strip out
-        <dependency>
-             <groupId>org.springframework.boot</groupId>
-             <artifactId>spring-boot-starter-tomcat</artifactId>
-             <scope>provided</scope>
-         </dependency>-->
-
     </dependencies>
 
     <build>

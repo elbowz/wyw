@@ -22,9 +22,7 @@ public class WebServiceConfig {
 
     @Bean
     public Endpoint endpoint() {
-        // EndpointImpl endpoint = new EndpointImpl(bus, new HelloWorldImpl());
-    EndpointImpl endpoint = new EndpointImpl(bus, personSOAPService);
-        // endpoint.publish("/hello");
+        EndpointImpl endpoint = new EndpointImpl(bus, personSOAPService);
         endpoint.publish("/person");
 
         return endpoint;

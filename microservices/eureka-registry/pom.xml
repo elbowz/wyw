@@ -31,20 +31,11 @@
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
             <version>${spring.cloud.eureka.version}</version>
         </dependency>
-
-        <!-- it seems not used...wait and test before strip out
-        <dependency>
-             <groupId>org.springframework.boot</groupId>
-             <artifactId>spring-boot-starter-tomcat</artifactId>
-             <scope>provided</scope>
-         </dependency>-->
-
     </dependencies>
 
     <build>

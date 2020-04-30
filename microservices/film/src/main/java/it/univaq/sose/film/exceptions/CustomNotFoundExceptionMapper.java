@@ -14,7 +14,7 @@ import javax.ws.rs.ext.Provider;
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 @Component
-class CustomNotFoundExceptionMapper implements ExceptionMapper<FilmNotFoundException> {
+public class CustomNotFoundExceptionMapper implements ExceptionMapper<FilmNotFoundException> {
     private static final Logger logger = LoggerFactory.getLogger(FilmNotFoundException.class);
 
     @Override

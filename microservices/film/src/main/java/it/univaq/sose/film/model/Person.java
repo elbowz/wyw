@@ -1,10 +1,5 @@
 package it.univaq.sose.film.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 public class Person {
     private long id;
     private String firstName;

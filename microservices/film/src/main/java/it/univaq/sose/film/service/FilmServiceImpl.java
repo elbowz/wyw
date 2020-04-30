@@ -3,10 +3,7 @@ package it.univaq.sose.film.service;
 
 import io.swagger.annotations.Api;
 import it.univaq.sose.film.business.FilmBusiness;
-import it.univaq.sose.film.client.PersonServiceClient;
 import it.univaq.sose.film.model.Film;
-import it.univaq.sose.film.model.GetPeopleForFilm;
-import it.univaq.sose.film.model.GetPeopleForFilmResponse;
 import it.univaq.sose.film.model.TakesPart;
 import org.apache.cxf.ext.logging.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +21,6 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film getFilmById(String id) {
-//        return filmBusiness.one(id);
         return filmBusiness.oneWithPeople(id);
     }
 

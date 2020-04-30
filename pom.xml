@@ -18,7 +18,7 @@
         </developer>
         <developer>
             <name>Luigi Cerone</name>
-            <email>luigi.cerone@univaq.it</email>
+            <email>luigi.cerone1@student.univaq.it</email>
         </developer>
     </developers>
 
@@ -78,7 +78,7 @@
                 <version>2.2</version>
 
                 <configuration>
-                    <!-- <contextFile>${src.dir}/resources/resources/META-INF/context.xml</contextFile> TODO: not works, why?! -->
+                    <contextFile>${src.dir}/META-INF/context.xml</contextFile>
                 </configuration>
             </plugin>
         </plugins>

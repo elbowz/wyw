@@ -29,18 +29,11 @@
     </dependencyManagement>
 
     <dependencies>
-
-        <!-- probably move on /mircoservices -->
+        <!-- CXF boot starter-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <exclusions>
-                <!-- conflicts with jaxrs 2.0 from cxf causing runtime problems: method not found and some nasty logs on error level when requesting not mapped path -->
-                <exclusion>
-                    <groupId>javax.ws.rs</groupId>
-                    <artifactId>jsr311-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-spring-boot-starter-jaxrs</artifactId>
+            <version>${cxf.version}</version>
         </dependency>
 
         <dependency>
