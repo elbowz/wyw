@@ -48,7 +48,7 @@ export default {
         .then((watched) => {
           this.loading = false;
 
-          this.films = watched.map((row) => row.film);
+          this.films = watched.map((row) => ({ ...row.film, ...{ createdAt: row.createdAt } }));
         })
         .catch((error) => {
           this.error = error.toString();

@@ -7,18 +7,21 @@ import App from './App.vue';
 import router from './router';
 import Store from './common/store';
 import { Auth } from './common/api.service';
+import { date } from './common/filter';
 
 import './styles/index.scss';
-
-// Auth Init (check localstorage and fulfill Store.user)
-Auth.init();
 
 // Install BootstrapVue
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(BootstrapVueIcons);
 
+// Auth Init (check localstorage and fulfill Store.user)
+Auth.init();
+
 Vue.config.productionTip = false;
+
+Vue.filter('date', date);
 
 new Vue({
   router,

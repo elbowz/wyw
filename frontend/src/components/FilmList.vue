@@ -5,6 +5,7 @@
       :key="film.imdbID"
     >
       <router-link :to="{ name: 'film', params: { id: film.imdbID }}">{{ film.title }}</router-link>
+      <span v-if="film.createdAt"> {{film.createdAt | date}}</span>
     </div>
   </div>
   <div v-else>
