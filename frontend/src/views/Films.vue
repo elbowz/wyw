@@ -1,5 +1,6 @@
 <template>
   <div>
+    <input v-model="query" v-on:keyup.enter="search"><button @click="search">search</button>
     <div v-if="loading" class="loading">Loading...</div>
     <FilmList v-else :films="films"/>
 
@@ -11,7 +12,7 @@
 
 <script>
 import ApiService from '../common/api.service';
-import FilmList from "../components/FilmList.vue";
+import FilmList from '../components/FilmList.vue';
 
 export default {
   name: 'Films',
@@ -19,8 +20,9 @@ export default {
   data() {
     return {
       loading: false,
-      films: [],
       error: null,
+      films: [],
+      query: '',
     };
   },
   created() {
@@ -29,17 +31,16 @@ export default {
   },
   watch: {
     // call again the method if the route changes
-    $route: 'fetchFilms',
+    '$route.query.query': 'fetchFilms',
   },
   methods: {
     fetchFilms() {
-      this.error = null;
-      this.films = [];
       this.loading = true;
-      // TODO: implement query?
-      //console.log(this.$route.query)
+      this.error = null;
+      this.query = this.$route.query.query;
+      this.films = [];
 
-      ApiService.get('/filmservice/film')
+      ApiService.get('/filmservice/film?query=' + this.query)
         .then((films) => {
           this.loading = false;
           this.films = films;
@@ -47,6 +48,9 @@ export default {
         .catch((error) => {
           this.error = error.toString();
         });
+    },
+    search() {
+      this.$router.push({ query: { query: this.query } });
     },
   },
 };
