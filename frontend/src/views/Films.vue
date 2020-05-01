@@ -40,7 +40,7 @@ export default {
       this.query = this.$route.query.query;
       this.films = [];
 
-      ApiService.get('/filmservice/film?query=' + this.query)
+      ApiService.get(`/filmservice/film${this.query ? '?query=' + this.query : ''}`)
         .then((films) => {
           this.loading = false;
           this.films = films;
