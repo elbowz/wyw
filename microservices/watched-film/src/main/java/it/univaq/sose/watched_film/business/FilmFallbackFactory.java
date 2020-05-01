@@ -20,7 +20,7 @@ public class FilmFallbackFactory implements FallbackFactory<FilmServiceClient> {
     public FilmServiceClient create(Throwable throwable) {
         return new FilmServiceClient() {
             @Override
-            public CompletableFuture<Film> getFilmById(String filmId) {
+            public CompletableFuture<Film> getFilmById(String filmId, int withPeople) {
                 // System.out.println("Fallback called for: " + throwable.getLocalizedMessage());
 
                 // If film-ws is down then use OMDB.

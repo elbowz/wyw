@@ -15,7 +15,7 @@ public interface WatchedService {
     @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
     @ApiOperation("Returns the list of watched film with information for the given user id.")
-    List<Watched> getWatchedByUserId(@PathParam("userId") Long userId);
+    List<Watched> getWatchedByUserId(@PathParam("userId") Long userId, @DefaultValue("2") @QueryParam("deep") int deep);
 
     @GET
     @Path("/ping")

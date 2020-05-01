@@ -47,10 +47,12 @@ public class FilmBusiness {
         return response.getReturn();
     }
 
-    public Film oneWithPeople(String filmId) {
+    public Film oneWithPeople(String filmId, int deep) {
         Optional<Film> optional = filmRepository.findByImdbID(filmId);
 
-        optional.ifPresent(film -> film.setPeople(getAllPeopleForFilm(filmId)));
+        if (deep == 1) {
+            optional.ifPresent(film -> film.setPeople(getAllPeopleForFilm(filmId)));
+        }
 
         return optional.orElseThrow(FilmNotFoundException::new);
     }

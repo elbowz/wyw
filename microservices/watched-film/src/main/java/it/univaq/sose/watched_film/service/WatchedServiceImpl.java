@@ -20,8 +20,8 @@ public class WatchedServiceImpl implements WatchedService {
     WatchedBusiness watchedBusiness;
 
     @Override
-    public List<Watched> getWatchedByUserId(Long userId) {
-        return watchedBusiness.getWatchedFilmByUser(userId);
+    public List<Watched> getWatchedByUserId(Long userId, int deep) {
+        return watchedBusiness.getWatchedFilmByUser(userId, deep);
     }
 
     @Override

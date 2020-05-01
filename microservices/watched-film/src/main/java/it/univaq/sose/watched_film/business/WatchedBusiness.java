@@ -35,12 +35,28 @@ public class WatchedBusiness {
     public WatchedBusiness() {
     }
 
-    public ArrayList<Watched> getWatchedFilmByUser(long id) {
-        ArrayList<Watched> watchedFilm = (ArrayList<Watched>) watchedRepository.findWatchedByUserId(id);
+    /**
+     * Return list of film watched by a given user.
+     *
+     * @param userId
+     * @param deep specify how much information we want. 2=all, 1=no person-ws, 0=just watched-film-ws.
+     * @return
+     */
+    public ArrayList<Watched> getWatchedFilmByUser(long userId, int deep) {
+        int withPeople = deep == 2 ? 1 : 0;
+
+        int withFilmAndUser = deep >= 1 ? 1: 0;
+
+        ArrayList<Watched> watchedFilm = (ArrayList<Watched>) watchedRepository.findWatchedByUserId(userId);
 
         // If this user hasn't watched any film return 404.
         if (watchedFilm.size() == 0) {
             throw new UserNotFoundException();
+        }
+
+        // If the requested deep is 0 just return the watched-film-db data.
+        if (withFilmAndUser == 0){
+            return watchedFilm;
         }
 
         // Get score for each film.
@@ -52,7 +68,7 @@ public class WatchedBusiness {
         // Get all films information.
         for (Watched watched : watchedFilm) {
             CompletableFuture c = filmServiceClient
-                    .getFilmById(watched.getFilmId())
+                    .getFilmById(watched.getFilmId(), withPeople)
                     .thenCompose(film -> {
                         watched.setFilm(film);
                         return omdbServiceClient.getRatingsByFilmId(watched.getFilmId(), apiKey);
@@ -64,10 +80,10 @@ public class WatchedBusiness {
         }
 
         // Get user information.
-        long userId = watchedFilm.get(0).getUserId();
+        long id = watchedFilm.get(0).getUserId();
 
         CompletableFuture c = userServiceClient
-                .getUserById(userId)
+                .getUserById(id)
                 .thenAccept(user -> watchedFilm.forEach(watched -> watched.setUser(user)));
 
         linkedList.add(c);
@@ -85,7 +101,7 @@ public class WatchedBusiness {
 
         // Get film with this id (note: fallback will be used during the call).
         CompletableFuture c = filmServiceClient
-                .getFilmById(watched.getFilmId())
+                .getFilmById(watched.getFilmId(), 0)
                 .thenAccept(newFilm::set);
 
         linkedList.add(c);
