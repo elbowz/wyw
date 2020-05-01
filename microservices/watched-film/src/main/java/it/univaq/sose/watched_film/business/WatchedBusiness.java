@@ -3,17 +3,19 @@ package it.univaq.sose.watched_film.business;
 import it.univaq.sose.watched_film.client.FilmServiceClient;
 import it.univaq.sose.watched_film.client.OmdbServiceClient;
 import it.univaq.sose.watched_film.client.UserServiceClient;
+import it.univaq.sose.watched_film.exceptions.MalformedBodyException;
 import it.univaq.sose.watched_film.exceptions.UserNotFoundException;
+import it.univaq.sose.watched_film.model.Film;
+import it.univaq.sose.watched_film.model.User;
 import it.univaq.sose.watched_film.model.Watched;
 import it.univaq.sose.watched_film.repository.WatchedRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class WatchedBusiness {
@@ -75,6 +77,44 @@ public class WatchedBusiness {
     }
 
     public Watched save(Watched watched) {
+        AtomicReference<Film> newFilm = new AtomicReference<>();
+        AtomicReference<User> newUser = new AtomicReference<>();
+
+        // Used to contain all the completable futures and wait to respond until all of them are completed.
+        LinkedList<CompletableFuture> linkedList = new LinkedList<>();
+
+        // Get film with this id (note: fallback will be used during the call).
+        CompletableFuture c = filmServiceClient
+                .getFilmById(watched.getFilmId())
+                .thenAccept(newFilm::set);
+
+        linkedList.add(c);
+
+        // Get user with this id (note: fallback will be used during the call).
+        CompletableFuture c1 = userServiceClient
+                .getUserById(watched.getUserId())
+                .thenAccept(newUser::set);
+
+        linkedList.add(c1);
+
+        // Wait for resolution.
+        linkedList.forEach(CompletableFuture::join);
+
+        // Check if film is valid.
+        if (newFilm.get().getTitle() == null) {
+            throw new MalformedBodyException();
+        }
+
+        // Check if user is valid.
+        if (newUser.get() ==  null) {
+            throw new MalformedBodyException();
+        }
+
+        // Check for duplicates.
+        if (watchedRepository.hasUserWatchedFilm(watched.getUserId(), watched.getFilmId())) {
+            throw new MalformedBodyException();
+        }
+
         return watchedRepository.save(watched);
     }
 }
