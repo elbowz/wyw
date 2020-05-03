@@ -14,15 +14,21 @@ export const ApiBaseService = {
     // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin
     referrerPolicy: 'no-referrer-when-downgrade',
   },
-  async get(path = '') {
-    return fetch(API_URL + path, this.fetchInitDefault)
+  _urlGenerator(path = '', params = {}) {
+    const url = new URL(API_URL + path);
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+    return url;
+  },
+  async get(path = '', params = {}) {
+    return fetch(this._urlGenerator(path, params), this.fetchInitDefault)
       .then((response) => {
         if (response.ok) return response.json();
         throw response;
       });
   },
-  async post(path = '', data = {}) {
-    return fetch(API_URL + path, {
+  async post(path = '', params = {}, data = {}) {
+    return fetch(this._urlGenerator(path, params), {
       ...this.fetchInitDefault,
       method: 'POST',
       body: JSON.stringify(data),
@@ -57,7 +63,7 @@ export const Auth = {
     return false;
   },
   async login(email, password) {
-    return ApiBaseService.post('/userservice/user/login', { email, password })
+    return ApiBaseService.post('/userservice/user/login', { }, { email, password })
       .then((user) => {
         localStorage.setItem(this.tokenKey, user.id);
         Store.user = user;
