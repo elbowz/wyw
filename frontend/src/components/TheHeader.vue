@@ -22,8 +22,9 @@
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-nav-form class="mr-lg-3">
-              <b-form-input size="sm" class="mr-sm-2" placeholder="Film search"></b-form-input>
+            <b-nav-form @submit.prevent="search" class="mr-lg-3">
+              <b-form-input v-model="query" size="sm" class="mr-sm-2"
+                            placeholder="Film search"></b-form-input>
               <b-button size="sm" class="my-2 my-sm-0" type="submit" variant="outline-dark">
                 <b-icon icon="search" aria-label="Search"></b-icon>
               </b-button>
@@ -31,13 +32,15 @@
 
             <b-nav-item-dropdown v-if="user" right>
               <template v-slot:button-content>
-                <b-avatar :text="avatarText" size="sm" variant="primary"></b-avatar> {{ user }}
+                <b-avatar :text="avatarText" size="sm" variant="primary"></b-avatar>
+                {{ user }}
               </template>
               <b-dropdown-item :to="{ name: 'profile' }">Profile</b-dropdown-item>
               <b-dropdown-item href="#" @click.prevent="logout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item v-else :to="{ name: 'login' }">
-              <b-avatar icon="person-fill" size="sm" variant="primary"></b-avatar> Login
+              <b-avatar icon="person-fill" size="sm" variant="primary"></b-avatar>
+              Login
             </b-nav-item>
           </b-navbar-nav>
         </b-collapse>
@@ -51,15 +54,27 @@ import { Auth } from '../common/api.service';
 
 export default {
   name: 'TheHeader',
+  data() {
+    return {
+      query: '',
+    };
+  },
   methods: {
     logout() {
       Auth.logout();
       this.$router.push({ path: '/' });
     },
+    search() {
+      this.$router.push({ name: 'films', query: { query: this.query } });
+    },
   },
   computed: {
-    user() { return this.$root.store.user && this.$root.store.user.firstName; },
-    avatarText() { return this.$root.store.user && this.$root.store.user.firstName.charAt(0) + this.$root.store.user.lastName.charAt(0); },
+    user() {
+      return this.$root.store.user && this.$root.store.user.firstName;
+    },
+    avatarText() {
+      return this.$root.store.user && this.$root.store.user.firstName.charAt(0) + this.$root.store.user.lastName.charAt(0);
+    },
   },
 };
 </script>
