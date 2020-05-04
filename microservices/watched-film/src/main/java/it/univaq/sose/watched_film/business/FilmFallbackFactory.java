@@ -21,7 +21,7 @@ public class FilmFallbackFactory implements FallbackFactory<FilmServiceClient> {
         return new FilmServiceClient() {
             @Override
             public CompletableFuture<Film> getFilmById(String filmId, int withPeople) {
-                // System.out.println("Fallback called for: " + throwable.getLocalizedMessage());
+                System.out.println("Fallback called for: " + throwable.getLocalizedMessage());
 
                 // If film-ws is down then use OMDB.
                 String apiKey = System.getenv("OMDB_API_KEY");

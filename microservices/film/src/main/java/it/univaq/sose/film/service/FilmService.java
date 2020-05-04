@@ -12,7 +12,7 @@ public interface FilmService {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    Film getFilmById(@PathParam("id") String id, @QueryParam("deep") int withPeople);
+    Film getFilmById(@PathParam("id") String id, @DefaultValue("1") @QueryParam("deep") int withPeople);
 
     @GET
     @Path("/")

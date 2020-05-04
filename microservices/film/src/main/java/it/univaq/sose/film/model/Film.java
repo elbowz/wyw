@@ -5,8 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity()
@@ -21,6 +21,9 @@ public class Film {
     private String language;
     private String production;
     private String poster;
+
+    @Transient
+    private LinkedList<Rate> ratings;
 
     @Transient
     private List<TakesPart> people;
@@ -90,6 +93,14 @@ public class Film {
 
     public void setPeople(List<TakesPart> people) {
         this.people = people;
+    }
+
+    public LinkedList<Rate> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(LinkedList<Rate> ratings) {
+        this.ratings = ratings;
     }
 
     @Override

@@ -2,7 +2,6 @@ package it.univaq.sose.watched_film.client;
 
 import it.univaq.sose.watched_film.business.OmdbFallbackFactory;
 import it.univaq.sose.watched_film.model.Film;
-import it.univaq.sose.watched_film.model.Ratings;
 import org.springframework.cloud.openfeign.FeignClient;
 
 import javax.ws.rs.*;
@@ -16,9 +15,4 @@ public interface OmdbServiceClient {
     @Path("")
     @Produces(MediaType.APPLICATION_JSON)
     CompletableFuture<Film> getFilmById(@QueryParam("i") String i, @QueryParam("apiKey") String apiKey);
-
-    @GET
-    @Path("")
-    @Produces(MediaType.APPLICATION_JSON)
-    CompletableFuture<Ratings> getRatingsByFilmId(@QueryParam("i") String i, @QueryParam("apiKey") String apiKey);
 }

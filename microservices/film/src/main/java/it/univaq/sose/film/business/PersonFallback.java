@@ -6,15 +6,17 @@ import it.univaq.sose.film.model.GetPeopleForFilm;
 import it.univaq.sose.film.model.GetPeopleForFilmResponse;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.CompletableFuture;
+
 @Component
 public class PersonFallback implements FallbackFactory<PersonServiceClient> {
     @Override
     public PersonServiceClient create(Throwable throwable) {
         return new PersonServiceClient() {
             @Override
-            public GetPeopleForFilmResponse getPeopleForFilm(GetPeopleForFilm getPeopleForFilm) {
+            public CompletableFuture<GetPeopleForFilmResponse> getPeopleForFilm(GetPeopleForFilm getPeopleForFilm) {
                 // When person-ws is down return empty list of people.
-                return new GetPeopleForFilmResponse();
+                return CompletableFuture.completedFuture(new GetPeopleForFilmResponse());
             }
         };
     }

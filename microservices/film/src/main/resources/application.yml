@@ -55,6 +55,9 @@ management:
 # This is needed if you want to see SOAP request in logs.
 logging.level.it.univaq.sose.film.client.PersonServiceClient: DEBUG
 
+# This is needed if you want to see OMDB request in logs.
+logging.level.it.univaq.sose.film.client.OmdbServiceClient: DEBUG
+
 feign:
   hystrix:
     enabled: true

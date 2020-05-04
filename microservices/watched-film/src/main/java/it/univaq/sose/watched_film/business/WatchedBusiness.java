@@ -1,7 +1,6 @@
 package it.univaq.sose.watched_film.business;
 
 import it.univaq.sose.watched_film.client.FilmServiceClient;
-import it.univaq.sose.watched_film.client.OmdbServiceClient;
 import it.univaq.sose.watched_film.client.UserServiceClient;
 import it.univaq.sose.watched_film.exceptions.MalformedBodyException;
 import it.univaq.sose.watched_film.exceptions.UserNotFoundException;
@@ -28,9 +27,6 @@ public class WatchedBusiness {
 
     @Autowired
     UserServiceClient userServiceClient;
-
-    @Autowired
-    OmdbServiceClient omdbServiceClient;
 
     public WatchedBusiness() {
     }
@@ -59,9 +55,6 @@ public class WatchedBusiness {
             return watchedFilm;
         }
 
-        // Get score for each film.
-        String apiKey = System.getenv("OMDB_API_KEY");
-
         // Used to contain all the completable futures and wait to respond until all of them are completed.
         LinkedList<CompletableFuture> linkedList = new LinkedList<>();
 
@@ -69,13 +62,7 @@ public class WatchedBusiness {
         for (Watched watched : watchedFilm) {
             CompletableFuture c = filmServiceClient
                     .getFilmById(watched.getFilmId(), withPeople)
-                    .thenCompose(film -> {
-                        watched.setFilm(film);
-                        return omdbServiceClient.getRatingsByFilmId(watched.getFilmId(), apiKey);
-                    })
-                    .thenAccept(ratings -> {
-                        watched.getFilm().setRatings(ratings);
-                    });
+                    .thenAccept(watched::setFilm);
             linkedList.add(c);
         }
 
@@ -117,7 +104,7 @@ public class WatchedBusiness {
         linkedList.forEach(CompletableFuture::join);
 
         // Check if film is valid.
-        if (newFilm.get().getTitle() == null) {
+        if (newFilm.get() == null) {
             throw new MalformedBodyException();
         }
 

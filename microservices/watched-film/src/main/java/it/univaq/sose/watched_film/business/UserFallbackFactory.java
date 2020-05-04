@@ -2,12 +2,8 @@ package it.univaq.sose.watched_film.business;
 
 
 import feign.hystrix.FallbackFactory;
-import it.univaq.sose.watched_film.client.OmdbServiceClient;
 import it.univaq.sose.watched_film.client.UserServiceClient;
-import it.univaq.sose.watched_film.model.Film;
-import it.univaq.sose.watched_film.model.Ratings;
 import it.univaq.sose.watched_film.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;

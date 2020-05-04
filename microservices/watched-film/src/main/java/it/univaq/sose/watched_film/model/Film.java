@@ -2,6 +2,7 @@ package it.univaq.sose.watched_film.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Film {
@@ -13,9 +14,7 @@ public class Film {
     private String production;
     private String poster;
 
-    // This is needed otherwise OMDB deserialization will fail.
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Ratings ratings;
+    private LinkedList<Rate> ratings;
 
     private List<TakesPart> people;
 
@@ -70,11 +69,11 @@ public class Film {
         this.production = production;
     }
 
-    public Ratings getRatings() {
+    public LinkedList<Rate> getRatings() {
         return ratings;
     }
 
-    public void setRatings(Ratings ratings) {
+    public void setRatings(LinkedList<Rate> ratings) {
         this.ratings = ratings;
     }
 

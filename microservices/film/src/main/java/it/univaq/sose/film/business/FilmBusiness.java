@@ -1,18 +1,19 @@
 package it.univaq.sose.film.business;
 
+import it.univaq.sose.film.client.OmdbServiceClient;
 import it.univaq.sose.film.client.PersonServiceClient;
 import it.univaq.sose.film.exceptions.FilmNotFoundException;
-import it.univaq.sose.film.model.Film;
-import it.univaq.sose.film.model.GetPeopleForFilm;
-import it.univaq.sose.film.model.GetPeopleForFilmResponse;
-import it.univaq.sose.film.model.TakesPart;
+import it.univaq.sose.film.model.*;
 import it.univaq.sose.film.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class FilmBusiness {
@@ -23,12 +24,10 @@ public class FilmBusiness {
     @Autowired
     PersonServiceClient personServiceClient;
 
-    public FilmBusiness() {}
+    @Autowired
+    OmdbServiceClient omdbServiceClient;
 
-    public Film one(String id) {
-        Optional<Film> optional = filmRepository.findByImdbID(id);
-        return optional.orElseThrow(FilmNotFoundException::new);
-    }
+    public FilmBusiness() {}
 
     public ArrayList<Film> getAll() {
         return (ArrayList<Film>) this.filmRepository.findAll();
@@ -39,21 +38,64 @@ public class FilmBusiness {
     }
 
     public List<TakesPart> getAllPeopleForFilm(String filmId) {
+        AtomicReference<List<TakesPart>> list = new AtomicReference<List<TakesPart>>();
+
+        // Create SOAP request.
         GetPeopleForFilm getPeopleForFilm = new GetPeopleForFilm();
         getPeopleForFilm.setFilmId(filmId);
 
-        GetPeopleForFilmResponse response = personServiceClient.getPeopleForFilm(getPeopleForFilm);
+        // Make query.
+        CompletableFuture<GetPeopleForFilmResponse> c =  personServiceClient.getPeopleForFilm(getPeopleForFilm);
+        c.thenAccept(getPeopleForFilmResponse -> list.set(getPeopleForFilmResponse.getReturn()));
+        c.join();
 
-        return response.getReturn();
+        return list.get();
     }
 
-    public Film oneWithPeople(String filmId, int deep) {
+    public Film one(String filmId, int deep) {
+        // Get score for each film.
+        String apiKey = System.getenv("OMDB_API_KEY");
+        System.out.println("API_KEY: " + apiKey);
+
+        // Used to contain all the completable futures and wait to respond until all of them are completed.
+        LinkedList<CompletableFuture> linkedList = new LinkedList<>();
+
+        // Get film from db.
         Optional<Film> optional = filmRepository.findByImdbID(filmId);
 
-        if (deep == 1) {
-            optional.ifPresent(film -> film.setPeople(getAllPeopleForFilm(filmId)));
+        // Check if film exists in db.
+        if (!optional.isPresent()) {
+            throw new FilmNotFoundException();
         }
 
-        return optional.orElseThrow(FilmNotFoundException::new);
+        // Ask imdb for film ratings.
+        CompletableFuture c = omdbServiceClient
+                .getFilmById(optional.get().getImdbID(), apiKey)
+                .thenAccept(film -> {
+                    if (film == null) {
+                        // i.e. fallback factory.
+                        optional.get().setRatings(new LinkedList<>());
+                    } else {
+                        optional.get().setRatings(film.getRatings());
+                    }
+                });
+        linkedList.add(c);
+
+        // Check if we want the people in this film.
+        if (deep == 1) {
+            // Create SOAP request.
+            GetPeopleForFilm getPeopleForFilm = new GetPeopleForFilm();
+            getPeopleForFilm.setFilmId(filmId);
+
+            // Make request.
+            CompletableFuture<GetPeopleForFilmResponse> c1 = personServiceClient.getPeopleForFilm(getPeopleForFilm);
+            linkedList.add(c1);
+            c1.thenAccept( getPeopleForFilmResponse -> optional.get().setPeople(getPeopleForFilmResponse.getReturn()));
+        }
+
+        // Wait before return.
+        linkedList.forEach(CompletableFuture::join);
+
+        return optional.get();
     }
 }

@@ -21,7 +21,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film getFilmById(String id, int deep) {
-        return filmBusiness.oneWithPeople(id, deep);
+        return filmBusiness.one(id, deep);
     }
 
     @Override

@@ -61,7 +61,9 @@ services:
       - film-db
     volumes:
       - ./microservices/film/target/sose:/usr/local/tomcat/webapps/ROOT
-    environment: *eureka
+    environment:
+      <<: *eureka
+      OMDB_API_KEY: ${OMDB_API_KEY}
     networks:
       - microservices
 
