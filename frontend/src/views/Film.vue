@@ -36,7 +36,7 @@ export default {
       this.films = [];
       this.loading = true;
 
-      ApiService.get('/filmservice/film/' + this.id)
+      ApiService.get('/filmservice/film/' + this.id, { deep: 1 })
         .then((film) => {
           this.loading = false;
           this.film = film;
