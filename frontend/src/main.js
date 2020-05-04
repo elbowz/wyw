@@ -1,4 +1,7 @@
 import Vue from 'vue';
+import VueLodash from 'vue-lodash';
+import lodash from 'lodash';
+
 // TODO: add only the used modules (eg. import { AlertPlugin } from 'bootstrap-vue')
 // see: https://bootstrap-vue.js.org/docs#component-groups-and-directives-as-vue-plugins
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
@@ -7,14 +10,13 @@ import App from './App.vue';
 import router from './router';
 import Store from './common/store';
 import { Auth } from './common/api.service';
-import { date } from './common/filter';
+import { date, truncate } from './common/filter';
 
 import './styles/index.scss';
 
-// Install BootstrapVue
 Vue.use(BootstrapVue);
-// Optionally install the BootstrapVue icon components plugin
 Vue.use(BootstrapVueIcons);
+Vue.use(VueLodash, { lodash: lodash });
 
 // Auth Init (check localstorage and fulfill Store.user)
 Auth.init();
@@ -22,6 +24,7 @@ Auth.init();
 Vue.config.productionTip = false;
 
 Vue.filter('date', date);
+Vue.filter('truncate', truncate);
 
 new Vue({
   router,

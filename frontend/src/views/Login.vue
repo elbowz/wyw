@@ -27,7 +27,7 @@ export default {
     };
   },
   methods: {
-    async login() {
+    login() {
       const { email, password } = this;
       Auth.login(email, password)
         .then(() => {
