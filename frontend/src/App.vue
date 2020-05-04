@@ -4,16 +4,16 @@
       <TheHeader/>
     </header>
     <main role="main" class="container">
-      <transition
-        name="custom-classes-transition"
-        enter-active-class="animated fadeIn faster"
-        leave-active-class="animated fadeOut faster"
-        mode="out-in"
-      >
-        <b-container fluid="xl">
+      <b-container fluid="xl">
+        <transition
+          name="custom-classes-transition"
+          enter-active-class="animated fadeIn faster"
+          leave-active-class="animated fadeOut faster"
+          mode="out-in"
+        >
           <router-view/>
-        </b-container>
-      </transition>
+        </transition>
+      </b-container>
     </main>
     <footer>
       <TheFooter/>
@@ -36,6 +36,6 @@ export default {
 
 <style lang="scss">
 .container {
-  padding: 60px 15px 0;
+  margin-top: 80px;
 }
 </style>

@@ -20,15 +20,16 @@
 
     <b-row v-if="films.length"
            cols="1" cols-sm="2" cols-md="3" cols-lg="4" cols-xl="4"
-           class="d-flex flex-wrap justify-content-between align-items-stretch">
+           class="d-flex flex-wrap justify-content-start align-items-stretch">
       <div v-for="film in films" :key="film.imdbID" class="p-2">
         <b-card
-          class="h-100 hvr-shadow"
+          @click="$router.push({ name: 'film', params: { id: film.imdbID }})"
           footer-class="bg-white"
           no-body
+          class="h-100 cursor-pointer hvr-shadow"
         >
           <div class="position-relative">
-            <b-button variant="light" class="watched hvr-icon-bounce">
+            <b-button @click.stop="" variant="light" class="watched hvr-icon-bounce">
               <b-icon icon="eye-fill" aria-label="watched" class="hvr-icon"></b-icon>
             </b-button>
             <b-card-img :src="film.poster" :alt="film.title" top></b-card-img>
@@ -78,7 +79,7 @@ export default {
   top: 0;
   right: 0;
   opacity: 0.6;
-  margin: 2px;
+  margin: 4px;
   transition: all .4s;
 
   &:hover {
