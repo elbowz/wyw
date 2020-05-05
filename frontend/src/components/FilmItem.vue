@@ -6,6 +6,12 @@
       </b-col>
       <b-col sm="8">
         <h3>{{film.title}} <span class="font-weight-light">({{film.year}})</span></h3>
+        <div v-if="film.ratings" class="mb-2">
+          <span v-for="rating in film.ratings" :key="rating.source" class="mr-2">
+            <span class="font-weight-light">{{rating.source}}: </span>
+            <span class="font-weight-bold text-info">{{rating.value}}</span>
+          </span>
+        </div>
         <a :href="'https://www.imdb.com/title/' + film.imdbID"><small><i class="fab fa-imdb"></i> imdb.com</small></a>
         <div class="mt-2">
           <span class="font-weight-light">Language: </span>
