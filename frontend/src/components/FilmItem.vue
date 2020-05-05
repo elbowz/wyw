@@ -21,7 +21,7 @@
           <span class="font-weight-light">Production: </span>
           <span class="font-weight-bold text-capitalize">{{film.production}}</span>
         </div>
-        <div class="mt-2">
+        <div v-if="film.people" class="mt-2">
           <span class="font-weight-light">Cast: </span>
           <div v-for="person in film.people" :key="person.person.id">
             {{person.person.firstName}} {{person.person.lastName}} <small class="text-capitalize">({{person.role}})
