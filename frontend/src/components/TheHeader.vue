@@ -1,9 +1,7 @@
 <template>
-  <b-navbar toggleable="lg" type="light" variant="warning" fixed="top">
+  <b-navbar toggleable="lg" type="light" fixed="top" class="navbar">
     <b-container fluid="xl">
-      <b-navbar-brand :to="{ name: 'home' }">
-        <b-icon icon="film" class="mr-2"></b-icon>
-        <strong>W</strong>hat<strong>Y</strong>ou<strong>W</strong>atched
+      <b-navbar-brand :to="{ name: 'home' }" class="logo-wyw small">
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -22,7 +20,7 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-form @submit.prevent="search" class="mr-lg-3">
             <b-form-input v-model="query" size="sm" class="mr-sm-2"
-                          placeholder="Film search"></b-form-input>
+                          placeholder="Film search" autocomplete="off"></b-form-input>
             <b-button size="sm" class="my-2 my-sm-0" type="submit" variant="outline-dark">
               <b-icon icon="search" aria-label="Search"></b-icon>
             </b-button>
@@ -70,8 +68,36 @@ export default {
       return this.$root.store.user && this.$root.store.user.firstName;
     },
     avatarText() {
-      return this.$root.store.user && this.$root.store.user.firstName.charAt(0) + this.$root.store.user.lastName.charAt(0);
+      const user = this.$root.store.user;
+      return user && user.firstName.charAt(0) + user.lastName.charAt(0);
     },
   },
 };
 </script>
+
+<style scoped lang="scss">
+@import '../styles/bootstrap-custom';
+
+.navbar {
+  transition: all .4s;
+  background-color: rgba($light, .6);
+
+  &:hover {
+    background-color: rgba($warning, .9);
+  }
+
+  .brand-logo {
+    background-image: url('../assets/logo-square-50x50.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 0;
+    height: 36px;
+    width: 36px;
+    transition: all .4s cubic-bezier(0.25, 1, 0.5, 1);
+
+    &:hover {
+      background-image: url('../assets/logo-square-colored-50x50.png');
+    }
+  }
+}
+</style>
