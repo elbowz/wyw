@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ApiService from '../common/api.service';
+import { ApiService, Auth } from '../common/api.service';
 
 export default {
   name: 'User',
@@ -38,7 +38,7 @@ export default {
       this.error = null;
       this.user = [];
 
-      const id = this.id || this.$root.store.user.id;
+      const id = this.id || Auth.isLogged();
 
       ApiService.get('/userservice/user/' + id)
         .then((user) => {

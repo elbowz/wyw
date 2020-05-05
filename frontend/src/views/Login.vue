@@ -47,7 +47,7 @@ export default {
         .then(() => {
           this.$router.push({ path: this.$route.query.redirect || '/user/profile' });
         })
-        .catch((error) => {
+        .catch(() => {
           this.error = 'username or password are wrong!';
         });
     },

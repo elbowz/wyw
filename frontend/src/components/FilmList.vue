@@ -21,22 +21,13 @@
 
     <b-row v-if="films.length"
            cols="1" cols-sm="2" cols-md="3" cols-lg="4" cols-xl="4"
-           class="d-flex flex-wrap justify-content-start align-items-stretch">
+           class="d-flex flex-wrap justify-content-start align-items-stretch"
+    >
       <div v-for="film in films" :key="film.imdbID" class="p-2">
         <FilmItemCard :film="film"/>
       </div>
     </b-row>
-
-    <div v-if="films.length">
-      <div
-        v-for="film in films"
-        :key="film.imdbID"
-      >
-        <router-link :to="{ name: 'film', params: { id: film.imdbID }}">{{ film.title }}</router-link>
-        <span v-if="film.createdAt"> {{film.createdAt | date}}</span>
-      </div>
-    </div>
-    <div v-else>
+    <div v-else-if="!$root.store.loading">
       <h2>No films</h2>
     </div>
   </div>

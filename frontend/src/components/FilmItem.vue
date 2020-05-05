@@ -31,7 +31,7 @@
         <div class="text-capitalize mt-3">
           {{film.plot}}
         </div>
-        <b-button @click="" variant="outline-primary" class="mt-3">
+        <b-button @click="" variant="outline-primary" aria-label="add to watched" class="mt-3">
           <b-icon icon="eye-fill" aria-label="watched"></b-icon> Watched
         </b-button>
       </b-col>

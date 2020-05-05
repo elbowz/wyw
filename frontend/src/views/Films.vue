@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input v-model="query" v-on:keyup.enter="search"><button @click="search">search</button>
+    <h3>Films <small v-if="query" class="font-weight-light">with '{{query}}' in the title</small></h3>
     <div v-if="loading" class="loading">Loading...</div>
     <FilmList v-else :films="films"/>
 

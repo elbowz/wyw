@@ -41,7 +41,7 @@ export default {
     top: 0;
     right: 0;
     margin: 4px;
-    opacity: 0.6;
+    opacity: 0.2;
     transition: all .4s cubic-bezier(0.25, 1, 0.5, 1);
     z-index: 1;
 
