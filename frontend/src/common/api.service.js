@@ -1,7 +1,7 @@
 import { API_URL } from './config';
 import Store from './store';
 
-export const ApiBaseService = {
+export const ApiService = {
   fetchInitDefault: {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
@@ -21,48 +21,48 @@ export const ApiBaseService = {
     return url;
   },
   async get(path = '', params = {}) {
-    Store.loading = true;
+    Store.loading += 1;
     return fetch(this._urlGenerator(path, params), this.fetchInitDefault)
       .then((response) => {
-        Store.loading = false;
+        Store.loading -= 1;
         if (response.ok) return response.json();
         throw response;
       })
       .catch((reason) => {
-        Store.loading = false;
+        Store.loading -= 1;
         throw reason;
       });
   },
   async post(path = '', params = {}, data = {}) {
+    Store.loading += 1;
     return fetch(this._urlGenerator(path, params), {
       ...this.fetchInitDefault,
       method: 'POST',
       body: JSON.stringify(data),
     })
       .then((response) => {
-        Store.loading = false;
+        Store.loading -= 1;
         if (response.ok) return response.json();
         throw response;
       })
       .catch((reason) => {
-        Store.loading = false;
+        Store.loading -= 1;
         throw reason;
       });
   },
 };
 
-export default ApiBaseService;
+export default ApiService;
 
 export const Auth = {
   tokenKey: 'user-id',
-  init() {
+  async init() {
     const userId = this.isLogged();
 
     if (userId) {
-      ApiBaseService.get('/userservice/user/' + userId)
+      return ApiService.get('/userservice/user/' + userId)
         .then((user) => {
           Store.user = user;
-
           return user;
         })
         .catch((error) => {
@@ -74,7 +74,7 @@ export const Auth = {
     return false;
   },
   async login(email, password) {
-    return ApiBaseService.post('/userservice/user/login', { }, { email, password })
+    return ApiService.post('/userservice/user/login', { }, { email, password })
       .then((user) => {
         localStorage.setItem(this.tokenKey, user.id);
         Store.user = user;

@@ -8,7 +8,7 @@ const Store = {
     createdAt: null,
     updatedAt: null,
   },
-  loading: false,
+  loading: 0,
 };
 
 export default Store;

@@ -76,7 +76,7 @@ export default {
       return user && user.firstName.charAt(0) + user.lastName.charAt(0);
     },
     loading() {
-      return this.$root.store.loading;
+      return !!this.$root.store.loading;
     },
   },
 };
@@ -91,20 +91,6 @@ export default {
 
   &:hover {
     background-color: rgba($warning, .9);
-  }
-
-  .brand-logo {
-    background-image: url('../assets/logo-square-50x50.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    padding: 0;
-    height: 36px;
-    width: 36px;
-    transition: all .4s cubic-bezier(0.25, 1, 0.5, 1);
-
-    &:hover {
-      background-image: url('../assets/logo-square-colored-50x50.png');
-    }
   }
 }
 </style>
