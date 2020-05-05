@@ -21,10 +21,16 @@ export const ApiBaseService = {
     return url;
   },
   async get(path = '', params = {}) {
+    Store.loading = true;
     return fetch(this._urlGenerator(path, params), this.fetchInitDefault)
       .then((response) => {
+        Store.loading = false;
         if (response.ok) return response.json();
         throw response;
+      })
+      .catch((reason) => {
+        Store.loading = false;
+        throw reason;
       });
   },
   async post(path = '', params = {}, data = {}) {
@@ -34,8 +40,13 @@ export const ApiBaseService = {
       body: JSON.stringify(data),
     })
       .then((response) => {
+        Store.loading = false;
         if (response.ok) return response.json();
         throw response;
+      })
+      .catch((reason) => {
+        Store.loading = false;
+        throw reason;
       });
   },
 };

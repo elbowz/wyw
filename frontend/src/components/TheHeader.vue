@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="light" fixed="top" class="navbar">
     <b-container fluid="xl">
-      <b-navbar-brand :to="{ name: 'home' }" class="logo-wyw small">
+      <b-navbar-brand :to="{ name: 'home' }" class="logo-wyw small" :class="{ 'animated infinite heartBeat': loading }">
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -14,6 +14,10 @@
           <b-nav-item :to="{ name: 'films' }">Films</b-nav-item>
           <b-nav-item :to="{ name: 'mywatched' }">Watched</b-nav-item>
           <b-nav-item :to="{ name: 'About' }">About</b-nav-item>
+        </b-navbar-nav>
+
+        <b-navbar-nav v-if="loading" class="font-weight-light mx-auto">
+          loading...
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -70,6 +74,9 @@ export default {
     avatarText() {
       const user = this.$root.store.user;
       return user && user.firstName.charAt(0) + user.lastName.charAt(0);
+    },
+    loading() {
+      return this.$root.store.loading;
     },
   },
 };
