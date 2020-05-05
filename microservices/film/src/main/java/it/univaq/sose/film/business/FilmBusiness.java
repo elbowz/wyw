@@ -27,7 +27,8 @@ public class FilmBusiness {
     @Autowired
     OmdbServiceClient omdbServiceClient;
 
-    public FilmBusiness() {}
+    public FilmBusiness() {
+    }
 
     public ArrayList<Film> getAll() {
         return (ArrayList<Film>) this.filmRepository.findAll();
@@ -45,7 +46,7 @@ public class FilmBusiness {
         getPeopleForFilm.setFilmId(filmId);
 
         // Make query.
-        CompletableFuture<GetPeopleForFilmResponse> c =  personServiceClient.getPeopleForFilm(getPeopleForFilm);
+        CompletableFuture<GetPeopleForFilmResponse> c = personServiceClient.getPeopleForFilm(getPeopleForFilm);
         c.thenAccept(getPeopleForFilmResponse -> list.set(getPeopleForFilmResponse.getReturn()));
         c.join();
 
@@ -53,10 +54,6 @@ public class FilmBusiness {
     }
 
     public Film one(String filmId, int deep) {
-        // Get score for each film.
-        String apiKey = System.getenv("OMDB_API_KEY");
-        System.out.println("API_KEY: " + apiKey);
-
         // Used to contain all the completable futures and wait to respond until all of them are completed.
         LinkedList<CompletableFuture> linkedList = new LinkedList<>();
 
@@ -68,21 +65,26 @@ public class FilmBusiness {
             throw new FilmNotFoundException();
         }
 
-        // Ask imdb for film ratings.
-        CompletableFuture c = omdbServiceClient
-                .getFilmById(optional.get().getImdbID(), apiKey)
-                .thenAccept(film -> {
-                    if (film == null) {
-                        // i.e. fallback factory.
-                        optional.get().setRatings(new LinkedList<>());
-                    } else {
-                        optional.get().setRatings(film.getRatings());
-                    }
-                });
-        linkedList.add(c);
-
-        // Check if we want the people in this film.
+        // Check if we want score and  people in this film.
         if (deep == 1) {
+            // Get score for each film.
+            String apiKey = System.getenv("OMDB_API_KEY");
+            System.out.println("API_KEY: " + apiKey);
+
+            // Ask imdb for film ratings.
+            CompletableFuture c = omdbServiceClient
+                    .getFilmById(optional.get().getImdbID(), apiKey)
+                    .thenAccept(film -> {
+                        if (film == null) {
+                            // i.e. fallback factory.
+                            optional.get().setRatings(new LinkedList<>());
+                        } else {
+                            optional.get().setRatings(film.getRatings());
+                        }
+                    });
+
+            linkedList.add(c);
+
             // Create SOAP request.
             GetPeopleForFilm getPeopleForFilm = new GetPeopleForFilm();
             getPeopleForFilm.setFilmId(filmId);
@@ -90,7 +92,7 @@ public class FilmBusiness {
             // Make request.
             CompletableFuture<GetPeopleForFilmResponse> c1 = personServiceClient.getPeopleForFilm(getPeopleForFilm);
             linkedList.add(c1);
-            c1.thenAccept( getPeopleForFilmResponse -> optional.get().setPeople(getPeopleForFilmResponse.getReturn()));
+            c1.thenAccept(getPeopleForFilmResponse -> optional.get().setPeople(getPeopleForFilmResponse.getReturn()));
         }
 
         // Wait before return.
