@@ -1,3 +1,32 @@
+.logo-wyw {
+    background-image: url('../assets/logo-square.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 0;
+    transition: all .4s cubic-bezier(0.25, 1, 0.5, 1);
+
+    height: 320px;
+    width: 320px;
+
+    &:hover {
+        background-image: url('../assets/logo-square-colored.png');
+    }
+
+    &.small {
+        background-image: url('../assets/logo-square-50x50.png');
+        height: 36px;
+        width: 36px;
+
+        &:hover {
+            background-image: url('../assets/logo-square-colored-50x50.png');
+        }
+    }
+}
+
 .cursor-pointer {
     cursor: pointer;
+}
+
+@function hexToRGB($hex) {
+    @return red($hex), green($hex), blue($hex);
 }
