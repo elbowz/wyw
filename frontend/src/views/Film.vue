@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ApiService from '../common/api.service';
+import { ApiService } from '../common/api.service';
 import FilmItem from '../components/FilmItem.vue';
 
 export default {

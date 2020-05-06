@@ -12,7 +12,8 @@
             <span class="font-weight-bold text-info">{{rating.value}}</span>
           </span>
         </div>
-        <a :href="'https://www.imdb.com/title/' + film.imdbID"><small><i class="fab fa-imdb"></i> imdb.com</small></a>
+        <a :href="'https://www.imdb.com/title/' + film.imdbID"><small><i class="fab fa-imdb"></i>
+          imdb.com</small></a>
         <div class="mt-2">
           <span class="font-weight-light">Language: </span>
           <span class="font-weight-bold text-capitalize">{{film.language}}</span>
@@ -24,29 +25,50 @@
         <div v-if="film.people" class="mt-2">
           <span class="font-weight-light">Cast: </span>
           <div v-for="person in film.people" :key="person.person.id">
-            {{person.person.firstName}} {{person.person.lastName}} <small class="text-capitalize">({{person.role}})
-          </small>
+            {{person.person.firstName}} {{person.person.lastName}}
+            <small class="text-capitalize">({{person.role}})
+            </small>
           </div>
         </div>
         <div class="text-capitalize mt-3">
           {{film.plot}}
         </div>
-        <b-button @click="" variant="outline-primary" aria-label="add to watched" class="mt-3">
-          <b-icon icon="eye-fill" aria-label="watched"></b-icon> Watched
+        <b-button v-if="this.$root.store.user" @click="watched"
+                  variant="outline-primary" aria-label="add to watched" class="mt-3">
+          <b-icon icon="eye-fill" aria-label="watched"></b-icon>
+          Watched
         </b-button>
       </b-col>
     </b-row>
   </div>
-  <!--
-  {"imdbID":"tt3896198","title":"Guardians of the Galaxy Vol. 2","year":2017,"plot":"The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father the ambitious celestial being Ego.","language":"english","production":"Walt Disney Pictures","poster":"https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_SX300.jpg","people":[{"role":"Director","person":{"id":1,"firstName":"James","lastName":"Gunn"}},{"role":"Writer","person":{"id":2,"firstName":"Dan","lastName":"Abnett"}}]}
-  -->
 </template>
 
 <script>
+import { ApiService } from '../common/api.service';
+
 export default {
   name: 'FilmItem',
   props: {
     film: {},
+  },
+  methods: {
+    watched() {
+      const body = {
+        userId: this.$root.store.user.id,
+        filmId: this.film.imdbID,
+      };
+
+      ApiService.post('/watchedservice/watched', {}, body)
+        .then(() => {
+          this.$bvToast.toast(`${this.film.title} added in your watched list`,
+            { title: 'Info' });
+        })
+        .catch((error) => {
+          // TODO: should be manage different error
+          this.$bvToast.toast(`${this.film.title} is already in your watched list`,
+            { title: 'Error', variant: 'danger', noAutoHide: true });
+        });
+    },
   },
 };
 </script>

@@ -8,7 +8,7 @@
         <div class="mb-2">
           <b-form-input v-model="email"
                         :state="errorState"
-                        type="email" aria-describedby="input-email-help " placeholder="email@domain.com"
+                        type="email" aria-describedby="input-email-help" placeholder="email@domain.com"
                         autofocus required></b-form-input>
           <!-- <b-form-text id="input-email-help">email address used for registration</b-form-text>-->
         </div>

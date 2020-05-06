@@ -24,12 +24,13 @@ export const ApiService = {
     Store.loading += 1;
     return fetch(this._urlGenerator(path, params), this.fetchInitDefault)
       .then((response) => {
-        Store.loading -= 1;
+        if (Store.loading) Store.loading -= 1;
+
         if (response.ok) return response.json();
         throw response;
       })
       .catch((reason) => {
-        Store.loading -= 1;
+        if (Store.loading) Store.loading -= 1;
         throw reason;
       });
   },
@@ -41,12 +42,13 @@ export const ApiService = {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        Store.loading -= 1;
+        if (Store.loading) Store.loading -= 1;
+
         if (response.ok) return response.json();
         throw response;
       })
       .catch((reason) => {
-        Store.loading -= 1;
+        if (Store.loading) Store.loading -= 1;
         throw reason;
       });
   },
@@ -74,7 +76,7 @@ export const Auth = {
     return false;
   },
   async login(email, password) {
-    return ApiService.post('/userservice/user/login', { }, { email, password })
+    return ApiService.post('/userservice/user/login', {}, { email, password })
       .then((user) => {
         localStorage.setItem(this.tokenKey, user.id);
         Store.user = user;

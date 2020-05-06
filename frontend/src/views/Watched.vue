@@ -17,13 +17,17 @@
                 <span class="sr-only">Switch for enable filter</span>
               </b-form-checkbox>
             </b-input-group-prepend>
-            <b-form-input v-model="filterQuery" placeholder="Filter" aria-label="Filter"></b-form-input>
+            <b-form-input v-model="filterQuery"
+                          placeholder="Filter" aria-label="Filter"
+                          aria-describedby="input-filter-help"
+            ></b-form-input>
             <b-input-group-append>
               <b-button type="submit">
                 <b-icon icon="search" aria-label="Filter"></b-icon>
               </b-button>
             </b-input-group-append>
           </b-input-group>
+          <b-form-text id="input-filter-help">enable for reactive filtering</b-form-text>
         </form>
       </b-col>
     </b-row>
