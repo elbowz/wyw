@@ -9,11 +9,10 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
-          <b-nav-item :to="{ name: 'profile' }">Profile</b-nav-item>
           <b-nav-item :to="{ name: 'users' }">Users</b-nav-item>
           <b-nav-item :to="{ name: 'films' }">Films</b-nav-item>
+          <b-nav-item :to="{ name: 'profile' }">Profile</b-nav-item>
           <b-nav-item :to="{ name: 'mywatched' }">Watched</b-nav-item>
-          <b-nav-item :to="{ name: 'About' }">About</b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav v-if="loading" class="font-weight-light mx-auto">
@@ -36,6 +35,7 @@
               {{ user }}
             </template>
             <b-dropdown-item :to="{ name: 'profile' }">Profile</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'mywatched' }">Watched</b-dropdown-item>
             <b-dropdown-item href="#" @click.prevent="logout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
           <b-nav-item v-else :to="{ name: 'login' }">
@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     user() {
-      return this.$root.store.user && this.$root.store.user.firstName;
+      return this.$root.store.user.firstName;
     },
     avatarText() {
       const user = this.$root.store.user;

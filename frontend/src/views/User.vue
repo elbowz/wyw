@@ -19,7 +19,7 @@
       </b-col>
     </b-row>
 
-    <b-alert v-if="this.$root.store.user.id == user.id" class="mt-4" show fade dismissible>
+    <b-alert v-if="$root.store.user.id === user.id" class="mt-4" show fade dismissible>
       This is you personal profile, more information and action wil be added soon :)
     </b-alert>
 
