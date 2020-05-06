@@ -10,13 +10,13 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableEurekaClient
-public class SampleRestApplication extends SpringBootServletInitializer {
+public class RestApplication extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(SampleRestApplication.class);
+        return builder.sources(RestApplication.class);
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(SampleRestApplication.class, args);
+        SpringApplication.run(RestApplication.class, args);
     }
 }
