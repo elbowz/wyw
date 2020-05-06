@@ -2,6 +2,7 @@ package it.univaq.sose.watched_film.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Entity()
 @Table(name = "watched")
+@JsonIgnoreProperties(value={"user", "film"}, allowGetters = true, allowSetters = false)
 public class Watched {
     @Id
     @GeneratedValue
@@ -28,10 +30,16 @@ public class Watched {
     private Date createdAt;
 
     @Transient
+    // @JsonProperty(access = JsonProperty.Access.READ_ONLY) doesn't work idk why.
     private Film film;
 
     @Transient
+    // @JsonProperty(access = JsonProperty.Access.READ_ONLY) doesn't work idk why.
     private User user;
+
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String instanceId;
 
     public Watched() {
     }
@@ -85,6 +93,14 @@ public class Watched {
         this.createdAt = createdAt;
     }
 
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+    }
+
     @Override
     public String toString() {
         return "Watched{" +
@@ -94,6 +110,7 @@ public class Watched {
                 ", film=" + film +
                 ", user=" + user +
                 ", createdAt=" + createdAt +
+                ", instanceId=" + instanceId +
                 '}';
     }
 }

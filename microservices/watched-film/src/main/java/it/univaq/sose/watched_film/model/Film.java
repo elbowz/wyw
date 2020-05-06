@@ -18,6 +18,8 @@ public class Film {
 
     private List<TakesPart> people;
 
+    private String instanceId;
+
     public Film() {
     }
 
@@ -91,6 +93,14 @@ public class Film {
 
     public void setPeople(List<TakesPart> people) {
         this.people = people;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 
     @Override

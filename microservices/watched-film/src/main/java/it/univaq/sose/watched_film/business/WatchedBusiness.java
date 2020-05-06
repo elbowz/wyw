@@ -9,6 +9,7 @@ import it.univaq.sose.watched_film.model.User;
 import it.univaq.sose.watched_film.model.Watched;
 import it.univaq.sose.watched_film.repository.WatchedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public class WatchedBusiness {
 
     @Autowired
     UserServiceClient userServiceClient;
+
+    @Value("${eureka.instance.metadataMap.instanceId}")
+    private String instanceId;
 
     public WatchedBusiness() {
     }
@@ -48,6 +52,8 @@ public class WatchedBusiness {
         // If this user hasn't watched any film return 404.
         if (watchedFilm.size() == 0) {
             throw new UserNotFoundException();
+        } else {
+            watchedFilm.forEach(watched -> watched.setInstanceId(this.instanceId));
         }
 
         // If the requested deep is 0 just return the watched-film-db data.

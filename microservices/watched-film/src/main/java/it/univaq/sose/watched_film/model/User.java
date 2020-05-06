@@ -21,6 +21,8 @@ public class User {
     private Date createdAt;
     private Date updatedAt;
 
+    private String instanceId;
+
     public User() {}
 
     public Long getId() {
@@ -79,6 +81,14 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 
     @Override

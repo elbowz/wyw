@@ -7,6 +7,7 @@ import it.univaq.sose.user.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,11 +20,17 @@ public class UserBusiness {
     @Autowired
     UserRepository userRepository;
 
+    @Value("${eureka.instance.metadataMap.instanceId}")
+    private String instanceId;
+
     public UserBusiness() {
     }
 
     public User one(long id) throws UserNotFoundException {
         Optional<User> optional = userRepository.findById(id);
+
+        optional.ifPresent(user -> user.setInstanceId(this.instanceId));
+
         return optional.orElseThrow(UserNotFoundException::new);
     }
 
@@ -33,6 +40,9 @@ public class UserBusiness {
 
     public User getUserByEmail(String email) throws UserNotFoundException {
         Optional<User> optional = userRepository.findUserByEmail(email);
+
+        optional.ifPresent(user -> user.setInstanceId(this.instanceId));
+
         return optional.orElseThrow(UserNotFoundException::new);
     }
 
@@ -42,11 +52,6 @@ public class UserBusiness {
         } else {
             return userRepository.save(user);
         }
-    }
-
-    // Do we need this?
-    public void deleteUserById(long id) {
-        userRepository.deleteById(id);
     }
 
     public User updateUser(long id, User newUser) {

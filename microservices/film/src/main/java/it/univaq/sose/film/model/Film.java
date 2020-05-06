@@ -28,6 +28,9 @@ public class Film {
     @Transient
     private List<TakesPart> people;
 
+    @Transient
+    private String instanceId;
+
     public Film() {
     }
 
@@ -101,6 +104,14 @@ public class Film {
 
     public void setRatings(LinkedList<Rate> ratings) {
         this.ratings = ratings;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 
     @Override

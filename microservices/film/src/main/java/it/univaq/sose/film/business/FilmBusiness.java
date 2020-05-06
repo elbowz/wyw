@@ -6,6 +6,7 @@ import it.univaq.sose.film.exceptions.FilmNotFoundException;
 import it.univaq.sose.film.model.*;
 import it.univaq.sose.film.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,15 +28,21 @@ public class FilmBusiness {
     @Autowired
     OmdbServiceClient omdbServiceClient;
 
-    public FilmBusiness() {
-    }
+    @Value("${eureka.instance.metadataMap.instanceId}")
+    private String instanceId;
+
+    public FilmBusiness() {}
 
     public ArrayList<Film> getAll() {
-        return (ArrayList<Film>) this.filmRepository.findAll();
+        ArrayList<Film> list =(ArrayList<Film>) this.filmRepository.findAll();
+        list.forEach(film -> film.setInstanceId(this.instanceId));
+        return list;
     }
 
     public ArrayList<Film> search(String query) {
-        return (ArrayList<Film>) this.filmRepository.findByTitleIgnoreCaseContaining(query);
+        ArrayList<Film> list =(ArrayList<Film>) this.filmRepository.findByTitleIgnoreCaseContaining(query);
+        list.forEach(film -> film.setInstanceId(this.instanceId));
+        return list;
     }
 
     public List<TakesPart> getAllPeopleForFilm(String filmId) {
@@ -63,6 +70,9 @@ public class FilmBusiness {
         // Check if film exists in db.
         if (!optional.isPresent()) {
             throw new FilmNotFoundException();
+        } else {
+            // Set instanceId.
+            optional.get().setInstanceId(this.instanceId);
         }
 
         // Check if we want score and  people in this film.
