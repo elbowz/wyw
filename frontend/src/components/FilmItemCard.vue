@@ -6,7 +6,7 @@
     class="card-film h-100 cursor-pointer hvr-shadow"
   >
     <div class="position-relative">
-      <b-button v-if="this.$root.store.user" @click.stop="watched" variant="light" class="btn-watched hvr-icon-bounce">
+      <b-button v-if="this.$root.store.user.id" @click.stop="watched" variant="light" class="btn-watched hvr-icon-bounce">
         <b-icon icon="eye-fill" aria-label="watched" class="hvr-icon"></b-icon>
       </b-button>
       <b-card-img :src="film.poster" :alt="film.title" class="poster" top></b-card-img>

@@ -33,7 +33,7 @@
         <div class="text-capitalize mt-3">
           {{film.plot}}
         </div>
-        <b-button v-if="this.$root.store.user" @click="watched"
+        <b-button v-if="this.$root.store.user.id" @click="watched"
                   variant="outline-primary" aria-label="add to watched" class="mt-3">
           <b-icon icon="eye-fill" aria-label="watched"></b-icon>
           Watched
