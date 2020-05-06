@@ -32,7 +32,7 @@
       </b-col>
     </b-row>
 
-    <FilmListWatched :films="filteredFilm"/>
+    <FilmListWatched :films="filteredFilm" :user="user"/>
 
     <div v-if="error" class="error">
       {{ error }}
@@ -71,6 +71,7 @@ export default {
     filterQuery() {
       if (this.switchFilter) this.filter();
     },
+    '$route.params': 'fetchWatched',
   },
   methods: {
     fetchWatched() {
@@ -91,7 +92,7 @@ export default {
 
       ApiService.get('/watchedservice/watched/' + id, { deep: 1 })
         .then((watched) => {
-          this.films = watched.map((row) => ({ ...row.film, ...{ createdAt: row.createdAt } }));
+          this.films = watched.map((row) => ({ ...row.film, ...{ createdAt: row.createdAt, watchedId: row.id } }));
           this.filter();
         })
         .catch((error) => {

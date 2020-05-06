@@ -52,6 +52,23 @@ export const ApiService = {
         throw reason;
       });
   },
+  async delete(path = '', params = {}) {
+    Store.loading += 1;
+    return fetch(this._urlGenerator(path, params), {
+      ...this.fetchInitDefault,
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (Store.loading) Store.loading -= 1;
+
+        if (response.ok) return true;
+        throw response;
+      })
+      .catch((reason) => {
+        if (Store.loading) Store.loading -= 1;
+        throw reason;
+      });
+  },
 };
 
 export default ApiService;
@@ -90,7 +107,7 @@ export const Auth = {
   },
   logout() {
     localStorage.removeItem(this.tokenKey);
-    Store.user = null;
+    Store.user = {};
   },
   isLogged() {
     return localStorage.getItem(this.tokenKey) || false;
