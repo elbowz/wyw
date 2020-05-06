@@ -34,4 +34,9 @@ public class WatchedServiceImpl implements WatchedService {
         // TODO Do we need duplicate watched logic?
         return watchedBusiness.save(watched);
     }
+
+    @Override
+    public void deleteWatchedById(Long id) {
+        watchedBusiness.deleteById(id);
+    }
 }

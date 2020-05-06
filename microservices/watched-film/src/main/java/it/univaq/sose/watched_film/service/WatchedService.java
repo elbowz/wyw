@@ -27,4 +27,9 @@ public interface WatchedService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     Watched addWatched(@Valid @RequestBody Watched watched);
+
+    @DELETE
+    @Path("/{id}")
+    @ApiOperation("Delete the watched film.")
+    void deleteWatchedById(@PathParam("id") Long id);
 }

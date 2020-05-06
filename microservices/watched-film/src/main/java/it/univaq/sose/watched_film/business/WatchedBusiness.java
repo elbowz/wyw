@@ -126,4 +126,8 @@ public class WatchedBusiness {
 
         return watchedRepository.save(watched);
     }
+
+    public void deleteById (Long id) {
+        watchedRepository.deleteById(id);
+    }
 }
