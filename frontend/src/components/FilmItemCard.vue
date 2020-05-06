@@ -1,12 +1,14 @@
 <template>
   <b-card
     @click="$router.push({ name: 'film', params: { id: film.imdbID }})"
-    footer-class="bg-white"
+    footer-class="bg-trasparent"
     no-body
     class="card-film h-100 cursor-pointer hvr-shadow"
   >
     <div class="position-relative">
-      <b-button v-if="this.$root.store.user.id" @click.stop="watched" variant="light" class="btn-watched hvr-icon-bounce">
+      <b-button v-if="this.$root.store.user.id" @click.stop="watched" variant="light"
+                class="btn-watched hvr-icon-bounce"
+      >
         <b-icon icon="eye-fill" aria-label="watched" class="hvr-icon"></b-icon>
       </b-button>
       <b-card-img :src="film.poster" :alt="film.title" class="poster" top></b-card-img>
@@ -41,7 +43,6 @@ export default {
             { title: 'Info' });
         })
         .catch((error) => {
-          console.log('then2')
           // TODO: should be manage different error
           this.$bvToast.toast(`${this.film.title} is already in your watched list`,
             { title: 'Error', variant: 'danger', noAutoHide: true });

@@ -1,8 +1,7 @@
 <template>
   <div>
     <h3>Films <small v-if="query" class="font-weight-light">with '{{query}}' in the title</small></h3>
-    <div v-if="loading" class="loading">Loading...</div>
-    <FilmList v-else :films="films"/>
+    <FilmList :films="films"/>
 
     <div v-if="error" class="error">
       {{ error }}
@@ -19,7 +18,6 @@ export default {
   components: { FilmList },
   data() {
     return {
-      loading: false,
       error: null,
       films: [],
       query: '',
@@ -35,16 +33,13 @@ export default {
   },
   methods: {
     fetchFilms() {
-      this.loading = true;
       this.error = null;
       this.query = this.$route.query.query;
-      this.films = [];
 
       const params = this.query ? { query: this.query } : {};
 
       ApiService.get('/filmservice/film', params)
         .then((films) => {
-          this.loading = false;
           this.films = films;
         })
         .catch((error) => {

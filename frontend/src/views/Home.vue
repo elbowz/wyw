@@ -1,5 +1,5 @@
 <template>
-  <b-jumbotron bg-variant="white" class="text-center" fluid>
+  <b-jumbotron bg-variant="transparent" class="text-center" fluid>
     <template v-slot:header>
       <div class="d-flex justify-content-center"></div>
       <div class="logo-wyw mx-auto"></div>

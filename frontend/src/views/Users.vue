@@ -6,7 +6,7 @@
     <div v-if="users.length">
       <b-card v-for="user in users" :key="user.id"
               @click="$router.push({ name: 'user', params: { id: user.id }})"
-              class="cursor-pointer hvr-shadow mb-2"
+              class="cursor-pointer hvr-shadow mb-2 w-100"
       >
         <b-row>
           <b-col md="6" class="font-weight-bold">
@@ -20,7 +20,7 @@
       </b-card>
     </div>
     <div v-else-if="!$root.store.loading">
-      <h2>No films</h2>
+      <h2>No Users</h2>
     </div>
 
     <div v-if="error" class="error">
