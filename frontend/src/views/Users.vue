@@ -1,7 +1,27 @@
 <template>
   <div>
-    <div v-if="loading" class="loading">Loading...</div>
-    <UserList v-else :users="users"/>
+
+    <h3>Users</h3>
+
+    <div v-if="users.length">
+      <b-card v-for="user in users" :key="user.id"
+              @click="$router.push({ name: 'user', params: { id: user.id }})"
+              class="cursor-pointer hvr-shadow mb-2"
+      >
+        <b-row>
+          <b-col md="6" class="font-weight-bold">
+            <span>{{ user.firstName }} {{ user.lastName }}</span>
+          </b-col>
+          <b-col md="6" class="text-md-right">
+            <a :href="`mailto:${user.email}`" @click.stop target="_blank">{{ user.email }}</a>
+            <b-icon icon="envelope-open" aria-label="email" class="ml-1"></b-icon>
+          </b-col>
+        </b-row>
+      </b-card>
+    </div>
+    <div v-else-if="!$root.store.loading">
+      <h2>No films</h2>
+    </div>
 
     <div v-if="error" class="error">
       {{ error }}
@@ -10,15 +30,12 @@
 </template>
 
 <script>
-import ApiService from '../common/api.service';
-import UserList from '../components/UserList.vue';
+import { ApiService } from '../common/api.service';
 
 export default {
   name: 'Users',
-  components: { UserList },
   data() {
     return {
-      loading: false,
       users: [],
       error: null,
     };
@@ -27,22 +44,14 @@ export default {
     // fetch the data when the view is created
     this.fetchUsers();
   },
-  watch: {
-    // call again the method if the route changes
-    $route: 'fetchUsers',
-  },
   methods: {
     fetchUsers() {
       this.error = null;
       this.users = [];
-      this.loading = true;
-      // TODO: implement query?
-      //console.log(this.$route.query)
 
       ApiService.get('/userservice/user')
-        .then((films) => {
-          this.loading = false;
-          this.users = films;
+        .then((users) => {
+          this.users = users;
         })
         .catch((error) => {
           this.error = error.toString();
