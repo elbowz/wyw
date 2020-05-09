@@ -18,7 +18,6 @@ public class PersonBusiness {
 
     public List<TakesPart> getPeopleForFilm(String filmId) {
         ArrayList<TakesPart> list = (ArrayList<TakesPart>) repository.findTakesPartsByIdFilmId(filmId);
-        System.out.println(list);
         return list;
     }
 

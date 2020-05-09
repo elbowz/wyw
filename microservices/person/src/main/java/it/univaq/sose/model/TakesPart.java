@@ -7,6 +7,7 @@ public class TakesPart {
     @EmbeddedId
     private TakesPartKey id;
 
+    @Column(insertable=false, updatable=false)
     private String role;
 
     @OneToOne(cascade = CascadeType.ALL)
