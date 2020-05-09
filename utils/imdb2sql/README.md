@@ -15,6 +15,7 @@ By venv (suggested):
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
 
 ## Using
 
