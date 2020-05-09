@@ -1,4 +1,5 @@
 module.exports = {
+  outputDir: 'docker/dist',
   lintOnSave: true,
   pages: {
     index: {

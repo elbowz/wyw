@@ -11,7 +11,7 @@
       >
         <b-icon icon="eye-fill" aria-label="watched" class="hvr-icon"></b-icon>
       </b-button>
-      <b-card-img :src="film.poster" :alt="film.title" class="poster" top></b-card-img>
+      <b-card-img :src="film.poster | cdn" :alt="film.title" class="poster" top></b-card-img>
     </div>
 
     <b-card-body class="card-body"></b-card-body>

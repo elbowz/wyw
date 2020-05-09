@@ -2,7 +2,7 @@
   <div>
     <b-row>
       <b-col sm="4">
-        <b-img :src="film.poster" :alt="film.title" left rounded class="mr-2" fluid-grow></b-img>
+        <b-img :src="film.poster | cdn" :alt="film.title" left rounded class="mr-2" fluid-grow></b-img>
       </b-col>
       <b-col sm="8">
         <h3>{{film.title}} <span class="font-weight-light">({{film.year}})</span></h3>
@@ -24,7 +24,7 @@
         </div>
         <div v-if="film.people" class="mt-2">
           <span class="font-weight-light">Cast: </span>
-          <div v-for="person in film.people" :key="person.person.id">
+          <div v-for="person in film.people" :key="(person.person.id+person.role)">
             {{person.person.firstName}} {{person.person.lastName}}
             <small class="text-capitalize">({{person.role}})
             </small>

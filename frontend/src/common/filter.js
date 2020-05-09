@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { CDN_URL } from './config';
 
 export const date = (value) => (value && moment(String(value)).format('hh:mm DD.MM.YY'));
 
@@ -10,4 +11,6 @@ export const truncate = (value, limit) => {
   return value;
 };
 
-export default { date, truncate };
+export const cdn = (value) => CDN_URL + value;
+
+export default { date, truncate, cdn };

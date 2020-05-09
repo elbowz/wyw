@@ -37,5 +37,6 @@ export default {
 <style lang="scss">
 main.container {
   margin-top: 80px;
+  margin-bottom: 80px;
 }
 </style>

@@ -10,7 +10,7 @@ import App from './App.vue';
 import router from './router';
 import Store from './common/store';
 import { Auth } from './common/api.service';
-import { date, truncate } from './common/filter';
+import { date, truncate, cdn } from './common/filter';
 
 import './styles/index.scss';
 
@@ -25,6 +25,7 @@ Vue.config.productionTip = false;
 
 Vue.filter('date', date);
 Vue.filter('truncate', truncate);
+Vue.filter('cdn', cdn);
 
 new Vue({
   router,
