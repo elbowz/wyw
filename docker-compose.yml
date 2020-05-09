@@ -34,6 +34,18 @@ x-eureka: &eureka
 ## SERVICES
 services:
 
+  frontend:
+    image: nginx:stable-alpine
+    volumes:
+      - ./frontend/docker/dist:/usr/share/nginx/html
+      - ./frontend/docker/ngnix.frontend.conf:/etc/nginx/conf.d/ngnix.wyw.template
+    ports:
+      - "3000:80"
+      - "3443:443"
+    environment:
+      NGINX_HOST: ${FRONTEND_HOST:-localhost}
+    command: /bin/ash -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/ngnix.wyw.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+
   # PERSON MS (inherit from base microservice)
   person-ws:
     <<: *tomcat
@@ -144,7 +156,6 @@ services:
     # use for disable any service
     #build: './utils/docker-disable'
     #image: disable:1.0
-    container_name: sose-adminer
     image: adminer:4.7.6
     restart: unless-stopped
     environment:
