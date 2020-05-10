@@ -1,120 +1,127 @@
-<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-                  xmlns:tns="http://service.sose.univaq.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PersonSOAPServiceImplService"
-                  targetNamespace="http://service.sose.univaq.it/">
-    <wsdl:types>
-        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.sose.univaq.it/"
-                   attributeFormDefault="unqualified" elementFormDefault="unqualified"
-                   targetNamespace="http://service.sose.univaq.it/" version="1.0">
-            <xs:element name="addPersonToFilm" type="tns:addPersonToFilm"/>
-            <xs:element name="addPersonToFilmResponse" type="tns:addPersonToFilmResponse"/>
-            <xs:element name="getPeopleForFilm" type="tns:getPeopleForFilm"/>
-            <xs:element name="getPeopleForFilmResponse" type="tns:getPeopleForFilmResponse"/>
-            <xs:complexType name="addPersonToFilm">
-                <xs:sequence>
-                    <xs:element name="arg0" type="tns:takesPart"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:complexType name="takesPart">
-                <xs:sequence>
-                    <xs:element minOccurs="0" name="id" type="tns:takesPartKey"/>
-                    <xs:element minOccurs="0" name="person" type="tns:person"/>
-                    <xs:element minOccurs="0" name="role" type="xs:string"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:complexType name="takesPartKey">
-                <xs:sequence>
-                    <xs:element minOccurs="0" name="filmId" type="xs:string"/>
-                    <xs:element name="personId" type="xs:int"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:complexType name="person">
-                <xs:sequence>
-                    <xs:element minOccurs="0" name="firstName" type="xs:string"/>
-                    <xs:element name="id" type="xs:long"/>
-                    <xs:element minOccurs="0" name="lastName" type="xs:string"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:complexType name="addPersonToFilmResponse">
-                <xs:sequence>
-                    <xs:element minOccurs="0" name="return" type="tns:takesPart"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:complexType name="getPeopleForFilm">
-                <xs:sequence>
-                    <xs:element name="filmId" type="xs:string"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:complexType name="getPeopleForFilmResponse">
-                <xs:sequence>
-                    <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:takesPart"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:element name="Exception" type="tns:Exception"/>
-            <xs:complexType name="Exception">
-                <xs:sequence>
-                    <xs:element minOccurs="0" name="message" type="xs:string"/>
-                </xs:sequence>
-            </xs:complexType>
-        </xs:schema>
-    </wsdl:types>
-    <wsdl:message name="addPersonToFilmResponse">
-        <wsdl:part element="tns:addPersonToFilmResponse" name="parameters"></wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="getPeopleForFilmResponse">
-        <wsdl:part element="tns:getPeopleForFilmResponse" name="parameters"></wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="getPeopleForFilm">
-        <wsdl:part element="tns:getPeopleForFilm" name="parameters"></wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="addPersonToFilm">
-        <wsdl:part element="tns:addPersonToFilm" name="parameters"></wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="Exception">
-        <wsdl:part element="tns:Exception" name="Exception"></wsdl:part>
-    </wsdl:message>
-    <wsdl:portType name="PersonSOAPService">
-        <wsdl:operation name="addPersonToFilm">
-            <wsdl:input message="tns:addPersonToFilm" name="addPersonToFilm"></wsdl:input>
-            <wsdl:output message="tns:addPersonToFilmResponse" name="addPersonToFilmResponse"></wsdl:output>
-            <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
-        </wsdl:operation>
-        <wsdl:operation name="getPeopleForFilm">
-            <wsdl:input message="tns:getPeopleForFilm" name="getPeopleForFilm"></wsdl:input>
-            <wsdl:output message="tns:getPeopleForFilmResponse" name="getPeopleForFilmResponse"></wsdl:output>
-            <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
-        </wsdl:operation>
-    </wsdl:portType>
-    <wsdl:binding name="PersonSOAPServiceImplServiceSoapBinding" type="tns:PersonSOAPService">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="addPersonToFilm">
-            <soap:operation soapAction="" style="document"/>
-            <wsdl:input name="addPersonToFilm">
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output name="addPersonToFilmResponse">
-                <soap:body use="literal"/>
-            </wsdl:output>
-            <wsdl:fault name="Exception">
-                <soap:fault name="Exception" use="literal"/>
-            </wsdl:fault>
-        </wsdl:operation>
-        <wsdl:operation name="getPeopleForFilm">
-            <soap:operation soapAction="" style="document"/>
-            <wsdl:input name="getPeopleForFilm">
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output name="getPeopleForFilmResponse">
-                <soap:body use="literal"/>
-            </wsdl:output>
-            <wsdl:fault name="Exception">
-                <soap:fault name="Exception" use="literal"/>
-            </wsdl:fault>
-        </wsdl:operation>
-    </wsdl:binding>
-    <wsdl:service name="PersonSOAPServiceImplService">
-        <wsdl:port binding="tns:PersonSOAPServiceImplServiceSoapBinding" name="PersonSOAPServiceImplPort">
-            <soap:address location="http://172.21.0.12:8080/person"/>
-        </wsdl:port>
-    </wsdl:service>
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.sose.univaq.it/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PersonSOAPServiceImplService" targetNamespace="http://service.sose.univaq.it/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.sose.univaq.it/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://service.sose.univaq.it/" version="1.0">
+  <xs:element name="addPersonToFilm" type="tns:addPersonToFilm"/>
+  <xs:element name="addPersonToFilmResponse" type="tns:addPersonToFilmResponse"/>
+  <xs:element name="getPeopleForFilm" type="tns:getPeopleForFilm"/>
+  <xs:element name="getPeopleForFilmResponse" type="tns:getPeopleForFilmResponse"/>
+  <xs:complexType name="addPersonToFilm">
+    <xs:sequence>
+      <xs:element name="arg0" type="tns:takesPart"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="takesPart">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="tns:takesPartKey"/>
+      <xs:element minOccurs="0" name="person" type="tns:person"/>
+      <xs:element minOccurs="0" name="role" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="takesPartKey">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="filmId" type="xs:string"/>
+      <xs:element name="personId" type="xs:int"/>
+      <xs:element minOccurs="0" name="role" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="person">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addPersonToFilmResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:takesPart"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPeopleForFilm">
+    <xs:sequence>
+      <xs:element name="filmId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getPeopleForFilmResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:takesPart"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="addPersonToFilmResponse">
+    <wsdl:part element="tns:addPersonToFilmResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPeopleForFilmResponse">
+    <wsdl:part element="tns:getPeopleForFilmResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPeopleForFilm">
+    <wsdl:part element="tns:getPeopleForFilm" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addPersonToFilm">
+    <wsdl:part element="tns:addPersonToFilm" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonSOAPService">
+    <wsdl:operation name="addPersonToFilm">
+      <wsdl:input message="tns:addPersonToFilm" name="addPersonToFilm">
+    </wsdl:input>
+      <wsdl:output message="tns:addPersonToFilmResponse" name="addPersonToFilmResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPeopleForFilm">
+      <wsdl:input message="tns:getPeopleForFilm" name="getPeopleForFilm">
+    </wsdl:input>
+      <wsdl:output message="tns:getPeopleForFilmResponse" name="getPeopleForFilmResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonSOAPServiceImplServiceSoapBinding" type="tns:PersonSOAPService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="addPersonToFilm">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addPersonToFilm">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addPersonToFilmResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPeopleForFilm">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPeopleForFilm">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPeopleForFilmResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonSOAPServiceImplService">
+    <wsdl:port binding="tns:PersonSOAPServiceImplServiceSoapBinding" name="PersonSOAPServiceImplPort">
+      <soap:address location="http://172.21.0.10:8080/person"/>
+    </wsdl:port>
+  </wsdl:service>
 </wsdl:definitions>
