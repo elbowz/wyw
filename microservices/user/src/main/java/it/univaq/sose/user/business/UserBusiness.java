@@ -35,7 +35,9 @@ public class UserBusiness {
     }
 
     public ArrayList<User> getAllUsers() {
-        return (ArrayList<User>) this.userRepository.findAll();
+        ArrayList<User> list =(ArrayList<User>) this.userRepository.findAll();
+        list.forEach(user -> user.setInstanceId(this.instanceId));
+        return list;
     }
 
     public User getUserByEmail(String email) throws UserNotFoundException {
