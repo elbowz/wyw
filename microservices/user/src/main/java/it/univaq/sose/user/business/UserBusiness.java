@@ -20,7 +20,7 @@ public class UserBusiness {
     @Autowired
     UserRepository userRepository;
 
-    @Value("${eureka.instance.metadataMap.instanceId}")
+    @Value("${eureka.instance.instanceId}")
     private String instanceId;
 
     public UserBusiness() {

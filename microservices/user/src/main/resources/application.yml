@@ -3,7 +3,7 @@ management.security.enabled: false
 cxf:
   path: /
   servlet.init:
-    service-list-path: /info
+    service-list-path: info
   jaxrs:
     component-scan: true
     classes-scan-packages: org.apache.cxf.jaxrs.swagger,org.apache.cxf.metrics
@@ -15,10 +15,12 @@ eureka:
       defaultZone: http://${EUREKA_SERVER_URI:eureka-registry}:${EUREKA_SERVER_PORT:8080}${EUREKA_BASE_PATH:/sose}/eureka/
   instance:
     prefer-ip-address: true
-    statusPageUrlPath: ${EUREKA_BASE_PATH:/sose}${cxf.path}/info
-    healthCheckUrlPath: ${EUREKA_BASE_PATH:/sose}/actuator/health
+    statusPageUrlPath: ${cxf.path}/${cxf.servlet.init.service-list-path}
+    # not work because / is managed by CXF (moving CXF path to: /api solve, but service must be on the root for eureka+zuul+feign logic)
+    healthCheckUrlPath: /actuator/health
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     metadataMap:
-      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+      # all under metadataMap is ignored and passed to client
       servletPath: ${cxf.path}
 #    ## UNCOMMENT THIS TO MAKE FASTER TO REGISTER AND EXPIRE INSTANCES IN EUREKA
 #    ## Default settings are recommended by Spring on production
@@ -42,14 +44,6 @@ spring:
       idle-timeout: 10000
       maximumPoolSize: 30
 
-management:
-  endpoints:
-    jmx:
-      exposure:
-        exclude:
-      unique-names: true
+management.endpoints.web.exposure.include: health, info, metrics
 
-logging:
-  level:
-    it.univaq.sose.user:
-      DEBUG
+logging.level.it.univaq.sose.user: DEBUG

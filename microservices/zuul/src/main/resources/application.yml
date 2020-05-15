@@ -12,10 +12,6 @@ eureka:
 # Mapping with different services by using name.
 zuul:
   routes:
-    hello-service:
-      path: /hello/**
-      serviceId: jaxrs-hello-world-service
-      stripPrefix: true
     film-service:
       path: /filmservice/**
       serviceId: film-ws
@@ -39,6 +35,9 @@ zuul:
     socket-timeout-millis: 90000
   semaphore.max-semaphores: 500
 
+debug: true
+#trace: true
+logging.level.org.springframework.cloud.netflix: trace
 
 hystrix:
   command:

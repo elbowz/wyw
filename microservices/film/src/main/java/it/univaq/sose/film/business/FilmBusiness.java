@@ -28,7 +28,7 @@ public class FilmBusiness {
     @Autowired
     OmdbServiceClient omdbServiceClient;
 
-    @Value("${eureka.instance.metadataMap.instanceId}")
+    @Value("${eureka.instance.instanceId}")
     private String instanceId;
 
     public FilmBusiness() {}

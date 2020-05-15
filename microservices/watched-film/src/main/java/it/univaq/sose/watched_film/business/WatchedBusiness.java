@@ -29,7 +29,7 @@ public class WatchedBusiness {
     @Autowired
     UserServiceClient userServiceClient;
 
-    @Value("${eureka.instance.metadataMap.instanceId}")
+    @Value("${eureka.instance.instanceId}")
     private String instanceId;
 
     public WatchedBusiness() {
