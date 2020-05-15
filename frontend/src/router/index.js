@@ -10,6 +10,7 @@ import Films from '../views/Films.vue';
 import Login from '../views/Login.vue';
 import User from '../views/User.vue';
 import Users from '../views/Users.vue';
+import PageNotFound from '../views/PageNotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -36,7 +37,7 @@ const routes = [
   { path: '/user/:id/watched', name: 'watched', component: Watched, props: true },
   { path: '/film', name: 'films', component: Films },
   { path: '/film/:id', name: 'film', component: Film, props: true },
-  { path: '*', name: '404', component: Home },
+  { path: '*', name: '404', component: PageNotFound },
 ];
 
 const router = new VueRouter({
