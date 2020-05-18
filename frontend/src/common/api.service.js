@@ -29,9 +29,9 @@ export const ApiService = {
         if (response.ok) return response.json();
         throw response;
       })
-      .catch((reason) => {
+      .catch(async (reason) => {
         if (Store.loading) Store.loading -= 1;
-        throw reason;
+        throw await reason.text();
       });
   },
   async post(path = '', params = {}, data = {}) {

@@ -101,7 +101,7 @@ export default {
     },
     filter() {
       this.filteredFilm = this.films.filter(
-        (film) => film.title.toLowerCase().includes(this.filterQuery.toLowerCase()));
+        (film) => (film.title ? film.title.toLowerCase().includes(this.filterQuery.toLowerCase()) : false));
     },
   },
 };

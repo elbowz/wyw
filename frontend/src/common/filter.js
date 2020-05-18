@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { CDN_URL } from './config';
 
-export const date = (value) => (value && moment(String(value)).format('hh:mm DD.MM.YY'));
+export const date = (value) => (value && moment(String(value)).format('DD.MM.YY'));
 
 export const truncate = (value, limit) => {
   if (value.length > limit) {

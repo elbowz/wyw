@@ -14,28 +14,26 @@ import javax.ws.rs.ext.Provider;
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 @Component
-class CustomNotFoundExceptionMapper implements ExceptionMapper<UserNotFoundException> {
-    private static final Logger logger = LoggerFactory.getLogger(CustomNotFoundExceptionMapper.class);
+public class CustomExceptionMapper implements ExceptionMapper<Exception> {
+    private static final Logger logger = LoggerFactory.getLogger(CustomExceptionMapper.class);
 
     @Override
-    public Response toResponse(UserNotFoundException e) {
-        logger.debug("UserNotFoundException occurred.");
-        return Response.status(Response.Status.NOT_FOUND).build();
+    public Response toResponse(Exception e) {
+        logger.debug("GeneralExceptionMapper occurred.");
+        if (e instanceof UserNotFoundException) {
+            logger.debug("UserNotFoundException occurred.");
+            return Response.status(Response.Status.NOT_FOUND).build();
+        } else if (e instanceof MalformedBodyException) {
+            logger.debug("MalformedBodyException occurred.");
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        } else {
+            logger.debug("GeneralExceptionMapper occurred.");
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
 
 
-@Provider
-@Produces(MediaType.APPLICATION_JSON)
-@Component
-class MalformedBodyExceptionMapper implements ExceptionMapper<MalformedBodyException> {
-    private static final Logger logger = LoggerFactory.getLogger(CustomNotFoundExceptionMapper.class);
 
-    @Override
-    public Response toResponse(MalformedBodyException e) {
-        logger.debug("MalformedBodyException occurred.");
-        return Response.status(Response.Status.BAD_REQUEST).build();
-    }
-}
 
 
