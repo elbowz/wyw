@@ -25,7 +25,7 @@ CREATE TABLE `watched` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `film_id` varchar(15) NOT NULL,
-  `created_at` DATE NOT NULL,
+  `created_at` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

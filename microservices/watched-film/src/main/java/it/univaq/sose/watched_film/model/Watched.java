@@ -8,7 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity()
 @Table(name = "watched")
@@ -27,7 +27,7 @@ public class Watched {
 
     @CreationTimestamp
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Date createdAt;
+    private Timestamp createdAt;
 
     @Transient
     // @JsonProperty(access = JsonProperty.Access.READ_ONLY) doesn't work idk why.
@@ -85,11 +85,11 @@ public class Watched {
     }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-    public Date getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 

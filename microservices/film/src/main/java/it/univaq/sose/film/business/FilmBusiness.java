@@ -85,6 +85,8 @@ public class FilmBusiness {
             CompletableFuture c = omdbServiceClient
                     .getFilmById(optional.get().getImdbID(), apiKey)
                     .thenAccept(film -> {
+                        System.out.println("This print is in the async callback from OMDB.");
+
                         if (film == null) {
                             // i.e. fallback factory.
                             optional.get().setRatings(new LinkedList<>());
@@ -92,6 +94,7 @@ public class FilmBusiness {
                             optional.get().setRatings(film.getRatings());
                         }
                     });
+            System.out.println("This print is after the request to OMDB is sent.");
 
             linkedList.add(c);
 
