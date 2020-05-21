@@ -16,7 +16,7 @@
       You are able to find new films and tv series by exploring users timelines and rating by the most famous internet aggregator
     </p>
 
-    <b-button variant="outline-dark" :to="{ name: 'login' }">Login to Start</b-button>
+    <b-button v-if="!this.$root.store.user.firstName" variant="outline-dark" :to="{ name: 'login' }">Login to Start</b-button>
   </b-jumbotron>
 </template>
 

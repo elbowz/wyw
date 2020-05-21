@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user.id">
     <b-row align-v="center">
       <b-col>
         <b-avatar :text="avatarText" size="lg" variant="primary"></b-avatar>

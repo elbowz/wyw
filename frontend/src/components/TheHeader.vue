@@ -64,7 +64,7 @@ export default {
   methods: {
     logout() {
       Auth.logout();
-      this.$router.push({ path: '/' });
+      this.$router.push({ path: '/' }).catch(err => {});
     },
     search() {
       this.$router.push({ name: 'films', query: { query: this.query } });
