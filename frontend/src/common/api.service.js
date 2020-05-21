@@ -20,13 +20,58 @@ export const ApiService = {
 
     return url;
   },
+  _findInstanceId(obj, instanceIds = []) {
+    if (_.has(obj, 'instanceId')) {
+      if (!instanceIds.includes(obj.instanceId)) instanceIds.push(obj.instanceId);
+    } else if (_.has(obj, 'imdbID')) {
+      if (!instanceIds.includes('OMDB')) instanceIds.push('OMDB');
+    }
+
+    if (_.has(obj, 'ratings') && _.isArray(obj.ratings)) {
+      if (!instanceIds.includes('OMDB')) instanceIds.push('OMDB');
+    }
+
+    _.forEach(obj, (element) => {
+      if (_.isObject(element)) this._findInstanceId(element, instanceIds);
+    });
+
+    return instanceIds;
+  },
+  async _responseMiddleware(type, path, { params = null, data = null, response }) {
+
+    let json = null;
+    let instanceIds = [];
+
+    try {
+      json = await response.clone().json();
+      instanceIds = this._findInstanceId(json);
+    } catch (e) {
+      console.log('no json body response');
+    }
+
+    Store.requestHistory.unshift({
+      date: Date.now(),
+      type,
+      path,
+      params,
+      data,
+      response: json,
+      instanceIds,
+    });
+
+    return response;
+  },
   async get(path = '', params = {}) {
     Store.loading += 1;
     return fetch(this._urlGenerator(path, params), this.fetchInitDefault)
+      .then((response) =>
+        this._responseMiddleware('GET', path, { params, response })
+      )
       .then((response) => {
-        if (Store.loading) Store.loading -= 1;
 
+        if (Store.loading) Store.loading -= 1;
         if (response.ok) return response.json();
+
         throw response;
       })
       .catch(async (reason) => {
@@ -41,15 +86,20 @@ export const ApiService = {
       method: 'POST',
       body: JSON.stringify(data),
     })
+      .then((response) =>
+        this._responseMiddleware('POST', path, { params, data, response })
+      )
       .then((response) => {
-        if (Store.loading) Store.loading -= 1;
 
+        if (Store.loading) Store.loading -= 1;
         if (response.ok) return response.json();
+
         throw response;
       })
-      .catch((reason) => {
+      .catch(async (reason) => {
+
         if (Store.loading) Store.loading -= 1;
-        throw reason;
+        throw await reason.text();
       });
   },
   async delete(path = '', params = {}) {
@@ -58,15 +108,20 @@ export const ApiService = {
       ...this.fetchInitDefault,
       method: 'DELETE',
     })
+      .then((response) =>
+        this._responseMiddleware('DELETE', path, { params, response })
+      )
       .then((response) => {
-        if (Store.loading) Store.loading -= 1;
 
+        if (Store.loading) Store.loading -= 1;
         if (response.ok) return true;
+
         throw response;
       })
-      .catch((reason) => {
+      .catch(async (reason) => {
+
         if (Store.loading) Store.loading -= 1;
-        throw reason;
+        throw await reason.text();
       });
   },
 };

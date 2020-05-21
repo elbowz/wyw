@@ -9,6 +9,7 @@ const Store = {
     updatedAt: null,
   },
   loading: 0,
+  requestHistory: [],
 };
 
 export default Store;

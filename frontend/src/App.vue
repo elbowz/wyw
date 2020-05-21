@@ -18,6 +18,7 @@
     <footer>
       <TheFooter/>
     </footer>
+    <TheSidebar :requests="$root.store.requestHistory"/>
   </div>
 </template>
 
@@ -25,9 +26,11 @@
 // @ is an alias to /src
 import TheHeader from './components/TheHeader.vue';
 import TheFooter from './components/TheFooter.vue';
+import TheSidebar from './components/TheSidebar.vue';
 
 export default {
   components: {
+    TheSidebar,
     TheFooter,
     TheHeader,
   },

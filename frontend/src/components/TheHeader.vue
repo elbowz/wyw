@@ -45,6 +45,9 @@
         </b-navbar-nav>
       </b-collapse>
     </b-container>
+    <b-button size="sm" class="d-none d-lg-block d-xl-block mr-1" variant="outline-dark" v-b-toggle.sidebar-right>
+      <b-icon icon="shift" rotate="-90"></b-icon>
+    </b-button>
   </b-navbar>
 </template>
 
