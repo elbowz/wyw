@@ -20,22 +20,22 @@ export const ApiService = {
 
     return url;
   },
-  _findInstanceId(obj, instanceIds = []) {
+  _findInstanceId(obj, instanceIds = new Set()) {
     if (_.has(obj, 'instanceId')) {
-      if (!instanceIds.includes(obj.instanceId)) instanceIds.push(obj.instanceId);
+      instanceIds.add(obj.instanceId);
     } else if (_.has(obj, 'imdbID')) {
-      if (!instanceIds.includes('OMDB')) instanceIds.push('OMDB');
+      instanceIds.add('omdb');
     }
 
     if (_.has(obj, 'ratings') && _.isArray(obj.ratings)) {
-      if (!instanceIds.includes('OMDB')) instanceIds.push('OMDB');
+      instanceIds.add('omdb');
     }
 
     _.forEach(obj, (element) => {
       if (_.isObject(element)) this._findInstanceId(element, instanceIds);
     });
 
-    return instanceIds;
+    return Array.from(instanceIds);
   },
   async _responseMiddleware(type, path, { params = null, data = null, response }) {
 

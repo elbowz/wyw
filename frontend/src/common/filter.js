@@ -1,11 +1,11 @@
 import moment from 'moment';
 import { CDN_URL } from './config';
 
-export const date = (value, format= 'hh:mm DD.MM.YY') => (value && moment(value).format(format));
+export const date = (value, format = 'hh:mm DD.MM.YY') => (value && moment(value).format(format));
 
-export const truncate = (value, limit) => {
+export const truncate = (value, limit, endString = '...') => {
   if (value.length > limit) {
-    value = value.substring(0, (limit - 3)) + '...';
+    value = value.substring(0, (limit - 3)) + endString;
   }
 
   return value;

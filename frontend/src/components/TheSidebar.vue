@@ -38,9 +38,11 @@
                 <div class="text-muted"><small>Microservices involved:</small></div>
                 <div>
                   <div v-for="instanceId in request.instanceIds" :key="instanceId">
-                    <b-badge :variant="instanceId2variant(instanceId)"
+                    <b-badge v-b-tooltip.hover
+                             :title="instanceId"
+                             :variant="instanceId2variant(instanceId)"
                              class="pb-1">
-                      {{ instanceId }}
+                      {{ instanceId | truncate(36) }}
                     </b-badge>
                   </div>
                 </div>
@@ -64,8 +66,14 @@
     </p>
     <template v-slot:footer="{ hide }">
       <div class="d-flex bg-secondary text-light align-items-center px-3 py-2">
-        <b-button class="mr-auto" size="sm" @click="hide"><b-icon icon="x" aria-label="Close"></b-icon> Close</b-button>
-        <b-button size="sm" @click="clear"><b-icon icon="trash" aria-label="Clear"></b-icon> Clear</b-button>
+        <b-button class="mr-auto" size="sm" @click="hide">
+          <b-icon icon="x" aria-label="Close"></b-icon>
+          Close
+        </b-button>
+        <b-button size="sm" @click="clear">
+          <b-icon icon="trash" aria-label="Clear"></b-icon>
+          Clear
+        </b-button>
       </div>
     </template>
   </b-sidebar>
@@ -78,7 +86,7 @@ const ws2variant = {
   'film-ws': 'info',
   'person-ws': 'success',
   'watched-film-ws': 'danger',
-  'OMDB': 'warning',
+  'omdb': 'warning',
 };
 
 export default {
@@ -88,7 +96,7 @@ export default {
   },
   methods: {
     stringify(json) {
-      return JSON.stringify(json, null, 2);
+      return JSON.stringify(json, (key, val) => (key === 'instanceId' ? undefined : val), 2);
     },
     instanceId2variant(instanceId) {
 
