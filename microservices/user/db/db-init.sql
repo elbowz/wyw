@@ -40,8 +40,12 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`,`created_at`, `updated_at`)
-      VALUES (1, 'Franco', 'Rossi', 'franco.rossi@example.com', 'passwordsicura', NOW(), NOW()),
-             (2, 'Giulia', 'Verdi', 'giulia.verdi@example.com', 'passwordsicura', NOW(), NOW());
+      VALUES (1, 'Franco', 'Rossi', 'franco.rossi@example.com', 'qwerty', NOW(), NOW()),
+             (2, 'Giulia', 'Verdi', 'giulia.verdi@example.com', 'qwerty', NOW(), NOW()),
+             (3, 'John', 'Doe', 'john.doe@gmail.com', 'qwerty', NOW(), NOW()),
+             (4, 'Max', 'Power', 'max.power@fox.com', 'qwerty', NOW(), NOW()),
+             (5, 'David', 'Fincher', 'david.fincher@gmail.com', 'qwerty', NOW(), NOW()),
+             (6, 'Donald J.', 'Trump', 'potus@whitehouse.gov', 'qwerty', NOW(), NOW());
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
