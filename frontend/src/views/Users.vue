@@ -20,11 +20,15 @@
       </b-card>
     </div>
     <div v-else-if="!$root.store.loading">
-      <h2>No Users</h2>
+      <b-card class="hvr-shadow text-center">
+        <span class="h3">No Users</span>
+      </b-card>
     </div>
 
-    <div v-if="error" class="error">
-      {{ error }}
+    <div v-if="error">
+      <b-alert show="6" variant="warning" dismissible fade>
+        {{ error }}
+      </b-alert>
     </div>
   </div>
 </template>

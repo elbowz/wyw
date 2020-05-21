@@ -34,8 +34,10 @@
 
     <FilmListWatched :films="filteredFilm" :user="user"/>
 
-    <div v-if="error" class="error">
-      {{ error }}
+    <div v-if="error">
+      <b-alert show="6" variant="warning" dismissible fade>
+        {{ error }}
+      </b-alert>
     </div>
   </div>
 </template>

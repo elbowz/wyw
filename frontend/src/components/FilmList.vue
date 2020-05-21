@@ -34,7 +34,9 @@
       </div>
     </transition-group>
     <div v-else-if="!$root.store.loading">
-      <h2>No films</h2>
+      <b-card class="hvr-shadow text-center">
+        <span class="h3">No Films</span>
+      </b-card>
     </div>
   </div>
 </template>

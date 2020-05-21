@@ -23,8 +23,10 @@
       This is you personal profile, more information and action wil be added soon :)
     </b-alert>
 
-    <div v-if="error" class="error">
-      {{ error }}
+    <div v-if="error">
+      <b-alert show="6" variant="warning" dismissible fade>
+        {{ error }}
+      </b-alert>
     </div>
   </div>
 </template>

@@ -1,10 +1,11 @@
 <template>
   <div class="film">
-    <div v-if="loading" class="loading">Loading...</div>
-    <FilmItem v-else :film="film"/>
+    <FilmItem v-if="film.imdbID" :film="film"/>
 
-    <div v-if="error" class="error">
-      {{ error }}
+    <div v-if="error">
+      <b-alert show="6" variant="warning" dismissible fade>
+        {{ error }}
+      </b-alert>
     </div>
   </div>
 </template>
