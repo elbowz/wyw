@@ -31,8 +31,9 @@
         <cxf.swagger.ui.version>3.25.0</cxf.swagger.ui.version>
         <mariadb.version>2.5.4</mariadb.version>
         <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
+        <spring.cloud.dependencies.version>Hoxton.RELEASE</spring.cloud.dependencies.version>
         <spring.cloud.eureka.version>2.2.1.RELEASE</spring.cloud.eureka.version>
-        <spring.cloud.netflix.zuul.version>2.2.1.RELEASE</spring.cloud.netflix.zuul.version>
+        <spring.cloud.zuul.version>2.2.1.RELEASE</spring.cloud.zuul.version>
     </properties>
 
     <modules>
@@ -42,7 +43,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <!-- Import dependency management from Spring Boot -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring.boot.version}</version>
