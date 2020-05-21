@@ -2,18 +2,6 @@
 
 ![WYW](./frontend/src/assets/logo-landscape.png)
 
-Temporary skeleton for a microservice architecture, composed by:
-* **Tomcat:** http://localhost:port/sose/
-* **MariaDB:** accessible only between container (no external port)  
-    user: sose  
-    pwd: sose  
-    db: sosedb
-* **Adminer:** http://localhost:5000/
-
-> **note:** see `docker-compose.yml` for more information
->
-> **note:** Tomcat port change between `4000-4100`, use `docker ps` to spot it 
-
 ## Typically development flow
 
 ### Start containers
@@ -27,6 +15,8 @@ Temporary skeleton for a microservice architecture, composed by:
     `docker-compose up (-d)`
 * Development (eg. JPDA):  
     `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up`
+    
+> **note:** see `docker-compose.yml` for more information. Tomcat port change between `4000-4100`, use `docker ps` to spot it 
 
 ### Build and Deploy
 
@@ -45,13 +35,25 @@ Temporary skeleton for a microservice architecture, composed by:
  * Scale after start:  
     `docker-compose up`   
     `docker-compose scale person-ws=3`
+    
+### Services
+
+All microservices are visible by eureka [http://localhost:8761/sose/](http://localhost:8761/sose/)
 
 ### Frontend
 
- * Deployment   
+ * Deployment: [http://localhost:8080/](http://localhost:8080/)   
     `cd frontend && npm run serve`
- * Deploy for distribution (*localhost:3000*)   
+ * Deploy for distribution: [http://localhost:3000/](http://localhost:3000/)   
     `cd frontend && npm run build`
+    
+### DB Web Clint (Adminer)
+
+url: [http://localhost:5000/](http://localhost:5000/)  
+server: *eg. person-db*  
+user: *sose*    
+pwd: *sose*    
+db: *sosedb*  
     
 ### Utils
  
@@ -61,7 +63,8 @@ Temporary skeleton for a microservice architecture, composed by:
 
 ## Notes
 
-Add needed dependencies to the root `pom.xml` or the children ones.
+All WYW users password is `qwerty`.  
+Add needed dependencies to the root `pom.xml` or the children ones.  
 Create needed services/networks to the `docker-compose.yml`.
 
 ## Development Guidelines
