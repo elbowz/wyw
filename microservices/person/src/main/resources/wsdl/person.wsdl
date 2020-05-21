@@ -13,6 +13,7 @@
   <xs:complexType name="takesPart">
     <xs:sequence>
       <xs:element minOccurs="0" name="id" type="tns:takesPartKey"/>
+      <xs:element minOccurs="0" name="instanceId" type="xs:string"/>
       <xs:element minOccurs="0" name="person" type="tns:person"/>
       <xs:element minOccurs="0" name="role" type="xs:string"/>
     </xs:sequence>
@@ -121,7 +122,7 @@
   </wsdl:binding>
   <wsdl:service name="PersonSOAPServiceImplService">
     <wsdl:port binding="tns:PersonSOAPServiceImplServiceSoapBinding" name="PersonSOAPServiceImplPort">
-      <soap:address location="http://172.21.0.10:8080/person"/>
+      <soap:address location="http://172.22.0.12:8080/person"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -14,6 +14,9 @@ public class TakesPart {
     @JoinColumn(name = "person_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Person person;
 
+    @Transient
+    private String instanceId;
+
     public TakesPart() {
     }
 
@@ -39,6 +42,14 @@ public class TakesPart {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 
     @Override

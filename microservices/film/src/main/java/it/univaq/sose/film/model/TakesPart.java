@@ -3,6 +3,7 @@ package it.univaq.sose.film.model;
 public class TakesPart {
     private String role;
     private Person person;
+    private String instanceId;
 
     public TakesPart() {
     }
@@ -21,6 +22,14 @@ public class TakesPart {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 
     @Override
