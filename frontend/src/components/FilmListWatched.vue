@@ -6,7 +6,7 @@
     >
       <b-row>
         <b-col md="3" class="font-weight-bold">
-          <span v-if="film">{{ film.title }}</span>
+          <span v-if="film.title">{{ film.title }}</span>
           <span v-else>{{ film.imdbID }}</span>
         </b-col>
         <b-col md="2" class="text-md-center">

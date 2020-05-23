@@ -94,7 +94,7 @@ export default {
 
       ApiService.get('/watchedservice/watched/' + id, { deep: 1 })
         .then((watched) => {
-          this.films = watched.map((row) => ({ ...row.film, ...{ createdAt: row.createdAt, watchedId: row.id } }));
+          this.films = watched.map((row) => ({ ...row.film, ...{ imdbID: row.filmId, createdAt: row.createdAt, watchedId: row.id } }));
           this.filter();
         })
         .catch((error) => {
@@ -103,7 +103,7 @@ export default {
     },
     filter() {
       this.filteredFilm = this.films.filter(
-        (film) => (film.title ? film.title.toLowerCase().includes(this.filterQuery.toLowerCase()) : false));
+        (film) => (film.title ? film.title.toLowerCase().includes(this.filterQuery.toLowerCase()) : true));
     },
   },
 };
