@@ -47,7 +47,8 @@ The stack:
     
 ### Services
 
-All microservices are visible by eureka [http://localhost:8761/sose/](http://localhost:8761/sose/)
+All microservices are visible by eureka [localhost:8761](http://localhost:8761) 
+and [localhost:8761/eureka/apps](http://localhost:8761/eureka/apps) for display what others microservices can see (xml format). 
 
 ### Frontend
 
