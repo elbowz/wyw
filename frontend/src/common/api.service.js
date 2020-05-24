@@ -22,7 +22,7 @@ export const ApiService = {
   },
   _findInstanceId(obj, instanceIds = new Set()) {
     if (_.has(obj, 'instanceId')) {
-      instanceIds.add(obj.instanceId);
+      if(obj.instanceId) instanceIds.add(obj.instanceId);
     } else if (_.has(obj, 'imdbID')) {
       instanceIds.add('omdb');
     }
@@ -61,6 +61,7 @@ export const ApiService = {
 
     return response;
   },
+  // TODO: modify get, post and delete to "linear" async await function (no then/catch)
   async get(path = '', params = {}) {
     Store.loading += 1;
     return fetch(this._urlGenerator(path, params), this.fetchInitDefault)
@@ -68,9 +69,10 @@ export const ApiService = {
         this._responseMiddleware('GET', path, { params, response })
       )
       .then((response) => {
-
-        if (Store.loading) Store.loading -= 1;
-        if (response.ok) return response.json();
+        if (response.ok) {
+          if (Store.loading) Store.loading -= 1;
+          return response.json();
+        }
 
         throw response;
       })
@@ -91,8 +93,10 @@ export const ApiService = {
       )
       .then((response) => {
 
-        if (Store.loading) Store.loading -= 1;
-        if (response.ok) return response.json();
+        if (response.ok) {
+          if (Store.loading) Store.loading -= 1;
+          return response.json();
+        }
 
         throw response;
       })
@@ -113,8 +117,10 @@ export const ApiService = {
       )
       .then((response) => {
 
-        if (Store.loading) Store.loading -= 1;
-        if (response.ok) return true;
+        if (response.ok) {
+          if (Store.loading) Store.loading -= 1;
+          return response.text();
+        }
 
         throw response;
       })

@@ -22,7 +22,6 @@ export default {
   },
   data() {
     return {
-      loading: false,
       film: {},
       error: null,
     };
@@ -35,11 +34,9 @@ export default {
     fetchFilm() {
       this.error = null;
       this.films = [];
-      this.loading = true;
 
       ApiService.get('/filmservice/film/' + this.id, { deep: 1 })
         .then((film) => {
-          this.loading = false;
           this.film = film;
         })
         .catch((error) => {

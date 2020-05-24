@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h3>Films <small v-if="query" class="font-weight-light">with '{{query}}' in the title</small></h3>
-    <FilmList :films="films"/>
-
     <div v-if="error">
       <b-alert show="6" variant="warning" dismissible fade>
         {{ error }}
       </b-alert>
     </div>
+
+    <h3>Films <small v-if="query" class="font-weight-light">with '{{query}}' in the title</small></h3>
+    <FilmList :films="films"/>
   </div>
 </template>
 

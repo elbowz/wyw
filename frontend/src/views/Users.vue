@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div v-if="error">
+      <b-alert show="6" variant="warning" dismissible fade>
+        {{ error }}
+      </b-alert>
+    </div>
 
     <h3>Users</h3>
 
@@ -23,12 +28,6 @@
       <b-card class="hvr-shadow text-center">
         <span class="h3">No Users</span>
       </b-card>
-    </div>
-
-    <div v-if="error">
-      <b-alert show="6" variant="warning" dismissible fade>
-        {{ error }}
-      </b-alert>
     </div>
   </div>
 </template>

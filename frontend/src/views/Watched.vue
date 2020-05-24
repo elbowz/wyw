@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div v-if="error">
+      <b-alert show="6" variant="warning" dismissible fade>
+        {{ error }}
+      </b-alert>
+    </div>
+
     <div class="h3 clearfix mb-4">
       <span class="float-left">Watched films</span>
       <span class="font-weight-light float-right">
@@ -33,12 +39,6 @@
     </b-row>
 
     <FilmListWatched :films="filteredFilm" :user="user"/>
-
-    <div v-if="error">
-      <b-alert show="6" variant="warning" dismissible fade>
-        {{ error }}
-      </b-alert>
-    </div>
   </div>
 </template>
 
@@ -94,7 +94,11 @@ export default {
 
       ApiService.get('/watchedservice/watched/' + id, { deep: 1 })
         .then((watched) => {
-          this.films = watched.map((row) => ({ ...row.film, ...{ createdAt: row.createdAt, watchedId: row.id } }));
+          this.films = watched.map((row) => ({
+            ...row.film,
+            ...{ imdbID: row.filmId, createdAt: row.createdAt, watchedId: row.id }
+          }));
+
           this.filter();
         })
         .catch((error) => {
@@ -103,7 +107,7 @@ export default {
     },
     filter() {
       this.filteredFilm = this.films.filter(
-        (film) => (film.title ? film.title.toLowerCase().includes(this.filterQuery.toLowerCase()) : false));
+        (film) => (film.title ? film.title.toLowerCase().includes(this.filterQuery.toLowerCase()) : true));
     },
   },
 };
