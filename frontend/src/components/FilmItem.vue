@@ -2,7 +2,7 @@
   <div>
     <b-row>
       <b-col sm="4">
-        <b-img :src="film.poster | cdn" :alt="film.title" left rounded class="mr-2" fluid-grow></b-img>
+        <b-img :src="'poster/' + film.poster | cdn" :alt="film.title" left rounded class="mr-2" fluid-grow></b-img>
       </b-col>
       <b-col sm="8">
         <h3>{{film.title}} <span class="font-weight-light">({{film.year}})</span></h3>
