@@ -84,7 +84,7 @@ export default {
       const id = this.id || Auth.isLogged();
 
       // Call for get information also when user have no watched film
-      ApiService.get('/userservice/user/' + id)
+      ApiService.get(`/userservice/user/${id}`)
         .then((user) => {
           this.user = user;
         })
@@ -92,11 +92,11 @@ export default {
           this.error = error.toString();
         });
 
-      ApiService.get('/watchedservice/watched/' + id, { deep: 1 })
+      ApiService.get(`/watchedservice/watched/${id}`, { deep: 1 })
         .then((watched) => {
           this.films = watched.map((row) => ({
             ...row.film,
-            ...{ imdbID: row.filmId, createdAt: row.createdAt, watchedId: row.id }
+            ...{ imdbID: row.filmId, createdAt: row.createdAt, watchedId: row.id },
           }));
 
           this.filter();
@@ -107,7 +107,8 @@ export default {
     },
     filter() {
       this.filteredFilm = this.films.filter(
-        (film) => (film.title ? film.title.toLowerCase().includes(this.filterQuery.toLowerCase()) : true));
+        (film) => (film.title ? film.title.toLowerCase().includes(this.filterQuery.toLowerCase()) : true),
+      );
     },
   },
 };

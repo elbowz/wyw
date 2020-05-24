@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { ApiService } from "../common/api.service";
+import { ApiService } from '../common/api.service';
 
 export default {
   name: 'FilmListWatched',
@@ -44,7 +44,7 @@ export default {
     deleteWatched(watchedId) {
       const filmIndex = _.findIndex(this.films, (film) => film.watchedId === watchedId);
 
-      ApiService.delete('/watchedservice/watched/' + watchedId)
+      ApiService.delete(`/watchedservice/watched/${watchedId}`)
         .then(() => {
           this.films.splice(filmIndex, 1);
         })

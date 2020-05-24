@@ -64,7 +64,7 @@ export default {
   methods: {
     logout() {
       Auth.logout();
-      this.$router.push({ path: '/' }).catch(err => {});
+      this.$router.push({ path: '/' }).catch((err) => {});
     },
     search() {
       this.$router.push({ name: 'films', query: { query: this.query } });
@@ -75,7 +75,7 @@ export default {
       return this.$root.store.user.firstName;
     },
     avatarText() {
-      const user = this.$root.store.user;
+      const { user } = this.$root.store;
       return user && user.firstName.charAt(0) + user.lastName.charAt(0);
     },
     loading() {

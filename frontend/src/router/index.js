@@ -32,11 +32,17 @@ const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/user', name: 'users', component: Users },
   { path: '/user/profile', name: 'profile', component: User },
-  { path: '/user/:id', name: 'user', component: User, props: true },
+  {
+    path: '/user/:id', name: 'user', component: User, props: true,
+  },
   { path: '/user/profile/watched', name: 'mywatched', component: Watched },
-  { path: '/user/:id/watched', name: 'watched', component: Watched, props: true },
+  {
+    path: '/user/:id/watched', name: 'watched', component: Watched, props: true,
+  },
   { path: '/film', name: 'films', component: Films },
-  { path: '/film/:id', name: 'film', component: Film, props: true },
+  {
+    path: '/film/:id', name: 'film', component: Film, props: true,
+  },
   { path: '*', name: '404', component: PageNotFound },
 ];
 

@@ -28,5 +28,5 @@ export default {
       return _.shuffle(this.credit);
     },
   },
-}
+};
 </script>
