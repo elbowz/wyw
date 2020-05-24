@@ -86,7 +86,7 @@ const ws2variant = {
   'film-ws': 'info',
   'person-ws': 'success',
   'watched-film-ws': 'danger',
-  'omdb': 'warning',
+  omdb: 'warning',
 };
 
 export default {
@@ -99,7 +99,6 @@ export default {
       return JSON.stringify(json, (key, val) => (key === 'instanceId' ? undefined : val), 2);
     },
     instanceId2variant(instanceId) {
-
       if (!instanceId) return null;
 
       const colonIndex = instanceId.indexOf(':');

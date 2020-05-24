@@ -16,7 +16,7 @@ import './styles/index.scss';
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
-Vue.use(VueLodash, { lodash: lodash });
+Vue.use(VueLodash, { lodash });
 
 // Auth Init (check localstorage and fulfill Store.user)
 Auth.init();

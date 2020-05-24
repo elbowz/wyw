@@ -35,7 +35,7 @@ export default {
       this.error = null;
       this.films = [];
 
-      ApiService.get('/filmservice/film/' + this.id, { deep: 1 })
+      ApiService.get(`/filmservice/film/${this.id}`, { deep: 1 })
         .then((film) => {
           this.film = film;
         })

@@ -61,7 +61,7 @@ export default {
 
       const id = this.id || Auth.isLogged();
 
-      ApiService.get('/userservice/user/' + id)
+      ApiService.get(`/userservice/user/${id}`)
         .then((user) => {
           this.user = user;
         })

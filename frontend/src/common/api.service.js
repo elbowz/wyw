@@ -16,13 +16,13 @@ export const ApiService = {
   },
   _urlGenerator(path = '', params = {}) {
     const url = new URL(API_URL + path);
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
 
     return url;
   },
   _findInstanceId(obj, instanceIds = new Set()) {
     if (_.has(obj, 'instanceId')) {
-      if(obj.instanceId) instanceIds.add(obj.instanceId);
+      if (obj.instanceId) instanceIds.add(obj.instanceId);
     } else if (_.has(obj, 'imdbID')) {
       instanceIds.add('omdb');
     }
@@ -38,7 +38,6 @@ export const ApiService = {
     return Array.from(instanceIds);
   },
   async _responseMiddleware(type, path, { params = null, data = null, response }) {
-
     let json = null;
     let instanceIds = [];
 
@@ -65,9 +64,7 @@ export const ApiService = {
   async get(path = '', params = {}) {
     Store.loading += 1;
     return fetch(this._urlGenerator(path, params), this.fetchInitDefault)
-      .then((response) =>
-        this._responseMiddleware('GET', path, { params, response })
-      )
+      .then((response) => this._responseMiddleware('GET', path, { params, response }))
       .then((response) => {
         if (response.ok) {
           if (Store.loading) Store.loading -= 1;
@@ -88,11 +85,8 @@ export const ApiService = {
       method: 'POST',
       body: JSON.stringify(data),
     })
-      .then((response) =>
-        this._responseMiddleware('POST', path, { params, data, response })
-      )
+      .then((response) => this._responseMiddleware('POST', path, { params, data, response }))
       .then((response) => {
-
         if (response.ok) {
           if (Store.loading) Store.loading -= 1;
           return response.json();
@@ -101,7 +95,6 @@ export const ApiService = {
         throw response;
       })
       .catch(async (reason) => {
-
         if (Store.loading) Store.loading -= 1;
         throw await reason.text();
       });
@@ -112,11 +105,8 @@ export const ApiService = {
       ...this.fetchInitDefault,
       method: 'DELETE',
     })
-      .then((response) =>
-        this._responseMiddleware('DELETE', path, { params, response })
-      )
+      .then((response) => this._responseMiddleware('DELETE', path, { params, response }))
       .then((response) => {
-
         if (response.ok) {
           if (Store.loading) Store.loading -= 1;
           return response.text();
@@ -125,7 +115,6 @@ export const ApiService = {
         throw response;
       })
       .catch(async (reason) => {
-
         if (Store.loading) Store.loading -= 1;
         throw await reason.text();
       });
@@ -140,7 +129,7 @@ export const Auth = {
     const userId = this.isLogged();
 
     if (userId) {
-      return ApiService.get('/userservice/user/' + userId)
+      return ApiService.get(`/userservice/user/${userId}`)
         .then((user) => {
           Store.user = user;
           return user;
