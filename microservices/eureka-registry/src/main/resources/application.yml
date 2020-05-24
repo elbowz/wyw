@@ -6,7 +6,7 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${PORT:8080}/sose/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${PORT:8080}/eureka/
   server:
 
 #   ## UNCOMMENT THIS TO MAKE FASTER TO REGISTER AND EXPIRE INSTANCES IN EUREKA
