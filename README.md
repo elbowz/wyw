@@ -1,6 +1,15 @@
-# SOSE 2019/20
+# WHATYOUWATCHED - SOSE 2019/20
 
 ![WYW](./frontend/src/assets/logo-landscape.png)
+
+## What it is
+
+*WYW* is a very simplified version of [trakt.tv](https://trakt.tv/).  
+It's been written as a playground for a scalable microservices architecture, based on choreography communication pattern. 
+
+The stack:
+* **Backend:** Docker(-compose), SpringBoot, SpringCloud, Eureka, Zuul, Ribbon, Feign, Hystrix, Apache CXF and MariaDB
+* **Frontend:** Vue.js and Bootstrap(Vue)
 
 ## Typically development flow
 
