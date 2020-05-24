@@ -21,12 +21,12 @@ eureka:
     instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     metadataMap:
       servletPath: ${cxf.path}
-#    ## UNCOMMENT THIS TO MAKE FASTER TO REGISTER AND EXPIRE INSTANCES IN EUREKA
-#    ## Default settings are recommended by Spring on production
-#    ## how often heartbreak is sent. Default is 30s
-#    leaseRenewalIntervalInSeconds: 1
-#    ## how long to wait after heartbreak is not sent to expire the instance. Default is 90s
-#    leaseExpirationDurationInSeconds: 2
+    ## UNCOMMENT THIS TO MAKE FASTER TO REGISTER AND EXPIRE INSTANCES IN EUREKA
+    ## Default settings are recommended by Spring on production
+    ## how often heartbreak is sent. Default is 30s
+    leaseRenewalIntervalInSeconds: 1
+    ## how long to wait after heartbreak is not sent to expire the instance. Default is 90s
+    leaseExpirationDurationInSeconds: 2
 
 spring:
   jpa:
