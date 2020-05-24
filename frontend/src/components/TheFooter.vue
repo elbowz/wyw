@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="light" fixed="bottom">
+  <b-navbar class="d-none d-lg-block d-xl-block" toggleable="lg" type="dark" variant="light" fixed="bottom">
     <b-container fluid="xl">
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="mx-auto">
