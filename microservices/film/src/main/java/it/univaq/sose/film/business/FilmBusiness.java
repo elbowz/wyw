@@ -6,7 +6,7 @@ import it.univaq.sose.film.exceptions.FilmNotFoundException;
 import it.univaq.sose.film.model.*;
 import it.univaq.sose.film.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,20 +28,20 @@ public class FilmBusiness {
     @Autowired
     OmdbServiceClient omdbServiceClient;
 
-    @Value("${eureka.instance.instanceId}")
-    private String instanceId;
+    @Autowired
+    EurekaInstanceConfigBean eurekaInstanceConfigBean;
 
     public FilmBusiness() {}
 
     public ArrayList<Film> getAll() {
         ArrayList<Film> list =(ArrayList<Film>) this.filmRepository.findAll();
-        list.forEach(film -> film.setInstanceId(this.instanceId));
+        list.forEach(film -> film.setInstanceId(this.eurekaInstanceConfigBean.getInstanceId()));
         return list;
     }
 
     public ArrayList<Film> search(String query) {
         ArrayList<Film> list =(ArrayList<Film>) this.filmRepository.findByTitleIgnoreCaseContaining(query);
-        list.forEach(film -> film.setInstanceId(this.instanceId));
+        list.forEach(film -> film.setInstanceId(this.eurekaInstanceConfigBean.getInstanceId()));
         return list;
     }
 
@@ -72,7 +72,7 @@ public class FilmBusiness {
             throw new FilmNotFoundException();
         } else {
             // Set instanceId.
-            optional.get().setInstanceId(this.instanceId);
+            optional.get().setInstanceId(this.eurekaInstanceConfigBean.getInstanceId());
         }
 
         // Check if we want score and  people in this film.

@@ -9,7 +9,7 @@ import it.univaq.sose.watched_film.model.User;
 import it.univaq.sose.watched_film.model.Watched;
 import it.univaq.sose.watched_film.repository.WatchedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,8 +29,8 @@ public class WatchedBusiness {
     @Autowired
     UserServiceClient userServiceClient;
 
-    @Value("${eureka.instance.instanceId}")
-    private String instanceId;
+    @Autowired
+    EurekaInstanceConfigBean eurekaInstanceConfigBean;
 
     public WatchedBusiness() {
     }
@@ -53,7 +53,7 @@ public class WatchedBusiness {
         if (watchedFilm.size() == 0) {
             throw new UserNotFoundException();
         } else {
-            watchedFilm.forEach(watched -> watched.setInstanceId(this.instanceId));
+            watchedFilm.forEach(watched -> watched.setInstanceId(this.eurekaInstanceConfigBean.getInstanceId()));
         }
 
         // If the requested deep is 0 just return the watched-film-db data.

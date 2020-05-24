@@ -7,7 +7,7 @@ import it.univaq.sose.user.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ public class UserBusiness {
     @Autowired
     UserRepository userRepository;
 
-    @Value("${eureka.instance.instanceId}")
-    private String instanceId;
+    @Autowired
+    EurekaInstanceConfigBean eurekaInstanceConfigBean;
 
     public UserBusiness() {
     }
@@ -29,21 +29,21 @@ public class UserBusiness {
     public User one(long id) throws UserNotFoundException {
         Optional<User> optional = userRepository.findById(id);
 
-        optional.ifPresent(user -> user.setInstanceId(this.instanceId));
+        optional.ifPresent(user -> user.setInstanceId(this.eurekaInstanceConfigBean.getInstanceId()));
 
         return optional.orElseThrow(UserNotFoundException::new);
     }
 
     public ArrayList<User> getAllUsers() {
         ArrayList<User> list =(ArrayList<User>) this.userRepository.findAll();
-        list.forEach(user -> user.setInstanceId(this.instanceId));
+        list.forEach(user -> user.setInstanceId(this.eurekaInstanceConfigBean.getInstanceId()));
         return list;
     }
 
     public User getUserByEmail(String email) throws UserNotFoundException {
         Optional<User> optional = userRepository.findUserByEmail(email);
 
-        optional.ifPresent(user -> user.setInstanceId(this.instanceId));
+        optional.ifPresent(user -> user.setInstanceId(this.eurekaInstanceConfigBean.getInstanceId()));
 
         return optional.orElseThrow(UserNotFoundException::new);
     }
