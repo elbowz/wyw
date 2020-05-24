@@ -13,6 +13,7 @@ import { Auth } from './common/api.service';
 import { date, truncate, cdn } from './common/filter';
 
 import './styles/index.scss';
+import './registerServiceWorker';
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
