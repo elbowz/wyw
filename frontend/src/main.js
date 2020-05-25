@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import VueLodash from 'vue-lodash';
 import lodash from 'lodash';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faImdb, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(faImdb, faTwitter);
 
 // TODO: add only the used modules (eg. import { AlertPlugin } from 'bootstrap-vue')
 // see: https://bootstrap-vue.js.org/docs#component-groups-and-directives-as-vue-plugins
@@ -18,6 +23,7 @@ import './registerServiceWorker';
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(VueLodash, { lodash });
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 // Auth Init (check localstorage and fulfill Store.user)
 Auth.init();
