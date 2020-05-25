@@ -10,8 +10,10 @@ module.exports = {
   pwa: {
     name: 'WYW',
     themeColor: '#ffc107',
-    msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
+    manifestOptions: {
+      background_color: '#ffc107'
+    },
   },
 };

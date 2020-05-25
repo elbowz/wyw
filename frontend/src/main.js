@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import VueLodash from 'vue-lodash';
+// TODO: reduce size by import only what needed
 import lodash from 'lodash';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faImdb, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faImdb } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-library.add(faImdb, faTwitter);
 
 // TODO: add only the used modules (eg. import { AlertPlugin } from 'bootstrap-vue')
 // see: https://bootstrap-vue.js.org/docs#component-groups-and-directives-as-vue-plugins
@@ -19,6 +18,8 @@ import { date, truncate, cdn } from './common/filter';
 
 import './styles/index.scss';
 import './registerServiceWorker';
+
+library.add(faImdb);
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);

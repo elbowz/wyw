@@ -1,4 +1,5 @@
-import moment from 'moment';
+// TODO: remove moment for size bundle reduction
+import moment from 'moment/src/moment';
 import { CDN_URL } from './config';
 
 export const date = (value, format = 'hh:mm DD.MM.YY') => (value && moment(value).format(format));

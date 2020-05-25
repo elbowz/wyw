@@ -5,7 +5,7 @@
 // https://github.com/daneden/animate.css
 @import '~animate.css';
 
-// TODO: remove and import the ones used
+// TODO: remove and import the ones used (search class hvr-*)
 // https://ianlunn.github.io/Hover/
 @import '~hover.css';
 
@@ -13,4 +13,4 @@
 // note: for reduce size install https://github.com/FortAwesome/vue-fontawesome
 // @import '~@fortawesome/fontawesome-free/css/all.css';
 
-@import "custom";
+@import 'custom';
