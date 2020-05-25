@@ -12,7 +12,7 @@
             <span class="font-weight-bold text-info">{{rating.value}}</span>
           </span>
         </div>
-        <a :href="'https://www.imdb.com/title/' + film.imdbID"><small><i class="fab fa-imdb"></i>
+        <a :href="'https://www.imdb.com/title/' + film.imdbID"><small><font-awesome-icon :icon="['fab', 'imdb']" />
           imdb.com</small></a>
         <div class="mt-2">
           <span class="font-weight-light">Language: </span>
