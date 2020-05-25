@@ -1,6 +1,6 @@
 # WHATYOUWATCHED - SOSE 2019/20
 
-![WYW](./frontend/src/assets/logo-landscape.png)
+![WYW](./frontend-screenshot.png)
 
 ## What it is
 
