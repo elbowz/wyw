@@ -62,7 +62,7 @@ export default {
 <style scoped lang="scss">
 .list-complete-item {
   display: inline-block;
-  transition: all 1s;
+  transition: transform 1s, box-shadow 0.3s;
 }
 
 .list-complete-enter, .list-complete-leave-to {
