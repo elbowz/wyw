@@ -11,6 +11,23 @@ The stack:
 * **Backend:** Docker(-compose), SpringBoot, SpringCloud, Eureka, Zuul, Ribbon, Feign, Hystrix, Apache CXF and MariaDB
 * **Frontend:** Vue.js and Bootstrap(Vue)
 
+## Install
+
+```
+# install need build and deploy package
+apt-get install docker-compose maven npm
+# build backend
+mvn clean package
+# build frontend
+cd frontend
+npm install
+npm run build
+cd ..
+# run the containers
+docker-compose -f docker-compose.yml [-f docker-compose.prod.yml] up [-d]
+```
+
+
 ## Typically development flow
 
 ### Start containers
