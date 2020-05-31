@@ -36,7 +36,7 @@ public class WatchedServiceImpl implements WatchedService {
     }
 
     @Override
-    public void deleteWatchedById(Long id) {
-        watchedBusiness.deleteById(id);
+    public boolean deleteWatchedById(Long id) {
+        return watchedBusiness.deleteById(id);
     }
 }

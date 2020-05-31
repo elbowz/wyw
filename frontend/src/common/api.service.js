@@ -27,7 +27,7 @@ export const ApiService = {
       instanceIds.add('omdb');
     }
 
-    if (_.has(obj, 'ratings') && _.isArray(obj.ratings)) {
+    if (_.has(obj, 'ratings') && _.isArray(obj.ratings) && obj.ratings.length) {
       instanceIds.add('omdb');
     }
 

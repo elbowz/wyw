@@ -31,5 +31,5 @@ public interface WatchedService {
     @DELETE
     @Path("/{id}")
     @ApiOperation("Delete the watched film.")
-    void deleteWatchedById(@PathParam("id") Long id);
+    boolean deleteWatchedById(@PathParam("id") Long id);
 }

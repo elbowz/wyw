@@ -36,6 +36,7 @@ services:
 
   frontend:
     image: nginx:stable-alpine
+    restart: unless-stopped
     volumes:
       - ./frontend/docker/dist:/usr/share/nginx/html
       - ./frontend/docker/ngnix.frontend.conf:/etc/nginx/conf.d/ngnix.wyw.template
