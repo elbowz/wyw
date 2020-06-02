@@ -15,18 +15,22 @@ The stack:
 
 ```
 # install need build and deploy package
-apt-get install docker-compose maven npm
+$ apt-get install docker-compose maven npm
 # build backend
-mvn clean package
+$ mvn clean package
 # build frontend
-cd frontend
-npm install
-npm run build
-cd ..
+$ cd frontend
+$ npm install
+$ npm run build
+$ cd ..
 # run the containers
-docker-compose -f docker-compose.yml [-f docker-compose.prod.yml] up [-d]
+$ docker-compose -f docker-compose.yml [-f docker-compose.prod.yml] up [-d]
 ```
 
+## Documentation
+
+* [Slides](docs/slides.pdf)
+* [Architecture](docs/architecture.png)
 
 ## Typically development flow
 
@@ -35,7 +39,7 @@ docker-compose -f docker-compose.yml [-f docker-compose.prod.yml] up [-d]
  A key for [OMDB API](http://www.omdbapi.com/apikey.aspx) is required if you want to obtain film ratings.
  Before running, export the key with:
  
- `export OMDB_API_KEY="MY_KEY"`
+ `export OMDB_API_KEY=MY_KEY`
  
 * Normal:  
     `docker-compose up (-d)`
@@ -74,7 +78,7 @@ and [localhost:8761/eureka/apps](http://localhost:8761/eureka/apps) for display 
  * Deploy for distribution: [http://localhost:3000/](http://localhost:3000/)   
     `cd frontend && npm run build`
     
-### DB Web Clint (Adminer)
+### DB Web Client (Adminer)
 
 url: [http://localhost:5000/](http://localhost:5000/)  
 server: *eg. person-db*  
